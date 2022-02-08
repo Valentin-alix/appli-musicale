@@ -28,6 +28,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   http:
+  flutter_svg: ^1.0.3
   flutter:
     sdk: flutter
 
@@ -60,8 +61,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-  - asset/image/khalid_voiture.jpg
-  - asset/image/Eminem-Revival.jpg
+  - asset/image/
+  - asset/icones/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

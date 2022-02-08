@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class ParoleScreen extends StatelessWidget {
   const ParoleScreen({Key? key}) : super(key: key);
@@ -10,8 +11,16 @@ class ParoleScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          leading: IconButton(
-              onPressed: () {}, icon: const Icon(Icons.arrow_back_ios)),
+          leading: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                elevation: 0,
+                primary: Colors.transparent,
+                minimumSize: (const Size(50, 50))),
+            onPressed: () {},
+            child: SvgPicture.asset(
+              'asset/icones/Fleche_gauche.svg',
+            ),
+          ),
           title: const Text(
             'Paroles',
           ),

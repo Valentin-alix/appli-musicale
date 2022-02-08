@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class ArtisteScreen extends StatelessWidget {
   const ArtisteScreen({Key? key}) : super(key: key);
@@ -10,15 +11,31 @@ class ArtisteScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          leading: IconButton(
-              onPressed: () {}, icon: const Icon(Icons.arrow_back_ios)),
+          leading: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                elevation: 0,
+                primary: Colors.transparent,
+                minimumSize: (const Size(50, 50))),
+            onPressed: () {},
+            child: SvgPicture.asset(
+              'asset/icones/Fleche_gauche.svg',
+            ),
+          ),
           actions: [
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.favorite,
-                  color: Colors.red,
-                ))
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                  primary: Colors.white,
+                  shape:
+                      const CircleBorder(side: BorderSide(color: Colors.white)),
+                  minimumSize: (const Size(5, 5))),
+              onPressed: () {},
+              child: SvgPicture.asset(
+                'asset/icones/Like_on.svg',
+                width: 20,
+                height: 20,
+              ),
+            )
           ],
         ),
         body: SingleChildScrollView(
@@ -121,10 +138,7 @@ class AlbumSection extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Icon(
-                          Icons.album,
-                          color: Colors.white,
-                        ),
+                        SvgPicture.asset("asset/icones/Placeholder_album.svg"),
                         Text(album['title']),
                         IconButton(
                             onPressed: () {},

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class AlbumScreen extends StatelessWidget {
   const AlbumScreen({Key? key}) : super(key: key);
@@ -10,10 +11,29 @@ class AlbumScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-            onPressed: () {}, icon: const Icon(Icons.arrow_back_ios)),
+        leading: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              elevation: 0,
+              primary: Colors.transparent,
+              minimumSize: (const Size(50, 50))),
+          onPressed: () {},
+          child: SvgPicture.asset(
+            'asset/icones/Fleche_gauche.svg',
+          ),
+        ),
         title: const Text('Eminem'),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.favorite))],
+        actions: [
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                elevation: 0,
+                primary: Colors.transparent,
+                minimumSize: (const Size(50, 50))),
+            onPressed: () {},
+            child: SvgPicture.asset(
+              'asset/icones/Like_off.svg',
+            ),
+          )
+        ],
       ),
       body: Column(
         children: const [TopSection(), BottomSection()],
@@ -80,18 +100,18 @@ class BottomSection extends StatelessWidget {
           SizedBox(
             height: spacePadding,
           ),
-          Container(
-            color: Colors.grey,
-            child: Row(
-              children: [
-                const Icon(Icons.star),
-                const Text('5'),
-                Container(
-                  width: 30,
-                ),
-                const Text('349 votes'),
-              ],
-            ),
+          Row(
+            children: [
+              SvgPicture.asset('asset/icones/Etoile.svg'),
+              const SizedBox(
+                width: 5,
+              ),
+              const Text('5'),
+              const SizedBox(
+                width: 30,
+              ),
+              const Text('349 votes'),
+            ],
           ),
           SizedBox(
             height: spacePadding,
@@ -150,7 +170,7 @@ class TitleSection extends StatelessWidget {
                   Container(
                     width: 20,
                   ),
-                  Text(title['title'])
+                  Text(title['title']),
                 ],
               ),
             );
