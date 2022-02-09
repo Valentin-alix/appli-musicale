@@ -1,4 +1,4 @@
-import 'package:appli_musical/screen/album_screen.dart';
+import 'package:appli_musical/screen/artiste_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Musicale Application',
       theme: ThemeData(),
-      home: const AlbumScreen(),
+      home: ArtisteScreen(),
     );
   }
 }

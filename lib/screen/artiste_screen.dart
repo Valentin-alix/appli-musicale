@@ -1,9 +1,17 @@
+import 'package:appli_musical/model/artist.dart';
+import 'package:appli_musical/request/the_audio_db_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class ArtisteScreen extends StatelessWidget {
+class ArtisteScreen extends StatefulWidget {
   const ArtisteScreen({Key? key}) : super(key: key);
 
+  @override
+  State<ArtisteScreen> createState() => _ArtisteScreenState();
+}
+
+class _ArtisteScreenState extends State<ArtisteScreen> {
+  String artistName = "khalid";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,21 +54,33 @@ class ArtisteScreen extends StatelessWidget {
   }
 }
 
-class TopSection extends StatelessWidget {
+class TopSection extends StatefulWidget {
   const TopSection({Key? key}) : super(key: key);
 
+  @override
+  State<TopSection> createState() => _TopSectionState();
+}
+
+class _TopSectionState extends State<TopSection> {
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Image.asset("asset/image/khalid_voiture.jpg"),
-        const Positioned(
-            child: Text(
-              "Nom Artiste",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30),
+        Positioned(
+            child: FutureBuilder<List<ArtistElement>?>(
+              future: TheAudioDbApi()
+                  .fetchArtistDatas(_ArtisteScreenState().artistName),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return CircularProgressIndicator();
+                } else {
+                  return Text(
+                    snapshot.data![0].strArtist,
+                    style: TextStyle(color: Colors.white, fontSize: 30),
+                  );
+                }
+              },
             ),
             top: 180,
             left: 10),
