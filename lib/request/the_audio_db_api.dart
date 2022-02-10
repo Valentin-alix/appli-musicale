@@ -1,9 +1,10 @@
-import 'package:appli_musical/model/artist.dart';
+import 'package:appli_musical/model/artist_response.dart';
 import 'package:dio/dio.dart';
 
 class TheAudioDbApi {
-  static String _apiKey = "523532";
-  String _url = "https://theaudiodb.com/api/v1/json/$_apiKey/search.php?s=";
+  static const String _apiKey = "523532";
+  final String _url =
+      "https://theaudiodb.com/api/v1/json/$_apiKey/search.php?s=";
   late Dio _dio;
 
   TheAudioDbApi() {
@@ -13,8 +14,8 @@ class TheAudioDbApi {
   Future<List<ArtistElement>?> fetchArtistDatas(String artistName) async {
     try {
       Response response = await _dio.get(_url + artistName);
-      Artist artist = Artist.fromJson(response.data);
-      return artist.artist;
+      ArtistResponse artistResponse = ArtistResponse.fromJson(response.data);
+      return artistResponse.artist;
     } on DioError catch (e) {
       print(e);
     }

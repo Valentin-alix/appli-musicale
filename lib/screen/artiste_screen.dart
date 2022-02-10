@@ -1,101 +1,103 @@
-import 'package:appli_musical/model/artist.dart';
+import 'package:appli_musical/model/artist_response.dart';
 import 'package:appli_musical/request/the_audio_db_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class ArtisteScreen extends StatefulWidget {
+class ArtisteScreen extends StatelessWidget {
   const ArtisteScreen({Key? key}) : super(key: key);
-
-  @override
-  State<ArtisteScreen> createState() => _ArtisteScreenState();
-}
-
-class _ArtisteScreenState extends State<ArtisteScreen> {
-  String artistName = "khalid";
+  final String artistName = 'khalid';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: ElevatedButton(
-            style: ElevatedButton.styleFrom(
+    return FutureBuilder<List<ArtistElement>?>(
+      future: TheAudioDbApi().fetchArtistDatas(artistName),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const CircularProgressIndicator();
+        } else {
+          return Scaffold(
+              extendBodyBehindAppBar: true,
+              appBar: AppBar(
+                backgroundColor: Colors.transparent,
                 elevation: 0,
-                primary: Colors.transparent,
-                minimumSize: (const Size(50, 50))),
-            onPressed: () {},
-            child: SvgPicture.asset(
-              'asset/icones/Fleche_gauche.svg',
-            ),
-          ),
-          actions: [
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  primary: Colors.white,
-                  shape:
-                      const CircleBorder(side: BorderSide(color: Colors.white)),
-                  minimumSize: (const Size(5, 5))),
-              onPressed: () {},
-              child: SvgPicture.asset(
-                'asset/icones/Like_on.svg',
-                width: 20,
-                height: 20,
+                leading: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      primary: Colors.transparent,
+                      minimumSize: (const Size(50, 50))),
+                  onPressed: () => Navigator.of(context).pop(null),
+                  child: SvgPicture.asset(
+                    'asset/icones/Fleche_gauche.svg',
+                    color: Colors.black,
+                  ),
+                ),
+                actions: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        primary: Colors.black,
+                        shape: const CircleBorder(
+                            side: BorderSide(color: Colors.black)),
+                        minimumSize: (const Size(5, 5))),
+                    onPressed: () {},
+                    child: SvgPicture.asset(
+                      'asset/icones/Like_on.svg',
+                      width: 20,
+                      height: 20,
+                    ),
+                  )
+                ],
               ),
-            )
-          ],
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: const [TopSection(), BottomSection()],
-          ),
-        ));
+              body: SingleChildScrollView(
+                child: Column(
+                  children: [TopSection(snapshot.data), BottomSection()],
+                ),
+              ));
+        }
+      },
+    );
   }
 }
 
-class TopSection extends StatefulWidget {
-  const TopSection({Key? key}) : super(key: key);
+class TopSection extends StatelessWidget {
+  const TopSection(List<ArtistElement>? data, {Key? key}) : super(key: key);
 
-  @override
-  State<TopSection> createState() => _TopSectionState();
-}
-
-class _TopSectionState extends State<TopSection> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Image.asset("asset/image/khalid_voiture.jpg"),
-        Positioned(
-            child: FutureBuilder<List<ArtistElement>?>(
-              future: TheAudioDbApi()
-                  .fetchArtistDatas(_ArtisteScreenState().artistName),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return CircularProgressIndicator();
-                } else {
-                  return Text(
-                    snapshot.data![0].strArtist,
-                    style: TextStyle(color: Colors.white, fontSize: 30),
-                  );
-                }
-              },
-            ),
-            top: 180,
-            left: 10),
-        const Positioned(
-            child: Text(
-              "Lieu",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w300),
-            ),
-            top: 220,
-            left: 10),
-      ],
-    );
+    return FutureBuilder<List<ArtistElement>?>(
+        future:
+            TheAudioDbApi().fetchArtistDatas(const ArtisteScreen().artistName),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const CircularProgressIndicator();
+          } else {
+            return Stack(
+              children: [
+                Image.network(
+                    "https://www.theaudiodb.com/images/media/artist/fanart/tvurqs1520001568.jpg"),
+                //Image.asset("asset/image/khalid_voiture.jpg"),
+                Positioned(
+                    child: Text(
+                      snapshot.data![0].strArtist,
+                      //snapshot.data![0].strArtist,
+                      style: const TextStyle(color: Colors.white, fontSize: 30),
+                    ),
+                    top: 150,
+                    left: 10),
+                Positioned(
+                    child: Text(
+                      snapshot.data![0].strCountry,
+                      //snapshot.data![0].strCountry,
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w300),
+                    ),
+                    top: 200,
+                    left: 10),
+              ],
+            );
+          }
+        });
   }
 }
 
@@ -105,21 +107,30 @@ class BottomSection extends StatelessWidget {
   final double spacePadding = 20;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
-      child: Column(
-        children: [
-          const Text(
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in",
-            style: TextStyle(fontWeight: FontWeight.w300),
-          ),
-          SizedBox(height: spacePadding),
-          AlbumSection(),
-          SizedBox(height: spacePadding),
-          TitleSection()
-        ],
-      ),
-    );
+    return FutureBuilder<List<ArtistElement>?>(
+        future:
+            TheAudioDbApi().fetchArtistDatas(const ArtisteScreen().artistName),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const CircularProgressIndicator();
+          } else {
+            return Padding(
+              padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+              child: Column(
+                children: [
+                  Text(
+                    snapshot.data![0].strBiographyEN,
+                    style: const TextStyle(fontWeight: FontWeight.w300),
+                  ),
+                  SizedBox(height: spacePadding),
+                  AlbumSection(),
+                  SizedBox(height: spacePadding),
+                  TitleSection()
+                ],
+              ),
+            );
+          }
+        });
   }
 }
 
