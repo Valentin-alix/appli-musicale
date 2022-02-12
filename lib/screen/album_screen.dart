@@ -16,7 +16,7 @@ class AlbumScreen extends StatelessWidget {
               elevation: 0,
               primary: Colors.transparent,
               minimumSize: (const Size(50, 50))),
-          onPressed: () {},
+          onPressed: () => Navigator.of(context).pop(null),
           child: SvgPicture.asset(
             'asset/icones/Fleche_gauche.svg',
           ),

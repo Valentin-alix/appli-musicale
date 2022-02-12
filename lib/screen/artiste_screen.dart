@@ -1,5 +1,7 @@
 import 'package:appli_musical/model/artist_response.dart';
 import 'package:appli_musical/request/the_audio_db_api.dart';
+import 'package:appli_musical/screen/album_screen.dart';
+import 'package:appli_musical/screen/parole_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -172,7 +174,12 @@ class AlbumSection extends StatelessWidget {
                         SvgPicture.asset("asset/icones/Placeholder_album.svg"),
                         Text(album['title']),
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AlbumScreen()));
+                            },
                             icon: const Icon(Icons.arrow_forward_ios)),
                       ],
                     ),
@@ -219,19 +226,30 @@ class TitleSection extends StatelessWidget {
         Column(
           children: favoriteTitle.map((title) {
             int index = favoriteTitle.indexOf(title) + 1;
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Row(
-                children: [
-                  Text(
-                    index.toString(),
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Container(
-                    width: 20,
-                  ),
-                  Text(title['title'])
-                ],
+            return ElevatedButton(
+              style: ElevatedButton.styleFrom(),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ParoleScreen()));
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Row(
+                  children: [
+                    Text(
+                      index.toString(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.black),
+                    ),
+                    Container(
+                      width: 20,
+                    ),
+                    Text(
+                      title['title'],
+                      style: const TextStyle(color: Colors.black),
+                    )
+                  ],
+                ),
               ),
             );
           }).toList(),
