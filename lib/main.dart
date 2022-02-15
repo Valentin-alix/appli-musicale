@@ -1,4 +1,4 @@
-import 'package:appli_musical/screen/artiste_screen.dart';
+import 'package:application_musicale/screen/artiste_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {

@@ -1,4 +1,4 @@
-import 'package:appli_musical/model/artist_response.dart';
+import 'package:application_musicale/model/artist_response.dart';
 import 'package:dio/dio.dart';
 
 class TheAudioDbApi {

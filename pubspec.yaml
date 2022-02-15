@@ -1,4 +1,4 @@
-name: appli_musical
+name: application_musicale
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -93,3 +93,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+  fonts:
+    - family:  AppIcons
+      fonts:
+        - asset: asset/font/AppIcons.ttf

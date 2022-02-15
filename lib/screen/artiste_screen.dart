@@ -1,7 +1,7 @@
-import 'package:appli_musical/model/artist_response.dart';
-import 'package:appli_musical/request/the_audio_db_api.dart';
-import 'package:appli_musical/screen/album_screen.dart';
-import 'package:appli_musical/screen/parole_screen.dart';
+import 'package:application_musicale/model/artist_response.dart';
+import 'package:application_musicale/request/the_audio_db_api.dart';
+import 'package:application_musicale/screen/album_screen.dart';
+import 'package:application_musicale/screen/parole_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
