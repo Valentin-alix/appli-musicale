@@ -21,7 +21,7 @@ class _SearchState extends State<Search> {
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
-        toolbarHeight: 120,
+        toolbarHeight: 110,
         flexibleSpace: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -36,36 +36,45 @@ class _SearchState extends State<Search> {
                       fontSize: 40,
                     ),
                   ),
-                  TextField(
-                    cursorColor: Colors.grey,
-                    decoration: InputDecoration(
-                      hintText: 'Taper ici votre recherche',
-                      hintStyle: const TextStyle(
-                        fontSize: 14,
-                      ),
-                      prefixIcon: IconButton(
-                        icon: const Icon(
-                          AppIcons.recherche_loupe,
-                          color: Colors.grey,
-                          size: 15,
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    height: 35,
+                    child: TextField(
+                      textAlignVertical: TextAlignVertical.center,
+                      cursorColor: Colors.grey,
+                      decoration: InputDecoration(
+                        isDense: true,
+                        hintText: 'Taper ici votre recherche',
+                        hintStyle: const TextStyle(
+                          fontSize: 14,
                         ),
-                        onPressed: () {},
-                      ),
-                      suffixIcon: IconButton(
-                        icon: const Icon(
-                          AppIcons.recherche_annuler,
-                          color: Colors.grey,
-                          size: 15,
+                        prefixIcon: IconButton(
+                          icon: const Icon(
+                            AppIcons.recherche_loupe,
+                            color: Colors.grey,
+                            size: 15,
+                          ),
+                          onPressed: () {},
                         ),
-                        onPressed: () {},
-                      ),
-                      filled: true,
-                      fillColor: Colors.grey[200],
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: const BorderSide(
-                          width: 0,
-                          style: BorderStyle.none,
+                        isCollapsed: true,
+                        suffixIcon: IconButton(
+                          icon: const Icon(
+                            AppIcons.recherche_annuler,
+                            color: Colors.grey,
+                            size: 15,
+                          ),
+                          onPressed: () {},
+                        ),
+                        filled: true,
+                        fillColor: Colors.grey[300],
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                          borderSide: const BorderSide(
+                            width: 0,
+                            style: BorderStyle.none,
+                          ),
                         ),
                       ),
                     ),
