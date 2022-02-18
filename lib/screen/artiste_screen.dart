@@ -74,8 +74,7 @@ class TopSection extends StatelessWidget {
           } else {
             return Stack(
               children: [
-                Image.network(
-                    "https://www.theaudiodb.com/images/media/artist/fanart/tvurqs1520001568.jpg"),
+                Image.network(snapshot.data![0].strArtistFanart2),
                 //Image.asset("asset/image/khalid_voiture.jpg"),
                 Positioned(
                     child: Text(
