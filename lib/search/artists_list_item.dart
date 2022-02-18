@@ -61,8 +61,8 @@ class ArtistsListItem extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(
-                      Icons.arrow_forward_ios,
+                    icon: SvgPicture.asset(
+                      'asset/icones/Fleche_droite.svg',
                       color: Colors.grey,
                     ),
                     tooltip: 'Voir cet artist',
