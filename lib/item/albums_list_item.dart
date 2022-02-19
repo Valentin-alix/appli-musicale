@@ -1,10 +1,10 @@
-import 'package:application_musicale/model/artists_data.dart';
+import 'package:application_musicale/model/albums_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ArtistsListItem extends StatelessWidget {
-  final ArtistsData item;
-  const ArtistsListItem(this.item, {Key? key}) : super(key: key);
+class AlbumsListItem extends StatelessWidget {
+  final AlbumsData item;
+  const AlbumsListItem(this.item, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,15 +14,15 @@ class ArtistsListItem extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 5),
           child: Container(
             decoration: const BoxDecoration(
-              color: Color(0xFFEEEEEE),
+              color: Color(0xFFF3F3F3),
               borderRadius: BorderRadius.all(Radius.circular(5)),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(10.0),
               child: Row(
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(25),
+                    borderRadius: BorderRadius.circular(5),
                     child: Image.network(
                       item.picture,
                       fit: BoxFit.cover,
@@ -34,7 +34,7 @@ class ArtistsListItem extends StatelessWidget {
                         StackTrace? stackTrace,
                       ) {
                         return SvgPicture.asset(
-                          'asset/icones/Placeholder_artiste.svg',
+                          'asset/icones/Placeholder_album.svg',
                           height: 50,
                           width: 50,
                         );
@@ -49,12 +49,27 @@ class ArtistsListItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
+                          item.album,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontFamily: 'SFProDisplay',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
                           item.artists,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
+                            fontFamily: 'SFProText',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF8D8D8D),
                           ),
                         ),
                       ],
@@ -63,9 +78,11 @@ class ArtistsListItem extends StatelessWidget {
                   IconButton(
                     icon: SvgPicture.asset(
                       'asset/icones/Fleche_droite.svg',
-                      color: Colors.grey,
+                      color: const Color(0xFFB9B9B9),
+                      width: 9.88,
+                      height: 16,
                     ),
-                    tooltip: 'Voir cet artist',
+                    tooltip: 'Voir cet album',
                     onPressed: () {},
                   ),
                 ],

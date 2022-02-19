@@ -1,7 +1,7 @@
+import 'package:application_musicale/item/albums_list_item.dart';
+import 'package:application_musicale/item/artists_list_item.dart';
 import 'package:application_musicale/model/albums_data.dart';
 import 'package:application_musicale/model/artists_data.dart';
-import 'package:application_musicale/search/albums_list_item.dart';
-import 'package:application_musicale/search/artists_list_item.dart';
 import 'package:flutter/material.dart';
 
 class Favourites extends StatelessWidget {
@@ -26,16 +26,18 @@ class Favourites extends StatelessWidget {
                     'Favoris',
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40,
+                      fontFamily: 'SFProDisplay',
+                      fontSize: 36,
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
                   Text(
                     'Mes artistes & albums',
                     style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 15,
-                      color: Colors.grey,
+                      fontFamily: 'SFProText',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xFF8D8D8D),
                     ),
                   ),
                 ]),
@@ -52,8 +54,9 @@ class Favourites extends StatelessWidget {
                 const Text(
                   'Artistes',
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
+                    fontFamily: 'SFProDisplay',
+                    fontSize: 24,
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
                 const Divider(),
@@ -69,8 +72,9 @@ class Favourites extends StatelessWidget {
                 const Text(
                   'Albums',
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
+                    fontFamily: 'SFProDisplay',
+                    fontSize: 24,
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
                 const Divider(),
