@@ -33,15 +33,24 @@ flutter:
     - family:  AppIcons
       fonts:
         - asset: asset/font/AppIcons.ttf
-    - family: SF-Pro-Display
+    - family: SFProDisplay
       fonts:
-        - asset: asset/font/SF-Pro-Display-Bold.otf
         - asset: asset/font/SF-Pro-Display-Heavy.otf
-        - asset: asset/font/SF-Pro-Display-Regular.otf
+          weight: 800
+        - asset: asset/font/SF-Pro-Display-Bold.otf
+          weight: 700
         - asset: asset/font/SF-Pro-Display-Semibold.otf
-    - family: SF-Pro-Text
+          weight: 600
+        - asset: asset/font/SF-Pro-Display-Regular.otf
+          weight: 400
+    - family: SFProText
       fonts:
         - asset: asset/font/SF-Pro-Text-Bold.otf
-        - asset: asset/font/SF-Pro-Text-Medium.otf
-        - asset: asset/font/SF-Pro-Text-Regular.otf
+          weight: 700
         - asset: asset/font/SF-Pro-Text-Semibold.otf
+          weight: 600
+        - asset: asset/font/SF-Pro-Text-Medium.otf
+          weight: 500
+        - asset: asset/font/SF-Pro-Text-Regular.otf
+          weight: 400
+

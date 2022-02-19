@@ -16,9 +16,10 @@ class TitlesRankingListItem extends StatelessWidget {
             children: [
               Text(
                 item.rank.toString(),
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                style: const TextStyle(
+                  fontFamily: 'SFProDisplay',
+                  fontWeight: FontWeight.w700,
+                  fontSize: 18,
                 ),
               ),
               Padding(
@@ -47,18 +48,21 @@ class TitlesRankingListItem extends StatelessWidget {
                     item.title,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
+                    style: const TextStyle(
+                      fontFamily: 'SFProDisplay',
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16,
+                      color: Colors.black,
                     ),
                   ),
                   Text(
                     item.artists,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 12,
+                    style: const TextStyle(
+                      fontFamily: 'SFProDisplay',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14,
                       color: Colors.grey,
                     ),
                   ),

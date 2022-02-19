@@ -16,12 +16,25 @@ class Ranking extends StatelessWidget {
           title: const Text(
             'Classements',
             style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 40,
+              fontFamily: 'SFProDisplay',
+              fontSize: 36,
+              fontWeight: FontWeight.w800,
             ),
           ),
           bottom: const TabBar(
             indicatorColor: Colors.green,
+            labelStyle: TextStyle(
+              fontFamily: 'SFProDisplay',
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+              color: Colors.black,
+            ),
+            unselectedLabelStyle: TextStyle(
+              fontFamily: 'SFProDisplay',
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+              color: Colors.grey,
+            ),
             tabs: <Widget>[
               Tab(
                 text: 'Titres',
