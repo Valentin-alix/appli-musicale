@@ -22,18 +22,18 @@ class Ranking extends StatelessWidget {
             ),
           ),
           bottom: const TabBar(
-            indicatorColor: Colors.green,
+            indicatorColor: Color(0xFF00AC5A),
+            labelColor: Colors.black,
+            unselectedLabelColor: Color(0xFF8D8D8D),
             labelStyle: TextStyle(
               fontFamily: 'SFProDisplay',
               fontSize: 16,
               fontWeight: FontWeight.w700,
-              color: Colors.black,
             ),
             unselectedLabelStyle: TextStyle(
               fontFamily: 'SFProDisplay',
               fontSize: 16,
               fontWeight: FontWeight.w700,
-              color: Colors.grey,
             ),
             tabs: <Widget>[
               Tab(

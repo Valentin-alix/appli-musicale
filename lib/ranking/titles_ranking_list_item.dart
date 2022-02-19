@@ -11,7 +11,7 @@ class TitlesRankingListItem extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
           child: Row(
             children: [
               Text(
@@ -63,7 +63,7 @@ class TitlesRankingListItem extends StatelessWidget {
                       fontFamily: 'SFProDisplay',
                       fontWeight: FontWeight.w400,
                       fontSize: 14,
-                      color: Colors.grey,
+                      color: Color(0xFF8D8D8D),
                     ),
                   ),
                 ],

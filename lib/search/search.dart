@@ -1,7 +1,7 @@
+import 'package:application_musicale/item/albums_list_item.dart';
+import 'package:application_musicale/item/artists_list_item.dart';
 import 'package:application_musicale/model/albums_data.dart';
 import 'package:application_musicale/model/artists_data.dart';
-import 'package:application_musicale/search/albums_list_item.dart';
-import 'package:application_musicale/search/artists_list_item.dart';
 import 'package:application_musicale/util/app_icons.dart';
 import 'package:flutter/material.dart';
 
@@ -30,10 +30,10 @@ class _SearchState extends State<Search> {
                 children: [
                   const Text(
                     'Rechercher',
-                    textAlign: TextAlign.start,
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40,
+                      fontFamily: 'SFProDisplay',
+                      fontSize: 36,
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
                   const SizedBox(
@@ -48,13 +48,15 @@ class _SearchState extends State<Search> {
                         isDense: true,
                         hintText: 'Taper ici votre recherche',
                         hintStyle: const TextStyle(
-                          fontSize: 14,
+                          fontFamily: 'SFProText',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
                         ),
                         prefixIcon: IconButton(
                           icon: const Icon(
                             AppIcons.recherche_loupe,
-                            color: Colors.grey,
-                            size: 15,
+                            color: Color(0xFFB9B9B9),
+                            size: 13,
                           ),
                           onPressed: () {},
                         ),
@@ -62,13 +64,13 @@ class _SearchState extends State<Search> {
                         suffixIcon: IconButton(
                           icon: const Icon(
                             AppIcons.recherche_annuler,
-                            color: Colors.grey,
-                            size: 15,
+                            color: Color(0xFFB9B9B9),
+                            size: 16,
                           ),
                           onPressed: () {},
                         ),
                         filled: true,
-                        fillColor: Colors.grey[300],
+                        fillColor: const Color(0xFFE6E6E6),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0),
                           borderSide: const BorderSide(
@@ -93,14 +95,15 @@ class _SearchState extends State<Search> {
                 const Text(
                   'Artistes',
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
+                    fontFamily: 'SFProDisplay',
+                    fontSize: 24,
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
                 const Divider(),
                 ListView.builder(
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   itemCount: albumsResults.length,
                   itemBuilder: (BuildContext context, int position) {
                     return ArtistsListItem(artistsResults[position]);
@@ -110,14 +113,15 @@ class _SearchState extends State<Search> {
                 const Text(
                   'Albums',
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
+                    fontFamily: 'SFProDisplay',
+                    fontSize: 24,
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
                 const Divider(),
                 ListView.builder(
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   itemCount: albumsResults.length,
                   itemBuilder: (BuildContext context, int position) {
                     return AlbumsListItem(albumsResults[position]);
