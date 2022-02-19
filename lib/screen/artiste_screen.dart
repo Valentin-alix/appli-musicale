@@ -36,15 +36,12 @@ class ArtisteScreen extends StatelessWidget {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         elevation: 0,
-                        primary: Colors.black,
-                        shape: const CircleBorder(
-                            side: BorderSide(color: Colors.black)),
-                        minimumSize: (const Size(5, 5))),
+                        primary: Colors.transparent,
+                        minimumSize: (const Size(50, 50))),
                     onPressed: () {},
                     child: SvgPicture.asset(
-                      'asset/icones/Like_on.svg',
-                      width: 20,
-                      height: 20,
+                      'asset/icones/Like_off.svg',
+                      height: 35,
                     ),
                   )
                 ],
@@ -80,7 +77,10 @@ class TopSection extends StatelessWidget {
                     child: Text(
                       snapshot.data![0].strArtist,
                       //snapshot.data![0].strArtist,
-                      style: const TextStyle(color: Colors.white, fontSize: 30),
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
+                          fontWeight: FontWeight.w700),
                     ),
                     top: 150,
                     left: 10),
@@ -119,9 +119,9 @@ class BottomSection extends StatelessWidget {
               padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
               child: Column(
                 children: [
-                  Text(
-                    snapshot.data![0].strBiographyEN,
-                    style: const TextStyle(fontWeight: FontWeight.w300),
+                  const Text(
+                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has",
+                    style: TextStyle(fontWeight: FontWeight.w300),
                   ),
                   SizedBox(height: spacePadding),
                   AlbumSection(),
@@ -149,10 +149,10 @@ class AlbumSection extends StatelessWidget {
     return Column(
       children: [
         Row(
-          children: [
+          children: const [
             Text(
               "Album (number)",
-              style: Theme.of(context).textTheme.subtitle1,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
           ],
         ),
@@ -164,25 +164,46 @@ class AlbumSection extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: Container(
-                color: Colors.grey,
+                color: const Color(0xFFDCD8D7),
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SvgPicture.asset("asset/icones/Placeholder_album.svg"),
-                        Text(album['title']),
-                        IconButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => AlbumScreen()));
-                            },
-                            icon: const Icon(Icons.arrow_forward_ios)),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SvgPicture.asset(
+                              "asset/icones/Placeholder_album.svg"),
+                          Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    album['title'],
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                album['date'],
+                                textAlign: TextAlign.left,
+                              ),
+                            ],
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const AlbumScreen()));
+                              },
+                              icon: const Icon(Icons.arrow_forward_ios)),
+                        ],
+                      ),
                     ),
-                    Text(album['date']),
                   ],
                 ),
               ),
@@ -212,10 +233,10 @@ class TitleSection extends StatelessWidget {
     return Column(
       children: [
         Row(
-          children: [
+          children: const [
             Text(
               'Titres les plus appréciés',
-              style: Theme.of(context).textTheme.subtitle1,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
           ],
         ),
@@ -226,10 +247,13 @@ class TitleSection extends StatelessWidget {
           children: favoriteTitle.map((title) {
             int index = favoriteTitle.indexOf(title) + 1;
             return ElevatedButton(
-              style: ElevatedButton.styleFrom(),
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.white, onPrimary: Colors.black),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ParoleScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ParoleScreen()));
               },
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 10),
