@@ -1,3 +1,5 @@
+import 'package:application_musicale/screen/parole_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -21,7 +23,9 @@ class AlbumScreen extends StatelessWidget {
             'asset/icones/Fleche_gauche.svg',
           ),
         ),
-        title: const Text('Eminem'),
+        title: const Center(
+          child: Text('Eminem'),
+        ),
         actions: [
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -31,12 +35,15 @@ class AlbumScreen extends StatelessWidget {
             onPressed: () {},
             child: SvgPicture.asset(
               'asset/icones/Like_off.svg',
+              height: 35,
             ),
           )
         ],
       ),
-      body: Column(
-        children: const [TopSection(), BottomSection()],
+      body: SingleChildScrollView(
+        child: Column(
+          children: const [TopSection(), BottomSection()],
+        ),
       ),
     );
   }
@@ -94,24 +101,39 @@ class BottomSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(12.0),
       child: Column(
         children: [
           SizedBox(
             height: spacePadding,
           ),
-          Row(
-            children: [
-              SvgPicture.asset('asset/icones/Etoile.svg'),
-              const SizedBox(
-                width: 5,
-              ),
-              const Text('5'),
-              const SizedBox(
-                width: 30,
-              ),
-              const Text('349 votes'),
-            ],
+          Container(
+            color: const Color(0xFFDCD8D7),
+            height: 35,
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 13.0, right: 13.0),
+                  child: Container(
+                    height: 20,
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 5, right: 5),
+                      child: Row(
+                        children: [
+                          SvgPicture.asset('asset/icones/Etoile.svg'),
+                          const Text('5.0'),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const Text(
+                  '349 votes',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
           ),
           SizedBox(
             height: spacePadding,
@@ -146,10 +168,10 @@ class TitleSection extends StatelessWidget {
     return Column(
       children: [
         Row(
-          children: [
+          children: const [
             Text(
               'Titres',
-              style: Theme.of(context).textTheme.headline5,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
             ),
           ],
         ),
@@ -159,18 +181,29 @@ class TitleSection extends StatelessWidget {
         Column(
           children: favoriteTitle.map((title) {
             var index = favoriteTitle.indexOf(title) + 1;
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 10),
+            return ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.white, onPrimary: Colors.black),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ParoleScreen()));
+              },
               child: Row(
                 children: [
                   Text(
                     index.toString(),
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.black),
                   ),
                   Container(
                     width: 20,
                   ),
-                  Text(title['title']),
+                  Text(
+                    title['title'],
+                    style: const TextStyle(color: Colors.black),
+                  ),
                 ],
               ),
             );
