@@ -2,6 +2,7 @@ import 'package:application_musicale/screens/item/albums_list_item.dart';
 import 'package:application_musicale/screens/item/artists_list_item.dart';
 import 'package:application_musicale/screens/model/albums_data.dart';
 import 'package:application_musicale/screens/model/artists_data.dart';
+import 'package:application_musicale/screens/util/colors.dart';
 import 'package:flutter/material.dart';
 
 class Favourites extends StatelessWidget {
@@ -11,6 +12,8 @@ class Favourites extends StatelessWidget {
   Widget build(BuildContext context) {
     List<ArtistsData> artistsResults = _generateArtistsResults();
     List<AlbumsData> albumsResults = _generateAlbumsResults();
+    const title = 'Favoris';
+    const subtitle = 'Mes artistes & albums';
 
     return Scaffold(
       appBar: AppBar(
@@ -23,7 +26,7 @@ class Favourites extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: const [
                   Text(
-                    'Favoris',
+                    title,
                     textAlign: TextAlign.start,
                     style: TextStyle(
                       fontFamily: 'SFProDisplay',
@@ -32,12 +35,12 @@ class Favourites extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Mes artistes & albums',
+                    subtitle,
                     style: TextStyle(
                       fontFamily: 'SFProText',
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
-                      color: Color(0xFF8D8D8D),
+                      color: UIColors.suvaGrey,
                     ),
                   ),
                 ]),

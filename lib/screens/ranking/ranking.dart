@@ -1,5 +1,6 @@
 import 'package:application_musicale/screens/ranking/albums_ranking.dart';
 import 'package:application_musicale/screens/ranking/titles_ranking.dart';
+import 'package:application_musicale/screens/util/colors.dart';
 import 'package:flutter/material.dart';
 
 class Ranking extends StatelessWidget {
@@ -7,6 +8,17 @@ class Ranking extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List items = [
+      {
+        'widget': const TitlesRanking(),
+        'label': 'Titres',
+      },
+      {
+        'widget': const AlbumsRanking(),
+        'label': 'Albums',
+      },
+    ];
+
     return DefaultTabController(
       initialIndex: 0,
       length: 2,
@@ -21,34 +33,31 @@ class Ranking extends StatelessWidget {
               fontWeight: FontWeight.w800,
             ),
           ),
-          bottom: const TabBar(
-            indicatorColor: Color(0xFF00AC5A),
-            labelColor: Colors.black,
-            unselectedLabelColor: Color(0xFF8D8D8D),
-            labelStyle: TextStyle(
+          bottom: TabBar(
+            indicatorColor: UIColors.pigmentGreen,
+            labelColor: UIColors.black,
+            unselectedLabelColor: UIColors.suvaGrey,
+            labelStyle: const TextStyle(
               fontFamily: 'SFProDisplay',
               fontSize: 16,
               fontWeight: FontWeight.w700,
             ),
-            unselectedLabelStyle: TextStyle(
+            unselectedLabelStyle: const TextStyle(
               fontFamily: 'SFProDisplay',
               fontSize: 16,
               fontWeight: FontWeight.w700,
             ),
             tabs: <Widget>[
-              Tab(
-                text: 'Titres',
-              ),
-              Tab(
-                text: 'Albums',
-              ),
+              for (var item in items)
+                Tab(
+                  text: item['label'],
+                ),
             ],
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: <Widget>[
-            TitlesRanking(),
-            AlbumsRanking(),
+            for (var item in items) item['widget'],
           ],
         ),
       ),

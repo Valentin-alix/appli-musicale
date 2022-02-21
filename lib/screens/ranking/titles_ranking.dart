@@ -43,8 +43,7 @@ class TitlesRanking extends StatelessWidget {
         rank: 3,
         title: 'Bad Moon Rising',
         artists: 'Creedence Clearwater Revival',
-        picture:
-            'https://upload.wikimedia.org/wikipedia/commons/e/ee/Creedence_Clearwater_Revival_1968.jpg',
+        picture: '',
       ),
     ];
   }

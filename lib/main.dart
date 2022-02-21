@@ -2,6 +2,8 @@ import 'package:application_musicale/screens/favourites/favourites.dart';
 import 'package:application_musicale/screens/ranking/ranking.dart';
 import 'package:application_musicale/screens/search/search.dart';
 import 'package:application_musicale/screens/util/app_icons.dart';
+import 'package:application_musicale/screens/util/colors.dart';
+import 'package:application_musicale/screens/util/material_colors.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,29 +13,13 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  static const MaterialColor white = MaterialColor(
-    0xFFFFFFFF,
-    <int, Color>{
-      50: Color(0xFFFFFFFF),
-      100: Color(0xFFFFFFFF),
-      200: Color(0xFFFFFFFF),
-      300: Color(0xFFFFFFFF),
-      400: Color(0xFFFFFFFF),
-      500: Color(0xFFFFFFFF),
-      600: Color(0xFFFFFFFF),
-      700: Color(0xFFFFFFFF),
-      800: Color(0xFFFFFFFF),
-      900: Color(0xFFFFFFFF),
-    },
-  );
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Applicatiom mobile',
       theme: ThemeData(
-        primarySwatch: white,
-        scaffoldBackgroundColor: white,
+        primarySwatch: UIMaterialColor.white,
+        scaffoldBackgroundColor: UIColors.white,
       ),
       home: const MyStatefulWidget(),
     );
@@ -49,6 +35,20 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
+  List items = [
+    {
+      'icon': AppIcons.accueil_classements,
+      'label': 'Classements',
+    },
+    {
+      'icon': AppIcons.accueil_recherche,
+      'label': 'Recherche',
+    },
+    {
+      'icon': AppIcons.accueil_favoris,
+      'label': 'Favoris',
+    },
+  ];
 
   static const List<Widget> _widgetOptions = <Widget>[
     Ranking(),
@@ -69,32 +69,19 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              AppIcons.accueil_classements,
-              size: 18,
+        items: <BottomNavigationBarItem>[
+          for (var item in items)
+            BottomNavigationBarItem(
+              icon: Icon(
+                item['icon'],
+                size: 18,
+              ),
+              label: item['label'],
             ),
-            label: 'Classements',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              AppIcons.accueil_recherche,
-              size: 18,
-            ),
-            label: 'Recherche',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              AppIcons.accueil_favoris,
-              size: 18,
-            ),
-            label: 'Favoris',
-          ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: const Color(0xFF00AC5A),
-        unselectedItemColor: const Color(0xFFB9B9B9),
+        selectedItemColor: UIColors.pigmentGreen,
+        unselectedItemColor: UIColors.silver,
         onTap: _onItemTapped,
       ),
     );

@@ -1,5 +1,7 @@
 import 'package:application_musicale/screens/model/albums_data.dart';
+import 'package:application_musicale/screens/util/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class AlbumsRankingListItem extends StatelessWidget {
   final AlbumsData item;
@@ -36,7 +38,12 @@ class AlbumsRankingListItem extends StatelessWidget {
                       Object error,
                       StackTrace? stackTrace,
                     ) {
-                      return const ColoredBox(color: Colors.black);
+                      return SvgPicture.asset(
+                        'asset/icones/Placeholder_album.svg',
+                        height: 40,
+                        width: 40,
+                      );
+                      ;
                     },
                   ),
                 ),
@@ -52,7 +59,7 @@ class AlbumsRankingListItem extends StatelessWidget {
                       fontFamily: 'SFProDisplay',
                       fontWeight: FontWeight.w700,
                       fontSize: 16,
-                      color: Colors.black,
+                      color: UIColors.black,
                     ),
                   ),
                   Text(
@@ -63,7 +70,7 @@ class AlbumsRankingListItem extends StatelessWidget {
                       fontFamily: 'SFProDisplay',
                       fontWeight: FontWeight.w400,
                       fontSize: 14,
-                      color: Color(0xFF8D8D8D),
+                      color: UIColors.suvaGrey,
                     ),
                   ),
                 ],

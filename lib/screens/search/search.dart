@@ -3,6 +3,7 @@ import 'package:application_musicale/screens/item/artists_list_item.dart';
 import 'package:application_musicale/screens/model/albums_data.dart';
 import 'package:application_musicale/screens/model/artists_data.dart';
 import 'package:application_musicale/screens/util/app_icons.dart';
+import 'package:application_musicale/screens/util/colors.dart';
 import 'package:flutter/material.dart';
 
 class Search extends StatefulWidget {
@@ -17,6 +18,8 @@ class _SearchState extends State<Search> {
   Widget build(BuildContext context) {
     List<ArtistsData> artistsResults = _generateArtistsResults();
     List<AlbumsData> albumsResults = _generateAlbumsResults();
+    const title = 'Rechercher';
+    const placeholder = 'Taper ici votre recherche';
 
     return Scaffold(
       appBar: AppBar(
@@ -29,7 +32,7 @@ class _SearchState extends State<Search> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const Text(
-                    'Rechercher',
+                    title,
                     style: TextStyle(
                       fontFamily: 'SFProDisplay',
                       fontSize: 36,
@@ -43,10 +46,10 @@ class _SearchState extends State<Search> {
                     height: 35,
                     child: TextField(
                       textAlignVertical: TextAlignVertical.center,
-                      cursorColor: Colors.grey,
+                      cursorColor: UIColors.suvaGrey,
                       decoration: InputDecoration(
                         isDense: true,
-                        hintText: 'Taper ici votre recherche',
+                        hintText: placeholder,
                         hintStyle: const TextStyle(
                           fontFamily: 'SFProText',
                           fontSize: 16,
@@ -55,7 +58,7 @@ class _SearchState extends State<Search> {
                         prefixIcon: IconButton(
                           icon: const Icon(
                             AppIcons.recherche_loupe,
-                            color: Color(0xFFB9B9B9),
+                            color: UIColors.silver,
                             size: 13,
                           ),
                           onPressed: () {},
@@ -64,13 +67,13 @@ class _SearchState extends State<Search> {
                         suffixIcon: IconButton(
                           icon: const Icon(
                             AppIcons.recherche_annuler,
-                            color: Color(0xFFB9B9B9),
+                            color: UIColors.silver,
                             size: 16,
                           ),
                           onPressed: () {},
                         ),
                         filled: true,
-                        fillColor: const Color(0xFFE6E6E6),
+                        fillColor: UIColors.whisper,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0),
                           borderSide: const BorderSide(
