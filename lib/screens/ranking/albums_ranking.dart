@@ -1,5 +1,5 @@
-import 'package:application_musicale/model/albums_data.dart';
-import 'package:application_musicale/ranking/albums_ranking_list_item.dart';
+import 'package:application_musicale/screens/model/albums_data.dart';
+import 'package:application_musicale/screens/ranking/albums_ranking_list_item.dart';
 import 'package:flutter/material.dart';
 
 class AlbumsRanking extends StatelessWidget {

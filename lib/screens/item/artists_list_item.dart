@@ -1,4 +1,4 @@
-import 'package:application_musicale/model/artists_data.dart';
+import 'package:application_musicale/screens/model/artists_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

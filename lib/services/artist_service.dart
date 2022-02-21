@@ -1,13 +1,13 @@
-import 'package:application_musicale/model/artist_response.dart';
+import 'package:application_musicale/models/artist_response.dart';
 import 'package:dio/dio.dart';
 
-class TheAudioDbApi {
+class ArtistService {
   static const String _apiKey = "523532";
   final String _url =
       "https://theaudiodb.com/api/v1/json/$_apiKey/search.php?s=";
   late Dio _dio;
 
-  TheAudioDbApi() {
+  ArtistData() {
     _dio = Dio();
   }
 

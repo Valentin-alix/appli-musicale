@@ -1,4 +1,4 @@
-import 'package:application_musicale/routes.dart';
+import 'package:application_musicale/screens/routes.dart';
 import 'package:flutter/material.dart';
 
 void main() {

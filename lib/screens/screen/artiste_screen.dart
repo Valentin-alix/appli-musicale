@@ -1,7 +1,7 @@
-import 'package:application_musicale/model/artist_response.dart';
-import 'package:application_musicale/request/the_audio_db_api.dart';
-import 'package:application_musicale/screen/album_screen.dart';
-import 'package:application_musicale/screen/parole_screen.dart';
+import 'package:application_musicale/models/artist_response.dart';
+import 'package:application_musicale/screens/screen/album_screen.dart';
+import 'package:application_musicale/screens/screen/parole_screen.dart';
+import 'package:application_musicale/services/artist_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -11,7 +11,7 @@ class ArtisteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<ArtistElement>?>(
-      future: TheAudioDbApi().fetchArtistDatas(artistName),
+      future: ArtistService().fetchArtistDatas(artistName),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return const CircularProgressIndicator();
@@ -64,7 +64,7 @@ class TopSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder<List<ArtistElement>?>(
         future:
-            TheAudioDbApi().fetchArtistDatas(const ArtisteScreen().artistName),
+            ArtistService().fetchArtistDatas(const ArtisteScreen().artistName),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const CircularProgressIndicator();
@@ -110,7 +110,7 @@ class BottomSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder<List<ArtistElement>?>(
         future:
-            TheAudioDbApi().fetchArtistDatas(const ArtisteScreen().artistName),
+            ArtistService().fetchArtistDatas(const ArtisteScreen().artistName),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const CircularProgressIndicator();

@@ -1,17 +1,17 @@
-import 'package:application_musicale/model/titles_data.dart';
+import 'package:application_musicale/screens/model/albums_data.dart';
 import 'package:flutter/material.dart';
 
-class TitlesRankingListItem extends StatelessWidget {
-  final TitlesData item;
+class AlbumsRankingListItem extends StatelessWidget {
+  final AlbumsData item;
 
-  const TitlesRankingListItem(this.item, {Key? key}) : super(key: key);
+  const AlbumsRankingListItem(this.item, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Row(
             children: [
               Text(
@@ -45,7 +45,7 @@ class TitlesRankingListItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    item.title,
+                    item.album,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(

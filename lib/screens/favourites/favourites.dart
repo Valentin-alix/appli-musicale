@@ -1,18 +1,12 @@
-import 'package:application_musicale/item/albums_list_item.dart';
-import 'package:application_musicale/item/artists_list_item.dart';
-import 'package:application_musicale/model/albums_data.dart';
-import 'package:application_musicale/model/artists_data.dart';
-import 'package:application_musicale/util/app_icons.dart';
+import 'package:application_musicale/screens/item/albums_list_item.dart';
+import 'package:application_musicale/screens/item/artists_list_item.dart';
+import 'package:application_musicale/screens/model/albums_data.dart';
+import 'package:application_musicale/screens/model/artists_data.dart';
 import 'package:flutter/material.dart';
 
-class Search extends StatefulWidget {
-  const Search({Key? key}) : super(key: key);
+class Favourites extends StatelessWidget {
+  const Favourites({Key? key}) : super(key: key);
 
-  @override
-  _SearchState createState() => _SearchState();
-}
-
-class _SearchState extends State<Search> {
   @override
   Widget build(BuildContext context) {
     List<ArtistsData> artistsResults = _generateArtistsResults();
@@ -21,64 +15,29 @@ class _SearchState extends State<Search> {
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
-        toolbarHeight: 110,
+        toolbarHeight: 70,
         flexibleSpace: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Text(
-                    'Rechercher',
+                children: const [
+                  Text(
+                    'Favoris',
+                    textAlign: TextAlign.start,
                     style: TextStyle(
                       fontFamily: 'SFProDisplay',
                       fontSize: 36,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    height: 35,
-                    child: TextField(
-                      textAlignVertical: TextAlignVertical.center,
-                      cursorColor: Colors.grey,
-                      decoration: InputDecoration(
-                        isDense: true,
-                        hintText: 'Taper ici votre recherche',
-                        hintStyle: const TextStyle(
-                          fontFamily: 'SFProText',
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                        ),
-                        prefixIcon: IconButton(
-                          icon: const Icon(
-                            AppIcons.recherche_loupe,
-                            color: Color(0xFFB9B9B9),
-                            size: 13,
-                          ),
-                          onPressed: () {},
-                        ),
-                        isCollapsed: true,
-                        suffixIcon: IconButton(
-                          icon: const Icon(
-                            AppIcons.recherche_annuler,
-                            color: Color(0xFFB9B9B9),
-                            size: 16,
-                          ),
-                          onPressed: () {},
-                        ),
-                        filled: true,
-                        fillColor: const Color(0xFFE6E6E6),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0),
-                          borderSide: const BorderSide(
-                            width: 0,
-                            style: BorderStyle.none,
-                          ),
-                        ),
-                      ),
+                  Text(
+                    'Mes artistes & albums',
+                    style: TextStyle(
+                      fontFamily: 'SFProText',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xFF8D8D8D),
                     ),
                   ),
                 ]),

@@ -1,5 +1,5 @@
-import 'package:application_musicale/model/titles_data.dart';
-import 'package:application_musicale/ranking/titles_ranking_list_item.dart';
+import 'package:application_musicale/screens/model/titles_data.dart';
+import 'package:application_musicale/screens/ranking/titles_ranking_list_item.dart';
 import 'package:flutter/material.dart';
 
 class TitlesRanking extends StatelessWidget {

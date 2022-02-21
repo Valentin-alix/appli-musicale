@@ -1,4 +1,4 @@
-import 'package:application_musicale/main3.dart';
+import 'package:application_musicale/screens/main3.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
