@@ -1,3 +1,4 @@
+import 'package:application_musicale/screens/util/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -13,9 +14,9 @@ class ParoleScreen extends StatelessWidget {
           elevation: 0,
           leading: ElevatedButton(
             style: ElevatedButton.styleFrom(
-                elevation: 0,
-                primary: Colors.transparent,
-                minimumSize: (const Size(50, 50))),
+              elevation: 0,
+              primary: Colors.transparent,
+            ),
             onPressed: () => Navigator.of(context).pop(null),
             child: SvgPicture.asset(
               'asset/icones/Fleche_gauche.svg',
@@ -58,14 +59,14 @@ class TopSection extends StatelessWidget {
                     image: const DecorationImage(
                         image: AssetImage('asset/image/Eminem-Revival.jpg'))))),
         const Positioned(
-            left: 130,
-            top: 90,
+            left: 140,
+            top: 110,
             child: SizedBox(
               width: 200,
               child: Text(
                 'Walk on Water feat. Beyoncé',
                 style: TextStyle(
-                    color: Colors.white,
+                    color: UIColors.white,
                     fontSize: 25,
                     fontWeight: FontWeight.bold),
               ),
@@ -81,10 +82,13 @@ class Paroles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Padding(
-      padding: EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(12.0),
       child: Text(
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        style: TextStyle(fontWeight: FontWeight.w300, fontSize: 20),
+        style: TextStyle(
+            fontWeight: FontWeight.w300,
+            fontSize: 20,
+            color: UIColors.suvaGrey),
       ),
     );
   }

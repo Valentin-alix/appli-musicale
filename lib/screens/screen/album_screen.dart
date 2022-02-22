@@ -1,4 +1,5 @@
 import 'package:application_musicale/screens/screen/parole_screen.dart';
+import 'package:application_musicale/screens/util/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -14,22 +15,25 @@ class AlbumScreen extends StatelessWidget {
         elevation: 0,
         leading: ElevatedButton(
           style: ElevatedButton.styleFrom(
-              elevation: 0,
-              primary: Colors.transparent,
-              minimumSize: (const Size(50, 50))),
+            elevation: 0,
+            primary: Colors.transparent,
+          ),
           onPressed: () => Navigator.of(context).pop(null),
           child: SvgPicture.asset(
             'asset/icones/Fleche_gauche.svg',
           ),
         ),
         centerTitle: true,
-        title: const Text('Eminem'),
+        title: const Text(
+          'Eminem',
+          style: TextStyle(color: UIColors.white),
+        ),
         actions: [
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-                elevation: 0,
-                primary: Colors.transparent,
-                minimumSize: (const Size(50, 50))),
+              elevation: 0,
+              primary: Colors.transparent,
+            ),
             onPressed: () {},
             child: SvgPicture.asset(
               'asset/icones/Like_off.svg',
@@ -71,21 +75,21 @@ class TopSection extends StatelessWidget {
                     image: const DecorationImage(
                         image: AssetImage('asset/image/Eminem-Revival.jpg'))))),
         const Positioned(
-            left: 120,
+            left: 125,
             top: 90,
             child: Text(
               'Title album',
               style: TextStyle(
-                  color: Colors.white,
+                  color: UIColors.white,
                   fontSize: 20,
                   fontWeight: FontWeight.bold),
             )),
         const Positioned(
-            left: 120,
+            left: 125,
             top: 120,
             child: Text(
               'numbers chanson',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: UIColors.silver),
             )),
       ],
     );
@@ -106,7 +110,7 @@ class BottomSection extends StatelessWidget {
             height: spacePadding,
           ),
           Container(
-            color: const Color(0xFFDCD8D7),
+            color: UIColors.whiteSmoke,
             height: 35,
             child: Row(
               children: [
@@ -114,13 +118,16 @@ class BottomSection extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 13.0, right: 13.0),
                   child: Container(
                     height: 20,
-                    color: Colors.white,
+                    color: UIColors.white,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 5, right: 5),
                       child: Row(
                         children: [
                           SvgPicture.asset('asset/icones/Etoile.svg'),
-                          const Text('5.0'),
+                          const Text(
+                            '5.0',
+                            style: TextStyle(color: UIColors.silver),
+                          ),
                         ],
                       ),
                     ),
@@ -128,7 +135,7 @@ class BottomSection extends StatelessWidget {
                 ),
                 const Text(
                   '349 votes',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: TextStyle(color: UIColors.black),
                 ),
               ],
             ),
@@ -137,7 +144,9 @@ class BottomSection extends StatelessWidget {
             height: spacePadding,
           ),
           const Text(
-              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries"),
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries",
+            style: TextStyle(color: UIColors.suvaGrey, fontSize: 15),
+          ),
           SizedBox(
             height: spacePadding,
           ),
@@ -169,7 +178,10 @@ class TitleSection extends StatelessWidget {
           children: const [
             Text(
               'Titres',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                  color: UIColors.black),
             ),
           ],
         ),
@@ -181,7 +193,7 @@ class TitleSection extends StatelessWidget {
             var index = favoriteTitle.indexOf(title) + 1;
             return ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  primary: Colors.white, onPrimary: Colors.black),
+                  primary: UIColors.white, onPrimary: UIColors.black),
               onPressed: () {
                 Navigator.push(
                     context,
@@ -192,15 +204,12 @@ class TitleSection extends StatelessWidget {
                 children: [
                   Text(
                     index.toString(),
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.black),
+                    style: const TextStyle(color: UIColors.black),
                   ),
-                  Container(
-                    width: 20,
-                  ),
+                  const SizedBox(width: 20),
                   Text(
                     title['title'],
-                    style: const TextStyle(color: Colors.black),
+                    style: const TextStyle(color: UIColors.black),
                   ),
                 ],
               ),

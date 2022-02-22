@@ -1,5 +1,6 @@
 import 'package:application_musicale/screens/screen/album_screen.dart';
 import 'package:application_musicale/screens/screen/parole_screen.dart';
+import 'package:application_musicale/screens/util/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -11,25 +12,24 @@ class ArtisteScreen extends StatelessWidget {
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: UIColors.transparent,
           elevation: 0,
           leading: ElevatedButton(
             style: ElevatedButton.styleFrom(
-                elevation: 0,
-                primary: Colors.transparent,
-                minimumSize: (const Size(50, 50))),
+              elevation: 0,
+              primary: UIColors.transparent,
+            ),
             onPressed: () => Navigator.of(context).pop(null),
             child: SvgPicture.asset(
               'asset/icones/Fleche_gauche.svg',
-              color: Colors.black,
             ),
           ),
           actions: [
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  primary: Colors.transparent,
-                  minimumSize: (const Size(50, 50))),
+                elevation: 0,
+                primary: UIColors.transparent,
+              ),
               onPressed: () {},
               child: SvgPicture.asset(
                 'asset/icones/Like_off.svg',
@@ -54,13 +54,11 @@ class TopSection extends StatelessWidget {
     return Stack(
       children: [
         Image.asset("asset/image/khalid_voiture.jpg"),
-        //Image.asset("asset/image/khalid_voiture.jpg"),
         const Positioned(
             child: Text(
               "khalid",
-              //snapshot.data![0].strArtist,
               style: TextStyle(
-                  color: Colors.white,
+                  color: UIColors.white,
                   fontSize: 30,
                   fontWeight: FontWeight.w700),
             ),
@@ -69,11 +67,10 @@ class TopSection extends StatelessWidget {
         const Positioned(
             child: Text(
               "country",
-              //snapshot.data![0].strCountry,
               style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w300),
+                color: UIColors.silver,
+                fontSize: 15,
+              ),
             ),
             top: 200,
             left: 10),
@@ -94,7 +91,7 @@ class BottomSection extends StatelessWidget {
         children: [
           const Text(
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has",
-            style: TextStyle(fontWeight: FontWeight.w300),
+            style: TextStyle(color: UIColors.suvaGrey, fontSize: 15),
           ),
           SizedBox(height: spacePadding),
           AlbumSection(),
@@ -108,9 +105,14 @@ class BottomSection extends StatelessWidget {
 
 class AlbumSection extends StatelessWidget {
   final List albums = [
-    {'title': 'After Hours', 'date': '2020'},
-    {'title': 'Star boy', 'date': '2016'},
-    {'title': 'Beauty behind the madness', 'date': '2015'}
+    {
+      'title': 'After Hours',
+      'date': '2020',
+      'urlImage':
+          "https://www.theaudiodb.com/images/media/album/3dthumb/70xhx11605597679.png"
+    },
+    {'title': 'Star boy', 'date': '2016', 'urlImage': ''},
+    {'title': 'Beauty behind the madness', 'date': '2015', 'urlImage': ''}
   ];
 
   AlbumSection({Key? key}) : super(key: key);
@@ -120,10 +122,13 @@ class AlbumSection extends StatelessWidget {
     return Column(
       children: [
         Row(
-          children: const [
+          children: [
             Text(
-              "Album (number)",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              "Albums (" + albums.length.toString() + ")",
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: UIColors.black),
             ),
           ],
         ),
@@ -135,7 +140,7 @@ class AlbumSection extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: Container(
-                color: const Color(0xFFDCD8D7),
+                color: UIColors.whiteSmoke,
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Row(
@@ -143,8 +148,14 @@ class AlbumSection extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          SvgPicture.asset(
-                              "asset/icones/Placeholder_album.svg"),
+                          (album['urlImage'] != '')
+                              ? Image.network(
+                                  album['urlImage'],
+                                  height: 50,
+                                  width: 50,
+                                )
+                              : SvgPicture.asset(
+                                  "asset/icones/Placeholder_album.svg"),
                           const SizedBox(
                             width: 15,
                           ),
