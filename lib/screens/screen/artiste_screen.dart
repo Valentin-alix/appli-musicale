@@ -1,48 +1,59 @@
 import 'package:application_musicale/screens/screen/album_screen.dart';
 import 'package:application_musicale/screens/screen/parole_screen.dart';
 import 'package:application_musicale/screens/util/colors.dart';
+import 'package:application_musicale/services/artist_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../models/artist_response.dart';
+
 class ArtisteScreen extends StatelessWidget {
   const ArtisteScreen({Key? key}) : super(key: key);
-  static const String artistName = 'Khalid';
+  static const String artistName = 'khalid';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          backgroundColor: UIColors.transparent,
-          elevation: 0,
-          leading: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              elevation: 0,
-              primary: UIColors.transparent,
-            ),
-            onPressed: () => Navigator.of(context).pop(null),
-            child: SvgPicture.asset(
-              'asset/icones/Fleche_gauche.svg',
-            ),
-          ),
-          actions: [
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                elevation: 0,
-                primary: UIColors.transparent,
-              ),
-              onPressed: () {},
-              child: SvgPicture.asset(
-                'asset/icones/Like_off.svg',
-                height: 35,
-              ),
-            )
-          ],
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [TopSection(), BottomSection()],
-          ),
-        ));
+    return FutureBuilder<List<ArtistElement>?>(
+        future: ArtistService().fetchArtistDatas(artistName),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return const CircularProgressIndicator();
+          } else {
+            return Scaffold(
+                extendBodyBehindAppBar: true,
+                appBar: AppBar(
+                  backgroundColor: UIColors.transparent,
+                  elevation: 0,
+                  leading: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      primary: UIColors.transparent,
+                    ),
+                    onPressed: () => Navigator.of(context).pop(null),
+                    child: SvgPicture.asset(
+                      'asset/icones/Fleche_gauche.svg',
+                    ),
+                  ),
+                  actions: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        primary: UIColors.transparent,
+                      ),
+                      onPressed: () {},
+                      child: SvgPicture.asset(
+                        'asset/icones/Like_off.svg',
+                        height: 35,
+                      ),
+                    )
+                  ],
+                ),
+                body: SingleChildScrollView(
+                  child: Column(
+                    children: [TopSection(), BottomSection()],
+                  ),
+                ));
+          }
+        });
   }
 }
 

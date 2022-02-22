@@ -1,13 +1,13 @@
+import 'package:application_musicale/core/constants/api_constants.dart';
 import 'package:application_musicale/models/artist_response.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
 class ArtistService {
-  static const String _apiKey = "523532";
-  final String _url =
-      "https://theaudiodb.com/api/v1/json/$_apiKey/search.php?s=";
+  final String _url = ApiConstants.BASE_URL + "search.php?s=";
   late Dio _dio;
 
-  ArtistData() {
+  artistData() {
     _dio = Dio();
   }
 
@@ -17,7 +17,9 @@ class ArtistService {
       ArtistResponse artistResponse = ArtistResponse.fromJson(response.data);
       return artistResponse.artist;
     } on DioError catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 }
