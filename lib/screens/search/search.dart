@@ -111,7 +111,9 @@ class _SearchState extends State<Search> {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: albumsResults.length,
                   itemBuilder: (BuildContext context, int position) {
-                    return ArtistsListItem(artistsResults[position]);
+                    return ArtistsListItem(
+                        picture: artistsResults[position].picture,
+                        title: artistsResults[position].artists);
                   },
                 ),
                 const SizedBox(height: 20),
@@ -129,7 +131,11 @@ class _SearchState extends State<Search> {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: albumsResults.length,
                   itemBuilder: (BuildContext context, int position) {
-                    return AlbumsListItem(albumsResults[position]);
+                    return AlbumsListItem(
+                      picture: albumsResults[position].picture,
+                      title: albumsResults[position].album,
+                      subtitle: albumsResults[position].artists,
+                    );
                   },
                 ),
               ],

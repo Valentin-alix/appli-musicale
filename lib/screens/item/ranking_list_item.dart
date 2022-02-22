@@ -1,23 +1,30 @@
-import 'package:application_musicale/screens/model/titles_data.dart';
 import 'package:application_musicale/screens/util/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class TitlesRankingListItem extends StatelessWidget {
-  final TitlesData item;
-
-  const TitlesRankingListItem(this.item, {Key? key}) : super(key: key);
+class RankingListItem extends StatelessWidget {
+  final String rank;
+  final String picture;
+  final String title;
+  final String subtitle;
+  const RankingListItem({
+    Key? key,
+    required this.rank,
+    required this.picture,
+    required this.title,
+    required this.subtitle,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Row(
             children: [
               Text(
-                item.rank.toString(),
+                rank,
                 style: const TextStyle(
                   fontFamily: 'SFProDisplay',
                   fontWeight: FontWeight.w700,
@@ -29,7 +36,7 @@ class TitlesRankingListItem extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5.0),
                   child: Image.network(
-                    item.picture,
+                    picture,
                     fit: BoxFit.cover,
                     height: 40,
                     width: 40,
@@ -43,7 +50,6 @@ class TitlesRankingListItem extends StatelessWidget {
                         height: 40,
                         width: 40,
                       );
-                      ;
                     },
                   ),
                 ),
@@ -52,7 +58,7 @@ class TitlesRankingListItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    item.title,
+                    title,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
@@ -63,7 +69,7 @@ class TitlesRankingListItem extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    item.artists,
+                    subtitle,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(

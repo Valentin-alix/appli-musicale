@@ -1,6 +1,8 @@
+import 'package:application_musicale/screens/item/ranking_list_item.dart';
 import 'package:application_musicale/screens/model/albums_data.dart';
-import 'package:application_musicale/screens/ranking/albums_ranking_list_item.dart';
 import 'package:flutter/material.dart';
+
+import '../item/ranking_list_item.dart';
 
 class AlbumsRanking extends StatelessWidget {
   const AlbumsRanking({Key? key}) : super(key: key);
@@ -15,7 +17,12 @@ class AlbumsRanking extends StatelessWidget {
           child: ListView.builder(
             itemCount: results.length,
             itemBuilder: (BuildContext context, int position) {
-              return AlbumsRankingListItem(results[position]);
+              return RankingListItem(
+                rank: results[position].rank.toString(),
+                picture: results[position].picture,
+                title: results[position].album,
+                subtitle: results[position].artists,
+              );
             },
           ),
         ),

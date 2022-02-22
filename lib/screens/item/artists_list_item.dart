@@ -1,11 +1,12 @@
-import 'package:application_musicale/screens/model/artists_data.dart';
 import 'package:application_musicale/screens/util/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ArtistsListItem extends StatelessWidget {
-  final ArtistsData item;
-  const ArtistsListItem(this.item, {Key? key}) : super(key: key);
+  final String picture;
+  final String title;
+  const ArtistsListItem({Key? key, required this.picture, required this.title})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class ArtistsListItem extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(25),
                     child: Image.network(
-                      item.picture,
+                      picture,
                       fit: BoxFit.cover,
                       height: 50,
                       width: 50,
@@ -50,7 +51,7 @@ class ArtistsListItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          item.artists,
+                          title,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
