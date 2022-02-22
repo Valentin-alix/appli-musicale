@@ -1,6 +1,7 @@
 import 'package:application_musicale/screens/item/ranking_list_item.dart';
-import 'package:application_musicale/screens/model/titles_data.dart';
 import 'package:flutter/material.dart';
+
+import '../model/titles_data.dart';
 
 class TitlesRanking extends StatelessWidget {
   const TitlesRanking({Key? key}) : super(key: key);
@@ -8,6 +9,7 @@ class TitlesRanking extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<TitlesData> results = _generateRandomResults();
+    //Future<MostLovedAlbumResponse> mostLovedAlbums = MostLovedService().getMostLovedAlbums();
 
     return Column(
       children: [
