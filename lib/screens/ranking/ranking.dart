@@ -8,7 +8,8 @@ class Ranking extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List items = [
+    const appBarTitle = 'Classements';
+    List tabBarItems = [
       {
         'widget': const TitlesRanking(),
         'label': 'Titres',
@@ -26,7 +27,7 @@ class Ranking extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           title: const Text(
-            'Classements',
+            appBarTitle,
             style: TextStyle(
               fontFamily: 'SFProDisplay',
               fontSize: 36,
@@ -48,7 +49,7 @@ class Ranking extends StatelessWidget {
               fontWeight: FontWeight.w700,
             ),
             tabs: <Widget>[
-              for (var item in items)
+              for (var item in tabBarItems)
                 Tab(
                   text: item['label'],
                 ),
@@ -57,7 +58,7 @@ class Ranking extends StatelessWidget {
         ),
         body: TabBarView(
           children: <Widget>[
-            for (var item in items) item['widget'],
+            for (var item in tabBarItems) item['widget'],
           ],
         ),
       ),

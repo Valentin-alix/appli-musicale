@@ -1,4 +1,5 @@
 import 'package:application_musicale/screens/model/artists_data.dart';
+import 'package:application_musicale/screens/util/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -14,7 +15,7 @@ class ArtistsListItem extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 5),
           child: Container(
             decoration: const BoxDecoration(
-              color: Color(0xFFF3F3F3),
+              color: UIColors.whiteSmoke,
               borderRadius: BorderRadius.all(Radius.circular(5)),
             ),
             child: Padding(
@@ -56,6 +57,7 @@ class ArtistsListItem extends StatelessWidget {
                             fontFamily: 'SFProDisplay',
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
+                            color: UIColors.black,
                           ),
                         ),
                       ],
@@ -64,7 +66,7 @@ class ArtistsListItem extends StatelessWidget {
                   IconButton(
                     icon: SvgPicture.asset(
                       'asset/icones/Fleche_droite.svg',
-                      color: const Color(0xFFB9B9B9),
+                      color: UIColors.silver,
                       width: 9.88,
                       height: 16,
                     ),

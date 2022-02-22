@@ -12,8 +12,10 @@ class Favourites extends StatelessWidget {
   Widget build(BuildContext context) {
     List<ArtistsData> artistsResults = _generateArtistsResults();
     List<AlbumsData> albumsResults = _generateAlbumsResults();
-    const title = 'Favoris';
-    const subtitle = 'Mes artistes & albums';
+    const appBarTitle = 'Favoris';
+    const appBarSubtitle = 'Mes artistes & albums';
+    const bodyTitle1 = 'Artistes';
+    const bodyTitle2 = 'Albums';
 
     return Scaffold(
       appBar: AppBar(
@@ -26,7 +28,7 @@ class Favourites extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: const [
                   Text(
-                    title,
+                    appBarTitle,
                     textAlign: TextAlign.start,
                     style: TextStyle(
                       fontFamily: 'SFProDisplay',
@@ -35,7 +37,7 @@ class Favourites extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    subtitle,
+                    appBarSubtitle,
                     style: TextStyle(
                       fontFamily: 'SFProText',
                       fontSize: 14,
@@ -55,7 +57,7 @@ class Favourites extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'Artistes',
+                  bodyTitle1,
                   style: TextStyle(
                     fontFamily: 'SFProDisplay',
                     fontSize: 24,
@@ -73,7 +75,7 @@ class Favourites extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  'Albums',
+                  bodyTitle2,
                   style: TextStyle(
                     fontFamily: 'SFProDisplay',
                     fontSize: 24,

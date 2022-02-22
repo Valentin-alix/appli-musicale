@@ -18,8 +18,10 @@ class _SearchState extends State<Search> {
   Widget build(BuildContext context) {
     List<ArtistsData> artistsResults = _generateArtistsResults();
     List<AlbumsData> albumsResults = _generateAlbumsResults();
-    const title = 'Rechercher';
-    const placeholder = 'Taper ici votre recherche';
+    const appBarTitle = 'Rechercher';
+    const appBarPlaceholder = 'Taper ici votre recherche';
+    const bodyTitle1 = 'Artistes';
+    const bodyTitle2 = 'Albums';
 
     return Scaffold(
       appBar: AppBar(
@@ -32,7 +34,7 @@ class _SearchState extends State<Search> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const Text(
-                    title,
+                    appBarTitle,
                     style: TextStyle(
                       fontFamily: 'SFProDisplay',
                       fontSize: 36,
@@ -49,7 +51,7 @@ class _SearchState extends State<Search> {
                       cursorColor: UIColors.suvaGrey,
                       decoration: InputDecoration(
                         isDense: true,
-                        hintText: placeholder,
+                        hintText: appBarPlaceholder,
                         hintStyle: const TextStyle(
                           fontFamily: 'SFProText',
                           fontSize: 16,
@@ -96,7 +98,7 @@ class _SearchState extends State<Search> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'Artistes',
+                  bodyTitle1,
                   style: TextStyle(
                     fontFamily: 'SFProDisplay',
                     fontSize: 24,
@@ -114,7 +116,7 @@ class _SearchState extends State<Search> {
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  'Albums',
+                  bodyTitle2,
                   style: TextStyle(
                     fontFamily: 'SFProDisplay',
                     fontSize: 24,

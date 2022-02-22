@@ -4,6 +4,7 @@ import 'dart:ui';
 class UIColors {
   static const Color black = Color.fromARGB(255, 0, 0, 0);
   static const Color white = Color.fromARGB(255, 255, 255, 255);
+  static const Color whiteSmoke = Color(0xFFF3F3F3);
   static const Color transparent = Color.fromARGB(0, 255, 255, 255);
   static const Color suvaGrey = Color(0xFF8D8D8D);
   static const Color silver = Color(0xFFB9B9B9);

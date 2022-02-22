@@ -35,7 +35,7 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
-  List items = [
+  List bottomNavigationBarItems = [
     {
       'icon': AppIcons.accueil_classements,
       'label': 'Classements',
@@ -70,7 +70,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
-          for (var item in items)
+          for (var item in bottomNavigationBarItems)
             BottomNavigationBarItem(
               icon: Icon(
                 item['icon'],
