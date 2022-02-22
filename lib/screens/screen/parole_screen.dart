@@ -21,13 +21,14 @@ class ParoleScreen extends StatelessWidget {
               'asset/icones/Fleche_gauche.svg',
             ),
           ),
+          centerTitle: true,
           title: const Text(
             'Paroles',
           ),
         ),
         body: SingleChildScrollView(
           child: Column(
-            children: [TopSection(), Paroles()],
+            children: const [TopSection(), Paroles()],
           ),
         ));
   }

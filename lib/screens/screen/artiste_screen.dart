@@ -1,7 +1,5 @@
-import 'package:application_musicale/models/artist_response.dart';
 import 'package:application_musicale/screens/screen/album_screen.dart';
 import 'package:application_musicale/screens/screen/parole_screen.dart';
-import 'package:application_musicale/services/artist_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -10,95 +8,77 @@ class ArtisteScreen extends StatelessWidget {
   final String artistName = 'khalid';
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<ArtistElement>?>(
-      future: ArtistService().fetchArtistDatas(artistName),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return const CircularProgressIndicator();
-        } else {
-          return Scaffold(
-              extendBodyBehindAppBar: true,
-              appBar: AppBar(
-                backgroundColor: Colors.transparent,
+    return Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: ElevatedButton(
+            style: ElevatedButton.styleFrom(
                 elevation: 0,
-                leading: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      primary: Colors.transparent,
-                      minimumSize: (const Size(50, 50))),
-                  onPressed: () => Navigator.of(context).pop(null),
-                  child: SvgPicture.asset(
-                    'asset/icones/Fleche_gauche.svg',
-                    color: Colors.black,
-                  ),
-                ),
-                actions: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        elevation: 0,
-                        primary: Colors.transparent,
-                        minimumSize: (const Size(50, 50))),
-                    onPressed: () {},
-                    child: SvgPicture.asset(
-                      'asset/icones/Like_off.svg',
-                      height: 35,
-                    ),
-                  )
-                ],
+                primary: Colors.transparent,
+                minimumSize: (const Size(50, 50))),
+            onPressed: () => Navigator.of(context).pop(null),
+            child: SvgPicture.asset(
+              'asset/icones/Fleche_gauche.svg',
+              color: Colors.black,
+            ),
+          ),
+          actions: [
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                  primary: Colors.transparent,
+                  minimumSize: (const Size(50, 50))),
+              onPressed: () {},
+              child: SvgPicture.asset(
+                'asset/icones/Like_off.svg',
+                height: 35,
               ),
-              body: SingleChildScrollView(
-                child: Column(
-                  children: [TopSection(snapshot.data), BottomSection()],
-                ),
-              ));
-        }
-      },
-    );
+            )
+          ],
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [TopSection(), BottomSection()],
+          ),
+        ));
   }
 }
 
 class TopSection extends StatelessWidget {
-  const TopSection(List<ArtistElement>? data, {Key? key}) : super(key: key);
+  const TopSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<ArtistElement>?>(
-        future:
-            ArtistService().fetchArtistDatas(const ArtisteScreen().artistName),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return const CircularProgressIndicator();
-          } else {
-            return Stack(
-              children: [
-                Image.network(snapshot.data![0].strArtistFanart2),
-                //Image.asset("asset/image/khalid_voiture.jpg"),
-                Positioned(
-                    child: Text(
-                      snapshot.data![0].strArtist,
-                      //snapshot.data![0].strArtist,
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontWeight: FontWeight.w700),
-                    ),
-                    top: 150,
-                    left: 10),
-                Positioned(
-                    child: Text(
-                      snapshot.data![0].strCountry,
-                      //snapshot.data![0].strCountry,
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w300),
-                    ),
-                    top: 200,
-                    left: 10),
-              ],
-            );
-          }
-        });
+    return Stack(
+      children: [
+        Image.asset("asset/image/khalid_voiture.jpg"),
+        //Image.asset("asset/image/khalid_voiture.jpg"),
+        const Positioned(
+            child: Text(
+              "khalid",
+              //snapshot.data![0].strArtist,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700),
+            ),
+            top: 150,
+            left: 10),
+        const Positioned(
+            child: Text(
+              "country",
+              //snapshot.data![0].strCountry,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w300),
+            ),
+            top: 200,
+            left: 10),
+      ],
+    );
   }
 }
 
@@ -108,30 +88,21 @@ class BottomSection extends StatelessWidget {
   final double spacePadding = 20;
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<ArtistElement>?>(
-        future:
-            ArtistService().fetchArtistDatas(const ArtisteScreen().artistName),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return const CircularProgressIndicator();
-          } else {
-            return Padding(
-              padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
-              child: Column(
-                children: [
-                  const Text(
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has",
-                    style: TextStyle(fontWeight: FontWeight.w300),
-                  ),
-                  SizedBox(height: spacePadding),
-                  AlbumSection(),
-                  SizedBox(height: spacePadding),
-                  TitleSection()
-                ],
-              ),
-            );
-          }
-        });
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+      child: Column(
+        children: [
+          const Text(
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has",
+            style: TextStyle(fontWeight: FontWeight.w300),
+          ),
+          SizedBox(height: spacePadding),
+          AlbumSection(),
+          SizedBox(height: spacePadding),
+          TitleSection()
+        ],
+      ),
+    );
   }
 }
 
@@ -165,46 +136,41 @@ class AlbumSection extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 10),
               child: Container(
                 color: const Color(0xFFDCD8D7),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
                         children: [
                           SvgPicture.asset(
                               "asset/icones/Placeholder_album.svg"),
+                          const SizedBox(
+                            width: 15,
+                          ),
                           Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    album['title'],
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
                               Text(
-                                album['date'],
-                                textAlign: TextAlign.left,
+                                album['title'],
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
                               ),
+                              Text(album['date']),
                             ],
                           ),
-                          IconButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const AlbumScreen()));
-                              },
-                              icon: const Icon(Icons.arrow_forward_ios)),
                         ],
                       ),
-                    ),
-                  ],
+                      IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const AlbumScreen()));
+                          },
+                          icon: const Icon(Icons.arrow_forward_ios)),
+                    ],
+                  ),
                 ),
               ),
             );

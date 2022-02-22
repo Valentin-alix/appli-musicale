@@ -1,5 +1,4 @@
 import 'package:application_musicale/screens/screen/parole_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -23,9 +22,8 @@ class AlbumScreen extends StatelessWidget {
             'asset/icones/Fleche_gauche.svg',
           ),
         ),
-        title: const Center(
-          child: Text('Eminem'),
-        ),
+        centerTitle: true,
+        title: const Text('Eminem'),
         actions: [
           ElevatedButton(
             style: ElevatedButton.styleFrom(
