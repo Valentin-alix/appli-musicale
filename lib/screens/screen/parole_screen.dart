@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ParoleScreen extends StatelessWidget {
-  const ParoleScreen({Key? key}) : super(key: key);
+  final String title;
+  ParoleScreen({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +30,20 @@ class ParoleScreen extends StatelessWidget {
         ),
         body: SingleChildScrollView(
           child: Column(
-            children: const [TopSection(), Paroles()],
+            children: [
+              TopSection(
+                title: title,
+              ),
+              Paroles()
+            ],
           ),
         ));
   }
 }
 
 class TopSection extends StatelessWidget {
-  const TopSection({Key? key}) : super(key: key);
+  final String title;
+  const TopSection({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -58,14 +65,14 @@ class TopSection extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     image: const DecorationImage(
                         image: AssetImage('asset/image/Eminem-Revival.jpg'))))),
-        const Positioned(
+        Positioned(
             left: 140,
             top: 110,
             child: SizedBox(
               width: 200,
               child: Text(
-                'Walk on Water feat. Beyoncé',
-                style: TextStyle(
+                title,
+                style: const TextStyle(
                     color: UIColors.white,
                     fontSize: 25,
                     fontWeight: FontWeight.bold),

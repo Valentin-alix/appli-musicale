@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class AlbumScreen extends StatelessWidget {
-  const AlbumScreen({Key? key}) : super(key: key);
+  final String albumName;
+
+  const AlbumScreen({Key? key, required this.albumName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,12 @@ class AlbumScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: const [TopSection(), BottomSection()],
+          children: [
+            TopSection(
+              albumName: albumName,
+            ),
+            const BottomSection()
+          ],
         ),
       ),
     );
@@ -52,7 +59,8 @@ class AlbumScreen extends StatelessWidget {
 }
 
 class TopSection extends StatelessWidget {
-  const TopSection({Key? key}) : super(key: key);
+  final String albumName;
+  const TopSection({Key? key, required this.albumName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -74,12 +82,12 @@ class TopSection extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     image: const DecorationImage(
                         image: AssetImage('asset/image/Eminem-Revival.jpg'))))),
-        const Positioned(
+        Positioned(
             left: 125,
             top: 90,
             child: Text(
-              'Title album',
-              style: TextStyle(
+              albumName,
+              style: const TextStyle(
                   color: UIColors.white,
                   fontSize: 20,
                   fontWeight: FontWeight.bold),
@@ -198,7 +206,9 @@ class TitleSection extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ParoleScreen()));
+                        builder: (context) => ParoleScreen(
+                              title: title['title'],
+                            )));
               },
               child: Row(
                 children: [

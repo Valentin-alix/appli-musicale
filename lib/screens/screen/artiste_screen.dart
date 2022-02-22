@@ -6,7 +6,7 @@ import 'package:flutter_svg/svg.dart';
 
 class ArtisteScreen extends StatelessWidget {
   const ArtisteScreen({Key? key}) : super(key: key);
-  final String artistName = 'khalid';
+  static const String artistName = 'Khalid';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +56,7 @@ class TopSection extends StatelessWidget {
         Image.asset("asset/image/khalid_voiture.jpg"),
         const Positioned(
             child: Text(
-              "khalid",
+              ArtisteScreen.artistName,
               style: TextStyle(
                   color: UIColors.white,
                   fontSize: 30,
@@ -174,10 +174,10 @@ class AlbumSection extends StatelessWidget {
                       ),
                       IconButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const AlbumScreen()));
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (BuildContext context) => AlbumScreen(
+                                      albumName: album['title'],
+                                    )));
                           },
                           icon: const Icon(Icons.arrow_forward_ios)),
                     ],
@@ -227,10 +227,10 @@ class TitleSection extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                   primary: Colors.white, onPrimary: Colors.black),
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ParoleScreen()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => ParoleScreen(
+                          title: title['title'],
+                        )));
               },
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 10),
