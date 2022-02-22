@@ -1,6 +1,4 @@
-import 'package:application_musicale/models/most_loved_track_response.dart';
 import 'package:application_musicale/screens/item/ranking_list_item.dart';
-import 'package:application_musicale/services/most_loved_service.dart';
 import 'package:flutter/material.dart';
 
 class TitlesRanking extends StatefulWidget {
