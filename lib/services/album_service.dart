@@ -5,7 +5,7 @@ import 'package:application_musicale/models/album_response.dart';
 import 'package:http/http.dart' as http;
 
 class AlbumServices {
-  Future<AlbumResponse> fetchAlbum(String artistName) async {
+  Future<AlbumResponse> searchAlbum(String artistName) async {
     final response = await http.get(
         Uri.parse(ApiConstants.BASE_URL + "searchalbum.php?s=" + artistName));
 
@@ -19,4 +19,15 @@ class AlbumServices {
       throw Exception('Failed to load artiste');
     }
   }
+
+  // Future<AlbumResponse> getAlbum(String idAlbum) async {
+  //   final response = await http
+  //       .get(Uri.parse(ApiConstants.BASE_URL + "album.php?m=" + idAlbum));
+  //
+  //   if (response.statusCode == 200) {
+  //     return ....fromJson(jsonDecode(response.body));
+  //   } else {
+  //     throw Exception('Failed to load artiste');
+  //   }
+  // }
 }
