@@ -4,8 +4,8 @@
 
 import 'dart:convert';
 
-class Album {
-  Album({
+class AlbumResponse {
+  AlbumResponse({
     required this.strAlbum,
     required this.strArtist,
     required this.intYearReleased,
@@ -17,11 +17,12 @@ class Album {
   final String intYearReleased;
   final String strAlbumThumb;
 
-  factory Album.fromRawJson(String str) => Album.fromJson(json.decode(str));
+  factory AlbumResponse.fromRawJson(String str) =>
+      AlbumResponse.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Album.fromJson(Map<String, dynamic> json) => Album(
+  factory AlbumResponse.fromJson(Map<String, dynamic> json) => AlbumResponse(
         strAlbum: json["strAlbum"],
         strArtist: json["strArtist"],
         intYearReleased: json["intYearReleased"],
