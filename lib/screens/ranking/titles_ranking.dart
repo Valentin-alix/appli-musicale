@@ -1,55 +1,34 @@
 import 'package:application_musicale/screens/item/ranking_list_item.dart';
-import 'package:application_musicale/screens/model/titles_data.dart';
 import 'package:flutter/material.dart';
 
-class TitlesRanking extends StatelessWidget {
+class TitlesRanking extends StatefulWidget {
   const TitlesRanking({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    List<TitlesData> results = _generateRandomResults();
+  TitlesRankingState createState() => TitlesRankingState();
+}
 
+class TitlesRankingState extends State<TitlesRanking> {
+  //MostLovedService().getMostLovedAlbums();
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         Expanded(
           child: ListView.builder(
-            itemCount: results.length,
+            itemCount: 10,
             itemBuilder: (BuildContext context, int position) {
               return RankingListItem(
-                rank: results[position].rank.toString(),
-                picture: results[position].picture,
-                title: results[position].title,
-                subtitle: results[position].artists,
+                rank: "",
+                picture: "",
+                title: "",
+                subtitle: "",
               );
             },
           ),
         ),
       ],
     );
-  }
-
-  List<TitlesData> _generateRandomResults() {
-    return [
-      TitlesData(
-        rank: 1,
-        title: 'Fortunate Son',
-        artists: 'Creedence Clearwater Revival',
-        picture:
-            'https://upload.wikimedia.org/wikipedia/commons/e/ee/Creedence_Clearwater_Revival_1968.jpg',
-      ),
-      TitlesData(
-        rank: 2,
-        title: 'Have You Ever Seen The Rain',
-        artists: 'Creedence Clearwater Revival',
-        picture:
-            'https://upload.wikimedia.org/wikipedia/commons/e/ee/Creedence_Clearwater_Revival_1968.jpg',
-      ),
-      TitlesData(
-        rank: 3,
-        title: 'Bad Moon Rising',
-        artists: 'Creedence Clearwater Revival',
-        picture: '',
-      ),
-    ];
   }
 }
