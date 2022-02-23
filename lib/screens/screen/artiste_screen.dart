@@ -211,7 +211,7 @@ class AlbumSection extends StatelessWidget {
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (BuildContext context) => AlbumScreen(
-                                      albumName: album['title'],
+                                      idAlbum: "2110232",
                                     )));
                           },
                           icon: const Icon(Icons.arrow_forward_ios)),

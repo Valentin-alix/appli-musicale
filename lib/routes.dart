@@ -1,9 +1,10 @@
-import 'package:application_musicale/screens/main3.dart';
+import 'package:application_musicale/main.dart';
+import 'package:application_musicale/screens/screen/album_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
   static const String routeHome = '/';
-  static const String routeScreen2 = '/p2';
+  static const String routeAlbum = '/album';
 
   const AppRoutes._();
 
@@ -16,11 +17,11 @@ class AppRoutes {
 
     switch (routeName) {
       case routeHome:
-        builder = (BuildContext context) => const Screen1();
+        builder = (BuildContext context) => const Home();
         break;
-      case routeScreen2:
-        builder = (BuildContext context) => Screen2(
-              arg: arguments,
+      case routeAlbum:
+        builder = (BuildContext context) => AlbumScreen(
+              idAlbum: arguments,
             );
         break;
       default:

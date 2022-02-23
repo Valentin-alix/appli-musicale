@@ -1,3 +1,4 @@
+import 'package:application_musicale/routes.dart';
 import 'package:application_musicale/screens/favourites/favourites.dart';
 import 'package:application_musicale/screens/ranking/ranking.dart';
 import 'package:application_musicale/screens/search/search.dart';
@@ -21,19 +22,19 @@ class MyApp extends StatelessWidget {
         primarySwatch: UIMaterialColor.white,
         scaffoldBackgroundColor: UIColors.white,
       ),
-      home: const MyStatefulWidget(),
+      onGenerateRoute: AppRoutes.getRoutes,
     );
   }
 }
 
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({Key? key}) : super(key: key);
+class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
 
   @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+  State<Home> createState() => _HomeState();
 }
 
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+class _HomeState extends State<Home> {
   int _selectedIndex = 0;
   List bottomNavigationBarItems = [
     {

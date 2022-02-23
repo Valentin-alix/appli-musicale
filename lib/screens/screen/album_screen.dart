@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class AlbumScreen extends StatelessWidget {
-  final String albumName;
+  final String idAlbum;
 
-  const AlbumScreen({Key? key, required this.albumName}) : super(key: key);
+  const AlbumScreen({Key? key, required this.idAlbum}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +26,8 @@ class AlbumScreen extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        title: const Text(
-          'Eminem',
+        title: Text(
+          idAlbum,
           style: TextStyle(color: UIColors.white),
         ),
         actions: [
@@ -48,7 +48,7 @@ class AlbumScreen extends StatelessWidget {
         child: Column(
           children: [
             TopSection(
-              albumName: albumName,
+              idAlbum: idAlbum,
             ),
             const BottomSection()
           ],
@@ -59,8 +59,8 @@ class AlbumScreen extends StatelessWidget {
 }
 
 class TopSection extends StatelessWidget {
-  final String albumName;
-  const TopSection({Key? key, required this.albumName}) : super(key: key);
+  final String idAlbum;
+  const TopSection({Key? key, required this.idAlbum}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +86,7 @@ class TopSection extends StatelessWidget {
             left: 125,
             top: 90,
             child: Text(
-              albumName,
+              "albumName",
               style: const TextStyle(
                   color: UIColors.white,
                   fontSize: 20,

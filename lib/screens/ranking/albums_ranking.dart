@@ -1,4 +1,5 @@
 import 'package:application_musicale/models/most_loved_album_response.dart';
+import 'package:application_musicale/routes.dart';
 import 'package:application_musicale/screens/item/ranking_list_item.dart';
 import 'package:application_musicale/services/most_loved_service.dart';
 import 'package:flutter/material.dart';
@@ -33,13 +34,22 @@ class AlbumsRankingState extends State<AlbumsRanking> {
                   child: ListView.builder(
                     itemCount: snapshot.data!.loved!.length,
                     itemBuilder: (BuildContext context, int position) {
-                      return RankingListItem(
-                        rank: '${position + 1}',
-                        picture:
-                            snapshot.data!.loved![position].strAlbumThumb ?? "",
-                        title: snapshot.data!.loved![position].strAlbum ?? "",
-                        subtitle:
-                            snapshot.data!.loved![position].strArtist ?? "",
+                      return GestureDetector(
+                        onTap: () async {
+                          await Navigator.of(context).pushNamed(
+                            AppRoutes.routeAlbum,
+                            arguments: snapshot.data!.loved![position].idAlbum,
+                          );
+                        },
+                        child: RankingListItem(
+                          rank: '${position + 1}',
+                          picture:
+                              snapshot.data!.loved![position].strAlbumThumb ??
+                                  "",
+                          title: snapshot.data!.loved![position].strAlbum ?? "",
+                          subtitle:
+                              snapshot.data!.loved![position].strArtist ?? "",
+                        ),
                       );
                     },
                   ),
