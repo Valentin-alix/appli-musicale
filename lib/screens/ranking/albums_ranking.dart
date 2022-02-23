@@ -1,57 +1,52 @@
+import 'package:application_musicale/models/most_loved_album_response.dart';
 import 'package:application_musicale/screens/item/ranking_list_item.dart';
-import 'package:application_musicale/screens/model/albums_data.dart';
+import 'package:application_musicale/services/most_loved_service.dart';
 import 'package:flutter/material.dart';
 
-import '../item/ranking_list_item.dart';
-
-class AlbumsRanking extends StatelessWidget {
+class AlbumsRanking extends StatefulWidget {
   const AlbumsRanking({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    List<AlbumsData> results = _generateRandomResults();
+  AlbumsRankingState createState() => AlbumsRankingState();
+}
 
-    return Column(
-      children: [
-        Expanded(
-          child: ListView.builder(
-            itemCount: results.length,
-            itemBuilder: (BuildContext context, int position) {
-              return RankingListItem(
-                rank: results[position].rank.toString(),
-                picture: results[position].picture,
-                title: results[position].album,
-                subtitle: results[position].artists,
-              );
-            },
-          ),
-        ),
-      ],
-    );
+class AlbumsRankingState extends State<AlbumsRanking> {
+  late Future<MostLovedAlbumResponse> futureMostLovedAlbum;
+
+  @override
+  void initState() {
+    super.initState();
+    futureMostLovedAlbum = MostLovedService().getMostLovedAlbums();
   }
 
-  List<AlbumsData> _generateRandomResults() {
-    return [
-      AlbumsData(
-        rank: 1,
-        album: 'Willy And The Poor Boys',
-        artists: 'Creedence Clearwater Revival',
-        picture:
-            'https://upload.wikimedia.org/wikipedia/commons/e/ee/Creedence_Clearwater_Revival_1968.jpg',
-      ),
-      AlbumsData(
-        rank: 2,
-        album: 'Green River',
-        artists: 'Creedence Clearwater Revival',
-        picture:
-            'https://upload.wikimedia.org/wikipedia/commons/e/ee/Creedence_Clearwater_Revival_1968.jpg',
-      ),
-      AlbumsData(
-        rank: 3,
-        album: 'Bayou Country',
-        artists: 'Creedence Clearwater Revival',
-        picture: '',
-      ),
-    ];
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<MostLovedAlbumResponse>(
+        future: futureMostLovedAlbum,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const CircularProgressIndicator();
+          } else {
+            return Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: snapshot.data!.loved!.length,
+                    itemBuilder: (BuildContext context, int position) {
+                      return RankingListItem(
+                        rank: '${position + 1}',
+                        picture:
+                            snapshot.data!.loved![position].strAlbumThumb ?? "",
+                        title: snapshot.data!.loved![position].strAlbum ?? "",
+                        subtitle:
+                            snapshot.data!.loved![position].strArtist ?? "",
+                      );
+                    },
+                  ),
+                ),
+              ],
+            );
+          }
+        });
   }
 }

@@ -24,7 +24,6 @@ class TitlesRankingState extends State<TitlesRanking> {
     return FutureBuilder<MostLovedTrackResponse>(
         future: futureMostLovedTrack,
         builder: (context, snapshot) {
-          print(snapshot);
           if (!snapshot.hasData) {
             return const CircularProgressIndicator();
           } else {
