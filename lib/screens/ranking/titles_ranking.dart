@@ -1,4 +1,6 @@
+import 'package:application_musicale/models/most_loved_track_response.dart';
 import 'package:application_musicale/screens/item/ranking_list_item.dart';
+import 'package:application_musicale/services/most_loved_service.dart';
 import 'package:flutter/material.dart';
 
 class TitlesRanking extends StatefulWidget {
@@ -9,26 +11,43 @@ class TitlesRanking extends StatefulWidget {
 }
 
 class TitlesRankingState extends State<TitlesRanking> {
-  //MostLovedService().getMostLovedAlbums();
+  late Future<MostLovedTrackResponse> futureMostLovedTrack;
+
+  @override
+  void initState() {
+    super.initState();
+    futureMostLovedTrack = MostLovedService().getMostLovedTracks();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: ListView.builder(
-            itemCount: 10,
-            itemBuilder: (BuildContext context, int position) {
-              return RankingListItem(
-                rank: "",
-                picture: "",
-                title: "",
-                subtitle: "",
-              );
-            },
-          ),
-        ),
-      ],
-    );
+    return FutureBuilder<MostLovedTrackResponse>(
+        future: futureMostLovedTrack,
+        builder: (context, snapshot) {
+          print(snapshot);
+          if (!snapshot.hasData) {
+            return const CircularProgressIndicator();
+          } else {
+            return Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: snapshot.data!.loved!.length,
+                    itemBuilder: (BuildContext context, int position) {
+                      return RankingListItem(
+                        rank: '${position + 1}',
+                        picture:
+                            snapshot.data!.loved![position].strTrackThumb ?? "",
+                        title: snapshot.data!.loved![position].strTrack ?? "",
+                        subtitle:
+                            snapshot.data!.loved![position].strArtist ?? "",
+                      );
+                    },
+                  ),
+                ),
+              ],
+            );
+          }
+        });
   }
 }
