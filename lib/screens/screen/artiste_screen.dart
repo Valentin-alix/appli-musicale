@@ -7,15 +7,29 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../models/artist_response.dart';
 
-class ArtisteScreen extends StatelessWidget {
-  const ArtisteScreen({Key? key}) : super(key: key);
-  static const String artistName = 'khalid';
+class ArtisteScreen extends StatefulWidget {
+  final String artistName;
+  const ArtisteScreen({Key? key, required this.artistName}) : super(key: key);
+
+  @override
+  State<ArtisteScreen> createState() => _ArtisteScreenState();
+}
+
+class _ArtisteScreenState extends State<ArtisteScreen> {
+  late Future<ArtistResponse> futureArtiste;
+  final String artistName = "khalid";
+  @override
+  void initState() {
+    super.initState();
+    futureArtiste = ArtistServices().fetchArtiste(artistName);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<ArtistElement>?>(
-        future: ArtistService().fetchArtistDatas(artistName),
+    return FutureBuilder<ArtistResponse>(
+        future: futureArtiste,
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
+          if (!snapshot.hasData) {
             return const CircularProgressIndicator();
           } else {
             return Scaffold(
@@ -49,7 +63,14 @@ class ArtisteScreen extends StatelessWidget {
                 ),
                 body: SingleChildScrollView(
                   child: Column(
-                    children: [TopSection(), BottomSection()],
+                    children: [
+                      TopSection(
+                        snapshot: snapshot,
+                      ),
+                      BottomSection(
+                        snapshot: snapshot,
+                      )
+                    ],
                   ),
                 ));
           }
@@ -58,27 +79,28 @@ class ArtisteScreen extends StatelessWidget {
 }
 
 class TopSection extends StatelessWidget {
-  const TopSection({Key? key}) : super(key: key);
+  final AsyncSnapshot<ArtistResponse> snapshot;
+  const TopSection({Key? key, required this.snapshot}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Image.asset("asset/image/khalid_voiture.jpg"),
-        const Positioned(
+        Image.network(snapshot.data!.artist![0].strArtistFanart2),
+        Positioned(
             child: Text(
-              ArtisteScreen.artistName,
-              style: TextStyle(
+              snapshot.data!.artist![0].strArtist,
+              style: const TextStyle(
                   color: UIColors.white,
                   fontSize: 30,
                   fontWeight: FontWeight.w700),
             ),
             top: 150,
             left: 10),
-        const Positioned(
+        Positioned(
             child: Text(
-              "country",
-              style: TextStyle(
+              snapshot.data!.artist![0].strCountry,
+              style: const TextStyle(
                 color: UIColors.silver,
                 fontSize: 15,
               ),
@@ -91,7 +113,8 @@ class TopSection extends StatelessWidget {
 }
 
 class BottomSection extends StatelessWidget {
-  const BottomSection({Key? key}) : super(key: key);
+  final AsyncSnapshot<ArtistResponse> snapshot;
+  const BottomSection({Key? key, required this.snapshot}) : super(key: key);
 
   final double spacePadding = 20;
   @override
@@ -100,9 +123,10 @@ class BottomSection extends StatelessWidget {
       padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
       child: Column(
         children: [
-          const Text(
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has",
-            style: TextStyle(color: UIColors.suvaGrey, fontSize: 15),
+          Text(
+            snapshot.data!.artist![0].strBiographyEN,
+            maxLines: 4,
+            style: const TextStyle(color: UIColors.suvaGrey, fontSize: 15),
           ),
           SizedBox(height: spacePadding),
           AlbumSection(),
