@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Musicale Application',
       theme: ThemeData(),
       home: const ArtisteScreen(
-        artistId: 147737,
+        artistId: "112024",
       ),
     );
   }

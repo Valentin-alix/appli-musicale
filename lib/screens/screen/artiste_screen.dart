@@ -1,4 +1,4 @@
-import 'package:application_musicale/screens/screen/album_screen.dart';
+import 'package:application_musicale/models/album_response.dart';
 import 'package:application_musicale/screens/screen/parole_screen.dart';
 import 'package:application_musicale/screens/util/colors.dart';
 import 'package:application_musicale/services/artist_service.dart';
@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../models/artist_response.dart';
+import '../../services/album_service.dart';
+import 'album_screen.dart';
 
 class ArtisteScreen extends StatefulWidget {
-  final int artistId;
+  final String artistId;
   const ArtisteScreen({Key? key, required this.artistId}) : super(key: key);
 
   @override
@@ -68,6 +70,7 @@ class _ArtisteScreenState extends State<ArtisteScreen> {
                       ),
                       BottomSection(
                         snapshot: snapshot,
+                        artistId: widget.artistId,
                       )
                     ],
                   ),
@@ -77,18 +80,23 @@ class _ArtisteScreenState extends State<ArtisteScreen> {
   }
 }
 
-class TopSection extends StatelessWidget {
+class TopSection extends StatefulWidget {
   final AsyncSnapshot<ArtistResponse> snapshot;
   const TopSection({Key? key, required this.snapshot}) : super(key: key);
 
   @override
+  State<TopSection> createState() => _TopSectionState();
+}
+
+class _TopSectionState extends State<TopSection> {
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Image.network(snapshot.data!.artist![0].strArtistFanart2),
+        Image.network(widget.snapshot.data!.artist![0].strArtistFanart2),
         Positioned(
             child: Text(
-              snapshot.data!.artist![0].strArtist,
+              widget.snapshot.data!.artist![0].strArtist,
               style: const TextStyle(
                   color: UIColors.white,
                   fontSize: 30,
@@ -98,7 +106,7 @@ class TopSection extends StatelessWidget {
             left: 10),
         Positioned(
             child: Text(
-              snapshot.data!.artist![0].strCountry,
+              widget.snapshot.data!.artist![0].strCountry,
               style: const TextStyle(
                 color: UIColors.silver,
                 fontSize: 15,
@@ -111,11 +119,20 @@ class TopSection extends StatelessWidget {
   }
 }
 
-class BottomSection extends StatelessWidget {
+class BottomSection extends StatefulWidget {
   final AsyncSnapshot<ArtistResponse> snapshot;
-  const BottomSection({Key? key, required this.snapshot}) : super(key: key);
+  final String artistId;
+  const BottomSection(
+      {Key? key, required this.snapshot, required this.artistId})
+      : super(key: key);
 
+  @override
+  State<BottomSection> createState() => _BottomSectionState();
+}
+
+class _BottomSectionState extends State<BottomSection> {
   final double spacePadding = 20;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -123,12 +140,14 @@ class BottomSection extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            snapshot.data!.artist![0].strBiographyEN,
+            widget.snapshot.data!.artist![0].strBiographyEN,
             maxLines: 4,
             style: const TextStyle(color: UIColors.suvaGrey, fontSize: 15),
           ),
           SizedBox(height: spacePadding),
-          AlbumSection(),
+          AlbumSection(
+            artistId: widget.artistId,
+          ),
           SizedBox(height: spacePadding),
           TitleSection()
         ],
@@ -137,7 +156,22 @@ class BottomSection extends StatelessWidget {
   }
 }
 
-class AlbumSection extends StatelessWidget {
+class AlbumSection extends StatefulWidget {
+  final String artistId;
+  const AlbumSection({Key? key, required this.artistId}) : super(key: key);
+
+  @override
+  State<AlbumSection> createState() => _AlbumSectionState();
+}
+
+class _AlbumSectionState extends State<AlbumSection> {
+  late Future<AlbumResponse> futureAlbums;
+  @override
+  void initState() {
+    super.initState();
+    futureAlbums = AlbumServices().fetchAllAlbumByArtistID(widget.artistId);
+  }
+
   final List albums = [
     {
       'title': 'After Hours',
@@ -146,83 +180,103 @@ class AlbumSection extends StatelessWidget {
           "https://www.theaudiodb.com/images/media/album/3dthumb/70xhx11605597679.png"
     },
     {'title': 'Star boy', 'date': '2016', 'urlImage': ''},
-    {'title': 'Beauty behind the madness', 'date': '2015', 'urlImage': ''}
+    {'title': 'Beauty behind the madness', 'date': '2015', 'urlImage': ''},
+    {'title': 'Star boy', 'date': '2016', 'urlImage': ''},
+    {'title': 'Star boy', 'date': '2016', 'urlImage': ''},
+    {'title': 'Star boy', 'date': '2016', 'urlImage': ''}
   ];
-
-  AlbumSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Text(
-              "Albums (" + albums.length.toString() + ")",
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: UIColors.black),
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Column(
-          children: albums.map((album) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Container(
-                color: UIColors.whiteSmoke,
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          (album['urlImage'] != '')
-                              ? Image.network(
-                                  album['urlImage'],
-                                  height: 50,
-                                  width: 50,
-                                )
-                              : SvgPicture.asset(
-                                  "asset/icones/Placeholder_album.svg"),
-                          const SizedBox(
-                            width: 15,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                album['title'],
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
+    return FutureBuilder<AlbumResponse>(
+        future: futureAlbums,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return const CircularProgressIndicator();
+          } else {
+            //print(snapshot.data?.album?.length);
+            return Column(
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      "Albums (" + albums.length.toString() + ")",
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: UIColors.black),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 200,
+                  child: MediaQuery.removePadding(
+                    removeTop: true,
+                    context: context,
+                    child: ListView.builder(
+                        itemCount: albums.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: Container(
+                              color: UIColors.whiteSmoke,
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        (albums[index]['urlImage'] != '')
+                                            ? Image.network(
+                                                albums[index]['urlImage'],
+                                                height: 50,
+                                                width: 50,
+                                              )
+                                            : SvgPicture.asset(
+                                                "asset/icones/Placeholder_album.svg"),
+                                        const SizedBox(
+                                          width: 15,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              albums[index]['title'],
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Text(albums[index]['date']),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    IconButton(
+                                        onPressed: () {
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder:
+                                                      (BuildContext context) =>
+                                                          const AlbumScreen(
+                                                            idAlbum: "2110232",
+                                                          )));
+                                        },
+                                        icon: const Icon(
+                                            Icons.arrow_forward_ios)),
+                                  ],
+                                ),
                               ),
-                              Text(album['date']),
-                            ],
-                          ),
-                        ],
-                      ),
-                      IconButton(
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (BuildContext context) => AlbumScreen(
-                                      idAlbum: "2110232",
-                                    )));
-                          },
-                          icon: const Icon(Icons.arrow_forward_ios)),
-                    ],
+                            ),
+                          );
+                        }),
                   ),
                 ),
-              ),
+              ],
             );
-          }).toList(),
-        ),
-      ],
-    );
+          }
+        });
   }
 }
 

@@ -28,7 +28,7 @@ class AlbumScreen extends StatelessWidget {
         centerTitle: true,
         title: Text(
           idAlbum,
-          style: TextStyle(color: UIColors.white),
+          style: const TextStyle(color: UIColors.white),
         ),
         actions: [
           ElevatedButton(
@@ -48,7 +48,7 @@ class AlbumScreen extends StatelessWidget {
         child: Column(
           children: [
             TopSection(
-              idAlbum: idAlbum,
+              idAlbum: idAlbum.toString(),
             ),
             const BottomSection()
           ],

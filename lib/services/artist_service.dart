@@ -15,7 +15,7 @@ class ArtistServices {
     }
   }
 
-  Future<ArtistResponse> fetchArtistById(int artistId) async {
+  Future<ArtistResponse> fetchArtistById(String artistId) async {
     final response = await http.get(Uri.parse(
         ApiConstants.BASE_URL + "artist.php?i=" + artistId.toString()));
     if (response.statusCode == 200) {
