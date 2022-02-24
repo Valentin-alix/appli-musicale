@@ -1,5 +1,5 @@
 import 'package:application_musicale/models/album_response.dart';
-import 'package:application_musicale/screens/screen/parole_screen.dart';
+import 'package:application_musicale/screen/parole_screen.dart';
 import 'package:application_musicale/screens/util/colors.dart';
 import 'package:application_musicale/services/artist_service.dart';
 import 'package:flutter/material.dart';
