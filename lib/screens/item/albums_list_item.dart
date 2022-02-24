@@ -7,11 +7,13 @@ class AlbumsListItem extends StatelessWidget {
   final String picture;
   final String title;
   final String subtitle;
+  final String albumId;
   const AlbumsListItem(
       {Key? key,
       required this.picture,
       required this.title,
-      required this.subtitle})
+      required this.subtitle,
+      required this.albumId})
       : super(key: key);
 
   @override
@@ -94,7 +96,7 @@ class AlbumsListItem extends StatelessWidget {
                     onPressed: () async {
                       await Navigator.of(context).pushNamed(
                         AppRoutes.routeAlbum,
-                        arguments: "2118223",
+                        arguments: albumId,
                       );
                     },
                   ),

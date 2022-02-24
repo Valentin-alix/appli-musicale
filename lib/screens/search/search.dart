@@ -1,9 +1,11 @@
+import 'package:application_musicale/models/albums_response.dart';
+import 'package:application_musicale/models/artists_response.dart';
 import 'package:application_musicale/screens/item/albums_list_item.dart';
 import 'package:application_musicale/screens/item/artists_list_item.dart';
-import 'package:application_musicale/screens/model/albums_data.dart';
-import 'package:application_musicale/screens/model/artists_data.dart';
 import 'package:application_musicale/screens/util/app_icons.dart';
 import 'package:application_musicale/screens/util/colors.dart';
+import 'package:application_musicale/services/album_service.dart';
+import 'package:application_musicale/services/artist_service.dart';
 import 'package:flutter/material.dart';
 
 class Search extends StatefulWidget {
@@ -14,15 +16,30 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
+  final controller = TextEditingController();
+  late Future<ArtistsResponse> futureSearchArtists;
+  late Future<AlbumsResponse> futureSearchAlbums;
+  final String artistOfMonth = "céline%dion";
+
+  @override
+  void initState() {
+    super.initState();
+    futureSearchArtists = ArtistServices().searchArtistsByName(artistOfMonth);
+    futureSearchAlbums = AlbumServices().searchAlbums(artistOfMonth);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<ArtistsData> artistsResults = _generateArtistsResults();
-    List<AlbumsData> albumsResults = _generateAlbumsResults();
     const appBarTitle = 'Rechercher';
     const appBarPlaceholder = 'Taper ici votre recherche';
     const bodyTitle1 = 'Artistes';
     const bodyTitle2 = 'Albums';
-
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
@@ -44,9 +61,10 @@ class _SearchState extends State<Search> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Container(
+                  SizedBox(
                     height: 35,
                     child: TextField(
+                      controller: controller,
                       textAlignVertical: TextAlignVertical.center,
                       cursorColor: UIColors.suvaGrey,
                       decoration: InputDecoration(
@@ -63,7 +81,12 @@ class _SearchState extends State<Search> {
                             color: UIColors.silver,
                             size: 13,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            futureSearchArtists = ArtistServices()
+                                .searchArtistsByName(controller.text);
+                            futureSearchAlbums =
+                                AlbumServices().searchAlbums(controller.text);
+                          },
                         ),
                         isCollapsed: true,
                         suffixIcon: IconButton(
@@ -72,7 +95,9 @@ class _SearchState extends State<Search> {
                             color: UIColors.silver,
                             size: 16,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            controller.clear();
+                          },
                         ),
                         filled: true,
                         fillColor: UIColors.whisper,
@@ -106,16 +131,32 @@ class _SearchState extends State<Search> {
                   ),
                 ),
                 const Divider(),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: albumsResults.length,
-                  itemBuilder: (BuildContext context, int position) {
-                    return ArtistsListItem(
-                        picture: artistsResults[position].picture,
-                        title: artistsResults[position].artists);
-                  },
-                ),
+                FutureBuilder<ArtistsResponse>(
+                    future: futureSearchArtists,
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return const CircularProgressIndicator.adaptive();
+                      } else {
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: snapshot.data!.artists!.length,
+                          itemBuilder: (BuildContext context, int position) {
+                            return ArtistsListItem(
+                              picture: snapshot.data!.artists![position]
+                                      .strArtistThumb ??
+                                  "",
+                              title:
+                                  snapshot.data!.artists![position].strArtist ??
+                                      "",
+                              artistId:
+                                  snapshot.data!.artists![position].idArtist ??
+                                      "",
+                            );
+                          },
+                        );
+                      }
+                    }),
                 const SizedBox(height: 20),
                 const Text(
                   bodyTitle2,
@@ -126,97 +167,39 @@ class _SearchState extends State<Search> {
                   ),
                 ),
                 const Divider(),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: albumsResults.length,
-                  itemBuilder: (BuildContext context, int position) {
-                    return AlbumsListItem(
-                      picture: albumsResults[position].picture,
-                      title: albumsResults[position].album,
-                      subtitle: albumsResults[position].artists,
-                    );
-                  },
-                ),
+                FutureBuilder<AlbumsResponse>(
+                    future: futureSearchAlbums,
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return const CircularProgressIndicator.adaptive();
+                      } else {
+                        return ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: snapshot.data!.album!.length,
+                            itemBuilder: (BuildContext context, int position) {
+                              return AlbumsListItem(
+                                picture: snapshot
+                                        .data!.album![position].strAlbumThumb ??
+                                    "",
+                                title:
+                                    snapshot.data!.album![position].strAlbum ??
+                                        "",
+                                subtitle:
+                                    snapshot.data!.album![position].strArtist ??
+                                        "",
+                                albumId:
+                                    snapshot.data!.album![position].idAlbum ??
+                                        "",
+                              );
+                            });
+                      }
+                    }),
               ],
             ),
           ),
         ),
       ),
     );
-  }
-
-  List<ArtistsData> _generateArtistsResults() {
-    return [
-      ArtistsData(
-        artists: 'Creedence Clearwater Revival',
-        picture:
-            'https://upload.wikimedia.org/wikipedia/commons/e/ee/Creedence_Clearwater_Revival_1968.jpg',
-      ),
-      ArtistsData(
-        artists: 'Creedence Clearwater Revival',
-        picture: '',
-      ),
-      ArtistsData(
-        artists: 'Creedence Clearwater Revival',
-        picture: '',
-      ),
-      ArtistsData(
-        artists: 'Creedence Clearwater Revival',
-        picture: '',
-      ),
-      ArtistsData(
-        artists: 'Creedence Clearwater Revival',
-        picture: '',
-      ),
-      ArtistsData(
-        artists: 'Creedence Clearwater Revival',
-        picture: '',
-      ),
-      ArtistsData(
-        artists: 'Creedence Clearwater Revival',
-        picture: '',
-      ),
-      ArtistsData(
-        artists: 'Creedence Clearwater Revival2',
-        picture: '',
-      ),
-    ];
-  }
-
-  List<AlbumsData> _generateAlbumsResults() {
-    return [
-      AlbumsData(
-        rank: 1,
-        album: 'Willy And The Poor Boys',
-        artists: 'Creedence Clearwater Revival',
-        picture:
-            'https://upload.wikimedia.org/wikipedia/commons/e/ee/Creedence_Clearwater_Revival_1968.jpg',
-      ),
-      AlbumsData(
-        rank: 1,
-        album: 'Green River',
-        artists: 'Creedence Clearwater Revival',
-        picture: '',
-      ),
-      AlbumsData(
-        rank: 1,
-        album: 'Green River',
-        artists: 'Creedence Clearwater Revival',
-        picture: '',
-      ),
-      AlbumsData(
-        rank: 1,
-        album: 'Green River',
-        artists: 'Creedence Clearwater Revival',
-        picture: '',
-      ),
-      AlbumsData(
-        rank: 1,
-        album: 'Green River',
-        artists: 'Creedence Clearwater Revival',
-        picture: '',
-      ),
-    ];
   }
 }

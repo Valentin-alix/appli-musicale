@@ -2,16 +2,17 @@ import 'dart:convert';
 
 import 'package:application_musicale/core/constants/api_constants.dart';
 import 'package:application_musicale/models/artist_response.dart';
+import 'package:application_musicale/models/artists_response.dart';
 import 'package:http/http.dart' as http;
 
 class ArtistServices {
-  Future<ArtistResponse> fetchArtisteByName(String artistName) async {
+  Future<ArtistsResponse> searchArtistsByName(String artistName) async {
     final response = await http
         .get(Uri.parse(ApiConstants.BASE_URL + "search.php?s=" + artistName));
     if (response.statusCode == 200) {
-      return ArtistResponse.fromJson(jsonDecode(response.body));
+      return ArtistsResponse.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception('Failed to load artiste by name');
+      throw Exception('Failed to load search artist by name');
     }
   }
 

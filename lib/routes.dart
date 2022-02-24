@@ -1,6 +1,6 @@
 import 'package:application_musicale/main.dart';
-import 'package:application_musicale/screens/screen/album_screen.dart';
-import 'package:application_musicale/screens/screen/artiste_screen.dart';
+import 'package:application_musicale/screen/album_screen.dart';
+import 'package:application_musicale/screen/artiste_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {

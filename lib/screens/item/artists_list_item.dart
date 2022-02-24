@@ -6,7 +6,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 class ArtistsListItem extends StatelessWidget {
   final String picture;
   final String title;
-  const ArtistsListItem({Key? key, required this.picture, required this.title})
+  final String artistId;
+  const ArtistsListItem(
+      {Key? key,
+      required this.picture,
+      required this.title,
+      required this.artistId})
       : super(key: key);
 
   @override
@@ -76,7 +81,7 @@ class ArtistsListItem extends StatelessWidget {
                     onPressed: () async {
                       await Navigator.of(context).pushNamed(
                         AppRoutes.routeArtist,
-                        arguments: "112424",
+                        arguments: artistId,
                       );
                     },
                   ),

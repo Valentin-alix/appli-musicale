@@ -71,8 +71,10 @@ class Favourites extends StatelessWidget {
                   itemCount: albumsResults.length,
                   itemBuilder: (BuildContext context, int position) {
                     return ArtistsListItem(
-                        picture: artistsResults[position].picture,
-                        title: artistsResults[position].artists);
+                      picture: artistsResults[position].picture,
+                      title: artistsResults[position].artists,
+                      artistId: "111261",
+                    );
                   },
                 ),
                 const SizedBox(height: 20),
@@ -94,6 +96,7 @@ class Favourites extends StatelessWidget {
                       picture: albumsResults[position].picture,
                       title: albumsResults[position].album,
                       subtitle: albumsResults[position].artists,
+                      albumId: "2109902",
                     );
                   },
                 ),
