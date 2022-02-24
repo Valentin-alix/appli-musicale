@@ -15,8 +15,8 @@ class AlbumServices {
       throw Exception('Failed to load album by name');
     }
   }*/
-  /*
-  Future<AlbumElement> fetchAlbumById(String idAlbum) async {
+
+  Future<AlbumResponse> fetchAlbumById(String idAlbum) async {
     final response = await http
         .get(Uri.parse(ApiConstants.BASE_URL + "album.php?m=" + idAlbum));
 
@@ -25,7 +25,7 @@ class AlbumServices {
     } else {
       throw Exception('Failed to load album by id');
     }
-  }*/
+  }
 
   Future<AlbumResponse> fetchAllAlbumByArtistID(String artistId) async {
     final response = await http

@@ -1,60 +1,82 @@
+import 'package:application_musicale/models/album_response.dart';
 import 'package:application_musicale/screen/parole_screen.dart';
 import 'package:application_musicale/screens/util/colors.dart';
+import 'package:application_musicale/services/album_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class AlbumScreen extends StatelessWidget {
+class AlbumScreen extends StatefulWidget {
   final String idAlbum;
 
   const AlbumScreen({Key? key, required this.idAlbum}) : super(key: key);
 
   @override
+  State<AlbumScreen> createState() => _AlbumScreenState();
+}
+
+class _AlbumScreenState extends State<AlbumScreen> {
+  late Future<AlbumResponse> futureAlbum;
+  @override
+  void initState() {
+    super.initState();
+    futureAlbum = AlbumServices().fetchAlbumById(widget.idAlbum);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            elevation: 0,
-            primary: Colors.transparent,
-          ),
-          onPressed: () => Navigator.of(context).pop(null),
-          child: SvgPicture.asset(
-            'asset/icones/Fleche_gauche.svg',
-          ),
-        ),
-        centerTitle: true,
-        title: Text(
-          idAlbum,
-          style: const TextStyle(color: UIColors.white),
-        ),
-        actions: [
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              elevation: 0,
-              primary: Colors.transparent,
-            ),
-            onPressed: () {},
-            child: SvgPicture.asset(
-              'asset/icones/Like_off.svg',
-              height: 35,
-            ),
-          )
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            TopSection(
-              idAlbum: idAlbum.toString(),
-            ),
-            const BottomSection()
-          ],
-        ),
-      ),
-    );
+    return FutureBuilder<AlbumResponse>(
+        future: futureAlbum,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const CircularProgressIndicator();
+          } else {
+            return Scaffold(
+              extendBodyBehindAppBar: true,
+              appBar: AppBar(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                leading: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    primary: Colors.transparent,
+                  ),
+                  onPressed: () => Navigator.of(context).pop(null),
+                  child: SvgPicture.asset(
+                    'asset/icones/Fleche_gauche.svg',
+                  ),
+                ),
+                centerTitle: true,
+                title: Text(
+                  snapshot.data!.album![0].strArtist,
+                  style: const TextStyle(color: UIColors.white),
+                ),
+                actions: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      primary: Colors.transparent,
+                    ),
+                    onPressed: () {},
+                    child: SvgPicture.asset(
+                      'asset/icones/Like_off.svg',
+                      height: 35,
+                    ),
+                  )
+                ],
+              ),
+              body: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    TopSection(
+                      idAlbum: widget.idAlbum.toString(),
+                    ),
+                    const BottomSection()
+                  ],
+                ),
+              ),
+            );
+          }
+        });
   }
 }
 
