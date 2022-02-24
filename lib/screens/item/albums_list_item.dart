@@ -1,8 +1,7 @@
-import 'package:application_musicale/screens/util/colors.dart';
 import 'package:application_musicale/routes.dart';
+import 'package:application_musicale/screens/util/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 
 class AlbumsListItem extends StatelessWidget {
   final String picture;
