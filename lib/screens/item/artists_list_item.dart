@@ -1,3 +1,4 @@
+import 'package:application_musicale/routes.dart';
 import 'package:application_musicale/screens/util/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -72,7 +73,12 @@ class ArtistsListItem extends StatelessWidget {
                       height: 16,
                     ),
                     tooltip: 'Voir cet artist',
-                    onPressed: () {},
+                    onPressed: () async {
+                      await Navigator.of(context).pushNamed(
+                        AppRoutes.routeArtist,
+                        arguments: "112424",
+                      );
+                    },
                   ),
                 ],
               ),
