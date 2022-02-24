@@ -69,8 +69,11 @@ class _AlbumScreenState extends State<AlbumScreen> {
                   children: [
                     TopSection(
                       idAlbum: widget.idAlbum.toString(),
+                      snapshot: snapshot,
                     ),
-                    const BottomSection()
+                    BottomSection(
+                      snapshot: snapshot,
+                    )
                   ],
                 ),
               ),
@@ -81,8 +84,10 @@ class _AlbumScreenState extends State<AlbumScreen> {
 }
 
 class TopSection extends StatelessWidget {
+  final AsyncSnapshot<AlbumResponse> snapshot;
   final String idAlbum;
-  const TopSection({Key? key, required this.idAlbum}) : super(key: key);
+  const TopSection({Key? key, required this.idAlbum, required this.snapshot})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -90,10 +95,11 @@ class TopSection extends StatelessWidget {
       children: [
         Container(
             height: 200,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
                 image: DecorationImage(
                     fit: BoxFit.fitWidth,
-                    image: AssetImage('asset/image/Eminem-Revival.jpg')))),
+                    image:
+                        NetworkImage(snapshot.data!.album![0].strAlbumThumb)))),
         Positioned(
             top: 90,
             left: 15,
@@ -102,13 +108,14 @@ class TopSection extends StatelessWidget {
                 width: 100,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    image: const DecorationImage(
-                        image: AssetImage('asset/image/Eminem-Revival.jpg'))))),
+                    image: DecorationImage(
+                        image: NetworkImage(
+                            snapshot.data!.album![0].strAlbumThumb))))),
         Positioned(
             left: 125,
             top: 90,
             child: Text(
-              "albumName",
+              snapshot.data!.album![0].strAlbum,
               style: const TextStyle(
                   color: UIColors.white,
                   fontSize: 20,
@@ -127,7 +134,8 @@ class TopSection extends StatelessWidget {
 }
 
 class BottomSection extends StatelessWidget {
-  const BottomSection({Key? key}) : super(key: key);
+  final AsyncSnapshot<AlbumResponse> snapshot;
+  const BottomSection({Key? key, required this.snapshot}) : super(key: key);
 
   final double spacePadding = 15;
   @override
