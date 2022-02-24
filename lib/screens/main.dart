@@ -20,7 +20,9 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Musicale Application',
       theme: ThemeData(),
-      home: const ArtisteScreen(artistName: "khalid"),
+      home: const ArtisteScreen(
+        artistId: 147737,
+      ),
     );
   }
 }

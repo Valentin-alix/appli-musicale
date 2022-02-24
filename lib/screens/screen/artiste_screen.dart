@@ -8,8 +8,8 @@ import 'package:flutter_svg/svg.dart';
 import '../../models/artist_response.dart';
 
 class ArtisteScreen extends StatefulWidget {
-  final String artistName;
-  const ArtisteScreen({Key? key, required this.artistName}) : super(key: key);
+  final int artistId;
+  const ArtisteScreen({Key? key, required this.artistId}) : super(key: key);
 
   @override
   State<ArtisteScreen> createState() => _ArtisteScreenState();
@@ -17,11 +17,10 @@ class ArtisteScreen extends StatefulWidget {
 
 class _ArtisteScreenState extends State<ArtisteScreen> {
   late Future<ArtistResponse> futureArtiste;
-  final String artistName = "khalid";
   @override
   void initState() {
     super.initState();
-    futureArtiste = ArtistServices().fetchArtiste(artistName);
+    futureArtiste = ArtistServices().fetchArtistById(widget.artistId);
   }
 
   @override
