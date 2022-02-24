@@ -8,7 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../models/artist_response.dart';
 
 class ArtisteScreen extends StatefulWidget {
-  final int artistId;
+  final String artistId;
   const ArtisteScreen({Key? key, required this.artistId}) : super(key: key);
 
   @override
