@@ -24,14 +24,14 @@ class ArtistsResponse {
 class Artists {
   String? idArtist;
   String? strArtist;
-  Null? strArtistStripped;
+  String? strArtistStripped;
   String? strArtistAlternate;
   String? strLabel;
   String? idLabel;
   String? intFormedYear;
   String? intBornYear;
-  Null? intDiedYear;
-  Null? strDisbanded;
+  String? intDiedYear;
+  String? strDisbanded;
   String? strStyle;
   String? strGenre;
   String? strMood;
@@ -68,7 +68,7 @@ class Artists {
   String? strArtistFanart4;
   String? strArtistBanner;
   String? strMusicBrainzID;
-  Null? strISNIcode;
+  String? strISNIcode;
   String? strLastFMChart;
   String? intCharted;
   String? strLocked;

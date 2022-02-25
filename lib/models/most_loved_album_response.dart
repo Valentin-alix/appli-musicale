@@ -47,7 +47,7 @@ class Loved {
   String? strDescription;
   String? strDescriptionDE;
   String? strDescriptionFR;
-  Null? strDescriptionCN;
+  String? strDescriptionCN;
   String? strDescriptionIT;
   String? strDescriptionJP;
   String? strDescriptionRU;
@@ -57,7 +57,7 @@ class Loved {
   String? strDescriptionNL;
   String? strDescriptionHU;
   String? strDescriptionNO;
-  Null? strDescriptionIL;
+  String? strDescriptionIL;
   String? strDescriptionPL;
   String? intLoved;
   String? intScore;
@@ -66,7 +66,7 @@ class Loved {
   String? strMood;
   String? strTheme;
   String? strSpeed;
-  Null? strLocation;
+  String? strLocation;
   String? strMusicBrainzID;
   String? strMusicBrainzArtistID;
   String? strAllMusicID;
@@ -76,10 +76,10 @@ class Loved {
   String? strWikidataID;
   String? strWikipediaID;
   String? strGeniusID;
-  Null? strLyricWikiID;
+  String? strLyricWikiID;
   String? strMusicMozID;
-  Null? strItunesID;
-  Null? strAmazonID;
+  String? strItunesID;
+  String? strAmazonID;
   String? strLocked;
 
   Loved(

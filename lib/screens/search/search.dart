@@ -19,7 +19,7 @@ class _SearchState extends State<Search> {
   final controller = TextEditingController();
   late Future<ArtistsResponse> futureSearchArtists;
   late Future<AlbumsResponse> futureSearchAlbums;
-  final String artistOfMonth = "céline%dion";
+  final String artistOfMonth = "céline dion";
 
   @override
   void initState() {
@@ -82,10 +82,12 @@ class _SearchState extends State<Search> {
                             size: 13,
                           ),
                           onPressed: () {
-                            futureSearchArtists = ArtistServices()
-                                .searchArtistsByName(controller.text);
-                            futureSearchAlbums =
-                                AlbumServices().searchAlbums(controller.text);
+                            setState(() {
+                              futureSearchArtists = ArtistServices()
+                                  .searchArtistsByName(controller.text);
+                              futureSearchAlbums =
+                                  AlbumServices().searchAlbums(controller.text);
+                            });
                           },
                         ),
                         isCollapsed: true,
@@ -133,9 +135,21 @@ class _SearchState extends State<Search> {
                 const Divider(),
                 FutureBuilder<ArtistsResponse>(
                     future: futureSearchArtists,
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return const CircularProgressIndicator.adaptive();
+                    builder:
+                        (context, AsyncSnapshot<ArtistsResponse> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: SizedBox(
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                  UIColors.suvaGrey),
+                            ),
+                            height: 50.0,
+                            width: 50.0,
+                          ),
+                        );
+                      } else if (snapshot.hasError) {
+                        return const Text('Une erreur est survenue !');
                       } else {
                         return ListView.builder(
                           shrinkWrap: true,
@@ -169,31 +183,54 @@ class _SearchState extends State<Search> {
                 const Divider(),
                 FutureBuilder<AlbumsResponse>(
                     future: futureSearchAlbums,
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return const CircularProgressIndicator.adaptive();
+                    builder: (context, AsyncSnapshot<AlbumsResponse> snapshot) {
+                      List<Widget> children;
+                      if (snapshot.hasData) {
+                        children = <Widget>[
+                          ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: snapshot.data!.album!.length,
+                              itemBuilder:
+                                  (BuildContext context, int position) {
+                                return AlbumsListItem(
+                                  picture: snapshot.data!.album![position]
+                                          .strAlbumThumb ??
+                                      "",
+                                  title: snapshot
+                                          .data!.album![position].strAlbum ??
+                                      "",
+                                  subtitle: snapshot
+                                          .data!.album![position].strArtist ??
+                                      "",
+                                  albumId:
+                                      snapshot.data!.album![position].idAlbum ??
+                                          "",
+                                );
+                              })
+                        ];
+                      } else if (snapshot.hasError) {
+                        children = <Widget>[Text('Une erreur est survenue !')];
                       } else {
-                        return ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: snapshot.data!.album!.length,
-                            itemBuilder: (BuildContext context, int position) {
-                              return AlbumsListItem(
-                                picture: snapshot
-                                        .data!.album![position].strAlbumThumb ??
-                                    "",
-                                title:
-                                    snapshot.data!.album![position].strAlbum ??
-                                        "",
-                                subtitle:
-                                    snapshot.data!.album![position].strArtist ??
-                                        "",
-                                albumId:
-                                    snapshot.data!.album![position].idAlbum ??
-                                        "",
-                              );
-                            });
+                        children = const <Widget>[
+                          Center(
+                            child: SizedBox(
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                    UIColors.suvaGrey),
+                              ),
+                              height: 50.0,
+                              width: 50.0,
+                            ),
+                          )
+                        ];
                       }
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: children,
+                        ),
+                      );
                     }),
               ],
             ),

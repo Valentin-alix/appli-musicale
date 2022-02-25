@@ -1,6 +1,7 @@
 import 'package:application_musicale/models/most_loved_album_response.dart';
 import 'package:application_musicale/routes.dart';
 import 'package:application_musicale/screens/item/ranking_list_item.dart';
+import 'package:application_musicale/screens/util/colors.dart';
 import 'package:application_musicale/services/most_loved_service.dart';
 import 'package:flutter/material.dart';
 
@@ -24,9 +25,19 @@ class AlbumsRankingState extends State<AlbumsRanking> {
   Widget build(BuildContext context) {
     return FutureBuilder<MostLovedAlbumResponse>(
         future: futureMostLovedAlbum,
-        builder: (context, snapshot) {
+        builder: (context, AsyncSnapshot<MostLovedAlbumResponse> snapshot) {
           if (!snapshot.hasData) {
-            return const CircularProgressIndicator();
+            return const Center(
+              child: SizedBox(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(UIColors.suvaGrey),
+                ),
+                height: 50.0,
+                width: 50.0,
+              ),
+            );
+          } else if (snapshot.hasError) {
+            return const Text('Une erreur est survenue !');
           } else {
             return Column(
               children: [
