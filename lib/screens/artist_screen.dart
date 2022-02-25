@@ -1,5 +1,4 @@
 import 'package:application_musicale/models/album_response.dart';
-import 'package:application_musicale/screen/parole_screen.dart';
 import 'package:application_musicale/screens/util/colors.dart';
 import 'package:application_musicale/services/artist_service.dart';
 import 'package:flutter/material.dart';
@@ -8,16 +7,17 @@ import 'package:flutter_svg/svg.dart';
 import '../../models/artist_response.dart';
 import '../../services/album_service.dart';
 import 'album_screen.dart';
+import 'lyrics_screen.dart';
 
-class ArtisteScreen extends StatefulWidget {
+class ArtistScreen extends StatefulWidget {
   final String artistId;
-  const ArtisteScreen({Key? key, required this.artistId}) : super(key: key);
+  const ArtistScreen({Key? key, required this.artistId}) : super(key: key);
 
   @override
-  State<ArtisteScreen> createState() => _ArtisteScreenState();
+  State<ArtistScreen> createState() => _ArtistScreenState();
 }
 
-class _ArtisteScreenState extends State<ArtisteScreen> {
+class _ArtistScreenState extends State<ArtistScreen> {
   late Future<ArtistResponse> futureArtiste;
   @override
   void initState() {
@@ -316,7 +316,7 @@ class TitleSection extends StatelessWidget {
                   primary: Colors.white, onPrimary: Colors.black),
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) => ParoleScreen(
+                    builder: (BuildContext context) => LyricsScreen(
                           title: title['title'],
                         )));
               },

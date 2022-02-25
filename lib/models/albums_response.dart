@@ -7,15 +7,15 @@ class AlbumsResponse {
     if (json['album'] != null) {
       album = <Album>[];
       json['album'].forEach((v) {
-        album!.add(new Album.fromJson(v));
+        album!.add(Album.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.album != null) {
-      data['album'] = this.album!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    if (album != null) {
+      data['album'] = album!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -209,67 +209,67 @@ class Album {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['idAlbum'] = this.idAlbum;
-    data['idArtist'] = this.idArtist;
-    data['idLabel'] = this.idLabel;
-    data['strAlbum'] = this.strAlbum;
-    data['strAlbumStripped'] = this.strAlbumStripped;
-    data['strArtist'] = this.strArtist;
-    data['strArtistStripped'] = this.strArtistStripped;
-    data['intYearReleased'] = this.intYearReleased;
-    data['strStyle'] = this.strStyle;
-    data['strGenre'] = this.strGenre;
-    data['strLabel'] = this.strLabel;
-    data['strReleaseFormat'] = this.strReleaseFormat;
-    data['intSales'] = this.intSales;
-    data['strAlbumThumb'] = this.strAlbumThumb;
-    data['strAlbumThumbHQ'] = this.strAlbumThumbHQ;
-    data['strAlbumThumbBack'] = this.strAlbumThumbBack;
-    data['strAlbumCDart'] = this.strAlbumCDart;
-    data['strAlbumSpine'] = this.strAlbumSpine;
-    data['strAlbum3DCase'] = this.strAlbum3DCase;
-    data['strAlbum3DFlat'] = this.strAlbum3DFlat;
-    data['strAlbum3DFace'] = this.strAlbum3DFace;
-    data['strAlbum3DThumb'] = this.strAlbum3DThumb;
-    data['strDescription'] = this.strDescription;
-    data['strDescriptionDE'] = this.strDescriptionDE;
-    data['strDescriptionFR'] = this.strDescriptionFR;
-    data['strDescriptionCN'] = this.strDescriptionCN;
-    data['strDescriptionIT'] = this.strDescriptionIT;
-    data['strDescriptionJP'] = this.strDescriptionJP;
-    data['strDescriptionRU'] = this.strDescriptionRU;
-    data['strDescriptionES'] = this.strDescriptionES;
-    data['strDescriptionPT'] = this.strDescriptionPT;
-    data['strDescriptionSE'] = this.strDescriptionSE;
-    data['strDescriptionNL'] = this.strDescriptionNL;
-    data['strDescriptionHU'] = this.strDescriptionHU;
-    data['strDescriptionNO'] = this.strDescriptionNO;
-    data['strDescriptionIL'] = this.strDescriptionIL;
-    data['strDescriptionPL'] = this.strDescriptionPL;
-    data['intLoved'] = this.intLoved;
-    data['intScore'] = this.intScore;
-    data['intScoreVotes'] = this.intScoreVotes;
-    data['strReview'] = this.strReview;
-    data['strMood'] = this.strMood;
-    data['strTheme'] = this.strTheme;
-    data['strSpeed'] = this.strSpeed;
-    data['strLocation'] = this.strLocation;
-    data['strMusicBrainzID'] = this.strMusicBrainzID;
-    data['strMusicBrainzArtistID'] = this.strMusicBrainzArtistID;
-    data['strAllMusicID'] = this.strAllMusicID;
-    data['strBBCReviewID'] = this.strBBCReviewID;
-    data['strRateYourMusicID'] = this.strRateYourMusicID;
-    data['strDiscogsID'] = this.strDiscogsID;
-    data['strWikidataID'] = this.strWikidataID;
-    data['strWikipediaID'] = this.strWikipediaID;
-    data['strGeniusID'] = this.strGeniusID;
-    data['strLyricWikiID'] = this.strLyricWikiID;
-    data['strMusicMozID'] = this.strMusicMozID;
-    data['strItunesID'] = this.strItunesID;
-    data['strAmazonID'] = this.strAmazonID;
-    data['strLocked'] = this.strLocked;
-    data['strDescriptionEN'] = this.strDescriptionEN;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['idAlbum'] = idAlbum;
+    data['idArtist'] = idArtist;
+    data['idLabel'] = idLabel;
+    data['strAlbum'] = strAlbum;
+    data['strAlbumStripped'] = strAlbumStripped;
+    data['strArtist'] = strArtist;
+    data['strArtistStripped'] = strArtistStripped;
+    data['intYearReleased'] = intYearReleased;
+    data['strStyle'] = strStyle;
+    data['strGenre'] = strGenre;
+    data['strLabel'] = strLabel;
+    data['strReleaseFormat'] = strReleaseFormat;
+    data['intSales'] = intSales;
+    data['strAlbumThumb'] = strAlbumThumb;
+    data['strAlbumThumbHQ'] = strAlbumThumbHQ;
+    data['strAlbumThumbBack'] = strAlbumThumbBack;
+    data['strAlbumCDart'] = strAlbumCDart;
+    data['strAlbumSpine'] = strAlbumSpine;
+    data['strAlbum3DCase'] = strAlbum3DCase;
+    data['strAlbum3DFlat'] = strAlbum3DFlat;
+    data['strAlbum3DFace'] = strAlbum3DFace;
+    data['strAlbum3DThumb'] = strAlbum3DThumb;
+    data['strDescription'] = strDescription;
+    data['strDescriptionDE'] = strDescriptionDE;
+    data['strDescriptionFR'] = strDescriptionFR;
+    data['strDescriptionCN'] = strDescriptionCN;
+    data['strDescriptionIT'] = strDescriptionIT;
+    data['strDescriptionJP'] = strDescriptionJP;
+    data['strDescriptionRU'] = strDescriptionRU;
+    data['strDescriptionES'] = strDescriptionES;
+    data['strDescriptionPT'] = strDescriptionPT;
+    data['strDescriptionSE'] = strDescriptionSE;
+    data['strDescriptionNL'] = strDescriptionNL;
+    data['strDescriptionHU'] = strDescriptionHU;
+    data['strDescriptionNO'] = strDescriptionNO;
+    data['strDescriptionIL'] = strDescriptionIL;
+    data['strDescriptionPL'] = strDescriptionPL;
+    data['intLoved'] = intLoved;
+    data['intScore'] = intScore;
+    data['intScoreVotes'] = intScoreVotes;
+    data['strReview'] = strReview;
+    data['strMood'] = strMood;
+    data['strTheme'] = strTheme;
+    data['strSpeed'] = strSpeed;
+    data['strLocation'] = strLocation;
+    data['strMusicBrainzID'] = strMusicBrainzID;
+    data['strMusicBrainzArtistID'] = strMusicBrainzArtistID;
+    data['strAllMusicID'] = strAllMusicID;
+    data['strBBCReviewID'] = strBBCReviewID;
+    data['strRateYourMusicID'] = strRateYourMusicID;
+    data['strDiscogsID'] = strDiscogsID;
+    data['strWikidataID'] = strWikidataID;
+    data['strWikipediaID'] = strWikipediaID;
+    data['strGeniusID'] = strGeniusID;
+    data['strLyricWikiID'] = strLyricWikiID;
+    data['strMusicMozID'] = strMusicMozID;
+    data['strItunesID'] = strItunesID;
+    data['strAmazonID'] = strAmazonID;
+    data['strLocked'] = strLocked;
+    data['strDescriptionEN'] = strDescriptionEN;
     return data;
   }
 }

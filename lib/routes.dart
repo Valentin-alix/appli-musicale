@@ -1,6 +1,6 @@
 import 'package:application_musicale/main.dart';
-import 'package:application_musicale/screen/album_screen.dart';
-import 'package:application_musicale/screen/artiste_screen.dart';
+import 'package:application_musicale/screens/album_screen.dart';
+import 'package:application_musicale/screens/artist_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
@@ -27,7 +27,7 @@ class AppRoutes {
             );
         break;
       case routeArtist:
-        builder = (BuildContext context) => ArtisteScreen(
+        builder = (BuildContext context) => ArtistScreen(
               artistId: arguments,
             );
         break;

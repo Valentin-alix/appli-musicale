@@ -23,23 +23,27 @@ class AlbumResponse {
 }
 
 class AlbumElement {
-  AlbumElement({
-    required this.idAlbum,
-    required this.idArtist,
-    required this.idLabel,
-    required this.strAlbum,
-    required this.strAlbumStripped,
-    required this.strArtist,
-    required this.strArtistStripped,
-    required this.intYearReleased,
-    required this.strStyle,
-    required this.strGenre,
-    required this.strLabel,
-    required this.strReleaseFormat,
-    required this.intSales,
-    required this.strAlbumThumb,
-  });
+  AlbumElement(
+      {required this.idAlbum,
+      required this.idArtist,
+      required this.idLabel,
+      required this.strAlbum,
+      required this.strAlbumStripped,
+      required this.strArtist,
+      required this.strArtistStripped,
+      required this.intYearReleased,
+      required this.strStyle,
+      required this.strGenre,
+      required this.strLabel,
+      required this.strReleaseFormat,
+      required this.intSales,
+      required this.strAlbumThumb,
+      required this.intScoreVotes,
+      required this.intScore,
+      required this.strDescriptionEN});
 
+  final String intScore;
+  final String intScoreVotes;
   final String idAlbum;
   final String idArtist;
   final String idLabel;
@@ -54,24 +58,27 @@ class AlbumElement {
   final String strReleaseFormat;
   final String intSales;
   final String strAlbumThumb;
+  final String strDescriptionEN;
 
   factory AlbumElement.fromRawJson(String str) =>
       AlbumElement.fromJson(json.decode(str));
 
   factory AlbumElement.fromJson(Map<String, dynamic> json) => AlbumElement(
-        idAlbum: json["idAlbum"],
-        idArtist: json["idArtist"],
-        idLabel: json["idLabel"],
-        strAlbum: json["strAlbum"],
-        strAlbumStripped: json["strAlbumStripped"],
-        strArtist: json["strArtist"],
-        strArtistStripped: json["strArtistStripped"],
-        intYearReleased: json["intYearReleased"],
-        strStyle: json["strStyle"],
-        strGenre: json["strGenre"],
-        strLabel: json["strLabel"],
-        strReleaseFormat: json["strReleaseFormat"],
-        intSales: json["intSales"],
-        strAlbumThumb: json["strAlbumThumb"],
-      );
+      idAlbum: json["idAlbum"],
+      idArtist: json["idArtist"],
+      idLabel: json["idLabel"],
+      strAlbum: json["strAlbum"],
+      strAlbumStripped: json["strAlbumStripped"],
+      strArtist: json["strArtist"],
+      strArtistStripped: json["strArtistStripped"],
+      intYearReleased: json["intYearReleased"],
+      strStyle: json["strStyle"],
+      strGenre: json["strGenre"],
+      strLabel: json["strLabel"],
+      strReleaseFormat: json["strReleaseFormat"],
+      intSales: json["intSales"],
+      strAlbumThumb: json["strAlbumThumb"],
+      intScoreVotes: json["intScoreVotes"],
+      intScore: json["intScore"],
+      strDescriptionEN: json["strDescriptionEN"]);
 }

@@ -1,9 +1,10 @@
 import 'package:application_musicale/models/album_response.dart';
-import 'package:application_musicale/screen/parole_screen.dart';
 import 'package:application_musicale/screens/util/colors.dart';
 import 'package:application_musicale/services/album_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import 'lyrics_screen.dart';
 
 class AlbumScreen extends StatefulWidget {
   final String idAlbum;
@@ -28,7 +29,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
         future: futureAlbum,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return const CircularProgressIndicator();
+            return const CircularProgressIndicator.adaptive();
           } else {
             return Scaffold(
               extendBodyBehindAppBar: true,
@@ -162,18 +163,18 @@ class BottomSection extends StatelessWidget {
                       child: Row(
                         children: [
                           SvgPicture.asset('asset/icones/Etoile.svg'),
-                          const Text(
-                            '5.0',
-                            style: TextStyle(color: UIColors.silver),
+                          Text(
+                            snapshot.data!.album![0].intScore,
+                            style: const TextStyle(color: UIColors.silver),
                           ),
                         ],
                       ),
                     ),
                   ),
                 ),
-                const Text(
-                  '349 votes',
-                  style: TextStyle(color: UIColors.black),
+                Text(
+                  snapshot.data!.album![0].intScoreVotes,
+                  style: const TextStyle(color: UIColors.black),
                 ),
               ],
             ),
@@ -181,9 +182,10 @@ class BottomSection extends StatelessWidget {
           SizedBox(
             height: spacePadding,
           ),
-          const Text(
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries",
-            style: TextStyle(color: UIColors.suvaGrey, fontSize: 15),
+          Text(
+            snapshot.data!.album![0].strDescriptionEN,
+            maxLines: 4,
+            style: const TextStyle(color: UIColors.suvaGrey, fontSize: 15),
           ),
           SizedBox(
             height: spacePadding,
@@ -236,7 +238,7 @@ class TitleSection extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ParoleScreen(
+                        builder: (context) => LyricsScreen(
                               title: title['title'],
                             )));
               },
