@@ -23,12 +23,15 @@ class RankingListItem extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Row(
             children: [
-              Text(
-                rank,
-                style: const TextStyle(
-                  fontFamily: 'SFProDisplay',
-                  fontWeight: FontWeight.w700,
-                  fontSize: 18,
+              SizedBox(
+                width: 25,
+                child: Text(
+                  rank,
+                  style: const TextStyle(
+                    fontFamily: 'SFProDisplay',
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
                 ),
               ),
               Padding(
