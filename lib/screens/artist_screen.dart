@@ -190,17 +190,20 @@ class _AlbumSectionState extends State<AlbumSection> {
   Widget build(BuildContext context) {
     return FutureBuilder<AlbumResponse>(
         future: futureAlbums,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return const CircularProgressIndicator();
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (!snapshot.hasData) {
+            return const CircularProgressIndicator(
+              color: Colors.black,
+            );
           } else {
-            //print(snapshot.data?.album?.length);
+            print(snapshot.data.album[0].strAlbum);
+            print(snapshot.data.album.length);
             return Column(
               children: [
                 Row(
                   children: [
                     Text(
-                      "Albums (" + albums.length.toString() + ")",
+                      "Albums (" + snapshot.data.album.length.toString() + ")",
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -214,7 +217,7 @@ class _AlbumSectionState extends State<AlbumSection> {
                     removeTop: true,
                     context: context,
                     child: ListView.builder(
-                        itemCount: albums.length,
+                        itemCount: snapshot.data.album.length,
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 10),
@@ -228,9 +231,10 @@ class _AlbumSectionState extends State<AlbumSection> {
                                   children: [
                                     Row(
                                       children: [
-                                        (albums[index]['urlImage'] != '')
+                                        (albums[0]['urlImage'] != '')
                                             ? Image.network(
-                                                albums[index]['urlImage'],
+                                                snapshot.data.album[index]
+                                                    .strAlbumThumb,
                                                 height: 50,
                                                 width: 50,
                                               )
@@ -244,11 +248,14 @@ class _AlbumSectionState extends State<AlbumSection> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              albums[index]['title'],
+                                              snapshot
+                                                  .data.album[index].strAlbum,
                                               style: const TextStyle(
-                                                  fontWeight: FontWeight.bold),
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 12),
                                             ),
-                                            Text(albums[index]['date']),
+                                            Text(snapshot.data.album[index]
+                                                .intYearReleased),
                                           ],
                                         ),
                                       ],
@@ -259,8 +266,11 @@ class _AlbumSectionState extends State<AlbumSection> {
                                               MaterialPageRoute(
                                                   builder:
                                                       (BuildContext context) =>
-                                                          const AlbumScreen(
-                                                            idAlbum: "2110232",
+                                                          AlbumScreen(
+                                                            idAlbum: snapshot
+                                                                .data
+                                                                .album[index]
+                                                                .idAlbum,
                                                           )));
                                         },
                                         icon: const Icon(

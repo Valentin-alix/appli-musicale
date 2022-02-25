@@ -24,41 +24,41 @@ class AlbumResponse {
 
 class AlbumElement {
   AlbumElement(
-      {required this.idAlbum,
-      required this.idArtist,
-      required this.idLabel,
-      required this.strAlbum,
-      required this.strAlbumStripped,
-      required this.strArtist,
-      required this.strArtistStripped,
-      required this.intYearReleased,
-      required this.strStyle,
-      required this.strGenre,
-      required this.strLabel,
-      required this.strReleaseFormat,
-      required this.intSales,
-      required this.strAlbumThumb,
-      required this.intScoreVotes,
-      required this.intScore,
-      required this.strDescriptionEN});
+      {this.idAlbum,
+      this.idArtist,
+      this.idLabel,
+      this.strAlbum,
+      this.strAlbumStripped,
+      this.strArtist,
+      this.strArtistStripped,
+      this.intYearReleased,
+      this.strStyle,
+      this.strGenre,
+      this.strLabel,
+      this.strReleaseFormat,
+      this.intSales,
+      this.strAlbumThumb,
+      this.intScoreVotes,
+      this.intScore,
+      this.strDescriptionEN});
 
-  final String intScore;
-  final String intScoreVotes;
-  final String idAlbum;
-  final String idArtist;
-  final String idLabel;
-  final String strAlbum;
-  final String strAlbumStripped;
-  final String strArtist;
-  final String strArtistStripped;
-  final String intYearReleased;
-  final String strStyle;
-  final String strGenre;
-  final String strLabel;
-  final String strReleaseFormat;
-  final String intSales;
-  final String strAlbumThumb;
-  final String strDescriptionEN;
+  final String? intScore;
+  final String? intScoreVotes;
+  final String? idAlbum;
+  final String? idArtist;
+  final String? idLabel;
+  final String? strAlbum;
+  final String? strAlbumStripped;
+  final String? strArtist;
+  final String? strArtistStripped;
+  final String? intYearReleased;
+  final String? strStyle;
+  final String? strGenre;
+  final String? strLabel;
+  final String? strReleaseFormat;
+  final String? intSales;
+  final String? strAlbumThumb;
+  final String? strDescriptionEN;
 
   factory AlbumElement.fromRawJson(String str) =>
       AlbumElement.fromJson(json.decode(str));

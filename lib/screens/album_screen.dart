@@ -48,7 +48,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
                 ),
                 centerTitle: true,
                 title: Text(
-                  snapshot.data!.album![0].strArtist,
+                  snapshot.data?.album![0].strArtist ?? "",
                   style: const TextStyle(color: UIColors.white),
                 ),
                 actions: [
@@ -99,8 +99,8 @@ class TopSection extends StatelessWidget {
             decoration: BoxDecoration(
                 image: DecorationImage(
                     fit: BoxFit.fitWidth,
-                    image:
-                        NetworkImage(snapshot.data!.album![0].strAlbumThumb)))),
+                    image: NetworkImage(
+                        snapshot.data?.album![0].strAlbumThumb ?? "")))),
         Positioned(
             top: 90,
             left: 15,
@@ -111,12 +111,12 @@ class TopSection extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
                         image: NetworkImage(
-                            snapshot.data!.album![0].strAlbumThumb))))),
+                            snapshot.data?.album![0].strAlbumThumb ?? ""))))),
         Positioned(
             left: 125,
             top: 90,
             child: Text(
-              snapshot.data!.album![0].strAlbum,
+              snapshot.data?.album![0].strAlbum ?? "",
               style: const TextStyle(
                   color: UIColors.white,
                   fontSize: 20,
@@ -164,7 +164,7 @@ class BottomSection extends StatelessWidget {
                         children: [
                           SvgPicture.asset('asset/icones/Etoile.svg'),
                           Text(
-                            snapshot.data!.album![0].intScore,
+                            snapshot.data?.album![0].intScore ?? "",
                             style: const TextStyle(color: UIColors.silver),
                           ),
                         ],
@@ -173,7 +173,7 @@ class BottomSection extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  snapshot.data!.album![0].intScoreVotes,
+                  snapshot.data?.album![0].intScoreVotes ?? "",
                   style: const TextStyle(color: UIColors.black),
                 ),
               ],
@@ -183,7 +183,7 @@ class BottomSection extends StatelessWidget {
             height: spacePadding,
           ),
           Text(
-            snapshot.data!.album![0].strDescriptionEN,
+            snapshot.data?.album![0].strDescriptionEN ?? "",
             maxLines: 4,
             style: const TextStyle(color: UIColors.suvaGrey, fontSize: 15),
           ),
