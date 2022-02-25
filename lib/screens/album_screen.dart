@@ -1,6 +1,8 @@
 import 'package:application_musicale/models/album_response.dart';
+import 'package:application_musicale/models/track_response.dart';
 import 'package:application_musicale/screens/util/colors.dart';
 import 'package:application_musicale/services/album_service.dart';
+import 'package:application_musicale/services/track_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -16,11 +18,13 @@ class AlbumScreen extends StatefulWidget {
 }
 
 class _AlbumScreenState extends State<AlbumScreen> {
+  late Future<TrackResponse> futureTracks;
   late Future<AlbumResponse> futureAlbum;
   @override
   void initState() {
     super.initState();
     futureAlbum = AlbumServices().fetchAlbumById(widget.idAlbum);
+    futureTracks = TrackService().fetchTrackByIdAlbum(widget.idAlbum);
   }
 
   @override
@@ -73,6 +77,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
                       snapshot: snapshot,
                     ),
                     BottomSection(
+                      idAlbum: widget.idAlbum,
                       snapshot: snapshot,
                     )
                   ],
@@ -135,8 +140,10 @@ class TopSection extends StatelessWidget {
 }
 
 class BottomSection extends StatelessWidget {
+  final String idAlbum;
   final AsyncSnapshot<AlbumResponse> snapshot;
-  const BottomSection({Key? key, required this.snapshot}) : super(key: key);
+  const BottomSection({Key? key, required this.snapshot, required this.idAlbum})
+      : super(key: key);
 
   final double spacePadding = 15;
   @override
@@ -190,14 +197,32 @@ class BottomSection extends StatelessWidget {
           SizedBox(
             height: spacePadding,
           ),
-          TitleSection()
+          TitleSection(
+            idAlbum: idAlbum,
+          )
         ],
       ),
     );
   }
 }
 
-class TitleSection extends StatelessWidget {
+class TitleSection extends StatefulWidget {
+  final String idAlbum;
+  const TitleSection({Key? key, required this.idAlbum}) : super(key: key);
+
+  @override
+  State<TitleSection> createState() => _TitleSectionState();
+}
+
+class _TitleSectionState extends State<TitleSection> {
+  late Future<TrackResponse> futureTracks;
+
+  @override
+  void initState() {
+    super.initState();
+    futureTracks = TrackService().fetchTrackByIdAlbum(widget.idAlbum);
+  }
+
   final List favoriteTitle = [
     {'title': 'Walk on Water feat Beyoncé'},
     {'title': 'Believe'},
@@ -208,8 +233,6 @@ class TitleSection extends StatelessWidget {
     {'title': 'Remind me'},
   ];
 
-  TitleSection({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -217,7 +240,7 @@ class TitleSection extends StatelessWidget {
         Row(
           children: const [
             Text(
-              'Titres',
+              'Titles',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 25,
@@ -228,36 +251,55 @@ class TitleSection extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        Column(
-          children: favoriteTitle.map((title) {
-            var index = favoriteTitle.indexOf(title) + 1;
-            return ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  primary: UIColors.white, onPrimary: UIColors.black),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => LyricsScreen(
-                              title: title['title'],
-                            )));
-              },
-              child: Row(
-                children: [
-                  Text(
-                    index.toString(),
-                    style: const TextStyle(color: UIColors.black),
+        FutureBuilder<TrackResponse>(
+            future: futureTracks,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const CircularProgressIndicator();
+              } else {
+                return SizedBox(
+                  //height: 300,
+                  child: MediaQuery.removePadding(
+                    removeTop: true,
+                    context: context,
+                    child: ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: snapshot.data?.track?.length,
+                        itemBuilder: (context, index) {
+                          return ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                primary: UIColors.white,
+                                onPrimary: UIColors.black),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LyricsScreen(
+                                            title: snapshot.data?.track![index]
+                                                    .strTrack ??
+                                                "",
+                                          )));
+                            },
+                            child: Row(
+                              children: [
+                                Text(
+                                  (index + 1).toString(),
+                                  style: const TextStyle(color: UIColors.black),
+                                ),
+                                const SizedBox(width: 20),
+                                Text(
+                                  snapshot.data?.track![index].strTrack ?? "",
+                                  style: const TextStyle(color: UIColors.black),
+                                ),
+                              ],
+                            ),
+                          );
+                        }),
                   ),
-                  const SizedBox(width: 20),
-                  Text(
-                    title['title'],
-                    style: const TextStyle(color: UIColors.black),
-                  ),
-                ],
-              ),
-            );
-          }).toList(),
-        )
+                );
+              }
+            })
       ],
     );
   }

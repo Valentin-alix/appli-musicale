@@ -172,20 +172,6 @@ class _AlbumSectionState extends State<AlbumSection> {
     futureAlbums = AlbumServices().fetchAllAlbumByArtistID(widget.artistId);
   }
 
-  final List albums = [
-    {
-      'title': 'After Hours',
-      'date': '2020',
-      'urlImage':
-          "https://www.theaudiodb.com/images/media/album/3dthumb/70xhx11605597679.png"
-    },
-    {'title': 'Star boy', 'date': '2016', 'urlImage': ''},
-    {'title': 'Beauty behind the madness', 'date': '2015', 'urlImage': ''},
-    {'title': 'Star boy', 'date': '2016', 'urlImage': ''},
-    {'title': 'Star boy', 'date': '2016', 'urlImage': ''},
-    {'title': 'Star boy', 'date': '2016', 'urlImage': ''}
-  ];
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<AlbumResponse>(
@@ -196,8 +182,6 @@ class _AlbumSectionState extends State<AlbumSection> {
               color: Colors.black,
             );
           } else {
-            print(snapshot.data.album[0].strAlbum);
-            print(snapshot.data.album.length);
             return Column(
               children: [
                 Row(
@@ -231,7 +215,9 @@ class _AlbumSectionState extends State<AlbumSection> {
                                   children: [
                                     Row(
                                       children: [
-                                        (albums[0]['urlImage'] != '')
+                                        (snapshot.data.album[index]
+                                                    .strAlbumThumb !=
+                                                null)
                                             ? Image.network(
                                                 snapshot.data.album[index]
                                                     .strAlbumThumb,
