@@ -4,6 +4,7 @@ import 'package:application_musicale/screens/util/colors.dart';
 import 'package:application_musicale/services/album_service.dart';
 import 'package:application_musicale/services/track_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'lyrics_screen.dart';
@@ -166,15 +167,23 @@ class BottomSection extends StatelessWidget {
                           ? const Text("No score votes")
                           : Row(
                               children: [
-                                for (int i = 0;
-                                    i <
-                                        (double.parse(snapshot.data?.album![0]
-                                                        .intScore ??
-                                                    "0") /
-                                                2)
-                                            .round();
-                                    i++)
-                                  SvgPicture.asset('asset/icones/Etoile.svg'),
+                                RatingBar.builder(
+                                  initialRating: (double.parse(
+                                          snapshot.data?.album![0].intScore ??
+                                              "0") /
+                                      2),
+                                  minRating: 1,
+                                  direction: Axis.horizontal,
+                                  allowHalfRating: true,
+                                  itemCount: 5,
+                                  itemSize: 15,
+                                  itemPadding: const EdgeInsets.symmetric(
+                                      horizontal: 1.0),
+                                  itemBuilder: (context, _) => const Icon(
+                                      Icons.star,
+                                      color: Colors.amber),
+                                  onRatingUpdate: (rating) {},
+                                ),
                                 Text(
                                   (double.parse(snapshot
                                                   .data?.album![0].intScore ??
