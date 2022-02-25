@@ -103,6 +103,8 @@ class TopSection extends StatelessWidget {
             height: 200,
             decoration: BoxDecoration(
                 image: DecorationImage(
+                    colorFilter: const ColorFilter.mode(
+                        Colors.black45, BlendMode.darken),
                     fit: BoxFit.fitWidth,
                     image: NetworkImage(
                         snapshot.data?.album![0].strAlbumThumb ?? "")))),
