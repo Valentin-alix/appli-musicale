@@ -53,7 +53,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
                 centerTitle: true,
                 title: Text(
                   snapshot.data?.album![0].strArtist ?? "",
-                  style: const TextStyle(color: UIColors.white),
+                  style: const TextStyle(color: Colors.white),
                 ),
                 actions: [
                   ElevatedButton(
