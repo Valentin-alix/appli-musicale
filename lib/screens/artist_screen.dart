@@ -6,6 +6,8 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../models/artist_response.dart';
 import '../../services/album_service.dart';
+import '../models/track_response.dart';
+import '../services/track_service.dart';
 import 'album_screen.dart';
 import 'lyrics_screen.dart';
 
@@ -149,7 +151,9 @@ class _BottomSectionState extends State<BottomSection> {
             artistId: widget.artistId,
           ),
           SizedBox(height: spacePadding),
-          TitleSection()
+          TitleSection(
+            nameArtist: widget.snapshot.data!.artist![0].strArtist,
+          )
         ],
       ),
     );
@@ -276,18 +280,23 @@ class _AlbumSectionState extends State<AlbumSection> {
   }
 }
 
-class TitleSection extends StatelessWidget {
-  final List favoriteTitle = [
-    {'title': 'Walk on Water feat Beyoncé'},
-    {'title': 'Believe'},
-    {'title': 'Chlorasceptic feat Phresher'},
-    {'title': 'Untouchable'},
-    {'title': 'River feat Ed Sheeran'},
-    {'title': 'Remind me (Intro)'},
-    {'title': 'Remind me'},
-  ];
+class TitleSection extends StatefulWidget {
+  final String nameArtist;
+  const TitleSection({Key? key, required this.nameArtist}) : super(key: key);
 
-  TitleSection({Key? key}) : super(key: key);
+  @override
+  State<TitleSection> createState() => _TitleSectionState();
+}
+
+class _TitleSectionState extends State<TitleSection> {
+  late Future<TrackResponse> futureTracks;
+
+  @override
+  void initState() {
+    super.initState();
+    futureTracks =
+        TrackService().fetchMostLovedTrackByIdArtiste(widget.nameArtist);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -296,48 +305,66 @@ class TitleSection extends StatelessWidget {
         Row(
           children: const [
             Text(
-              'Titres les plus appréciés',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              'Most popular titles',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: UIColors.black),
             ),
           ],
         ),
         const SizedBox(
           height: 20,
         ),
-        Column(
-          children: favoriteTitle.map((title) {
-            int index = favoriteTitle.indexOf(title) + 1;
-            return ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  primary: Colors.white, onPrimary: Colors.black),
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) => LyricsScreen(
-                          title: title['title'],
-                        )));
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: Row(
-                  children: [
-                    Text(
-                      index.toString(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.black),
-                    ),
-                    Container(
-                      width: 20,
-                    ),
-                    Text(
-                      title['title'],
-                      style: const TextStyle(color: Colors.black),
-                    )
-                  ],
-                ),
-              ),
-            );
-          }).toList(),
-        )
+        FutureBuilder<TrackResponse>(
+            future: futureTracks,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const CircularProgressIndicator();
+              } else {
+                return SizedBox(
+                  //height: 300,
+                  child: MediaQuery.removePadding(
+                    removeTop: true,
+                    context: context,
+                    child: ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: snapshot.data?.track?.length,
+                        itemBuilder: (context, index) {
+                          return ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                primary: UIColors.white,
+                                onPrimary: UIColors.black),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LyricsScreen(
+                                            title: snapshot.data?.track![index]
+                                                    .strTrack ??
+                                                "",
+                                          )));
+                            },
+                            child: Row(
+                              children: [
+                                Text(
+                                  (index + 1).toString(),
+                                  style: const TextStyle(color: UIColors.black),
+                                ),
+                                const SizedBox(width: 20),
+                                Text(
+                                  snapshot.data?.track![index].strTrack ?? "",
+                                  style: const TextStyle(color: UIColors.black),
+                                ),
+                              ],
+                            ),
+                          );
+                        }),
+                  ),
+                );
+              }
+            })
       ],
     );
   }

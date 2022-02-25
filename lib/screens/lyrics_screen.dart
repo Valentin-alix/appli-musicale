@@ -26,6 +26,7 @@ class LyricsScreen extends StatelessWidget {
           centerTitle: true,
           title: const Text(
             'Paroles',
+            style: TextStyle(color: Colors.white),
           ),
         ),
         body: SingleChildScrollView(

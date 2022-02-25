@@ -223,16 +223,6 @@ class _TitleSectionState extends State<TitleSection> {
     futureTracks = TrackService().fetchTrackByIdAlbum(widget.idAlbum);
   }
 
-  final List favoriteTitle = [
-    {'title': 'Walk on Water feat Beyoncé'},
-    {'title': 'Believe'},
-    {'title': 'Chlorasceptic feat Phresher'},
-    {'title': 'Untouchable'},
-    {'title': 'River feat Ed Sheeran'},
-    {'title': 'Remind me (Intro)'},
-    {'title': 'Remind me'},
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Column(
