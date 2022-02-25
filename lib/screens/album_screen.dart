@@ -127,13 +127,6 @@ class TopSection extends StatelessWidget {
                   fontSize: 20,
                   fontWeight: FontWeight.bold),
             )),
-        const Positioned(
-            left: 125,
-            top: 120,
-            child: Text(
-              'numbers chanson',
-              style: TextStyle(color: UIColors.silver),
-            )),
       ],
     );
   }
@@ -167,15 +160,30 @@ class BottomSection extends StatelessWidget {
                     color: UIColors.white,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 5, right: 5),
-                      child: Row(
-                        children: [
-                          SvgPicture.asset('asset/icones/Etoile.svg'),
-                          Text(
-                            snapshot.data?.album![0].intScore ?? "",
-                            style: const TextStyle(color: UIColors.silver),
-                          ),
-                        ],
-                      ),
+                      child: (snapshot.data?.album![0].intScoreVotes) == null
+                          ? const Text("No score votes")
+                          : Row(
+                              children: [
+                                for (int i = 0;
+                                    i <
+                                        (double.parse(snapshot.data?.album![0]
+                                                        .intScore ??
+                                                    "0") /
+                                                2)
+                                            .round();
+                                    i++)
+                                  SvgPicture.asset('asset/icones/Etoile.svg'),
+                                Text(
+                                  (double.parse(snapshot
+                                                  .data?.album![0].intScore ??
+                                              "0") /
+                                          2)
+                                      .toString(),
+                                  style:
+                                      const TextStyle(color: UIColors.silver),
+                                ),
+                              ],
+                            ),
                     ),
                   ),
                 ),
