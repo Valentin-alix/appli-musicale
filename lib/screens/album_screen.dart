@@ -256,12 +256,11 @@ class _TitleSectionState extends State<TitleSection> {
                 return const CircularProgressIndicator();
               } else {
                 return SizedBox(
-                  //height: 300,
+                  height: 250,
                   child: MediaQuery.removePadding(
                     removeTop: true,
                     context: context,
                     child: ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: snapshot.data?.track?.length,
                         itemBuilder: (context, index) {
