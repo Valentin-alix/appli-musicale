@@ -156,9 +156,9 @@ class _SearchState extends State<Search> {
                         return ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: (snapshot.data?.artists == null
+                          itemCount: snapshot.data?.artists == null
                               ? 0
-                              : snapshot.data!.artists!.length),
+                              : snapshot.data!.artists!.length,
                           itemBuilder: (BuildContext context, int position) {
                             return ArtistsListItem(
                               picture: snapshot.data!.artists![position]
@@ -192,9 +192,9 @@ class _SearchState extends State<Search> {
                         return ListView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
-                            itemCount: (snapshot.data?.album == null
+                            itemCount: snapshot.data?.album == null
                                 ? 0
-                                : snapshot.data!.album!.length),
+                                : snapshot.data!.album!.length,
                             itemBuilder: (BuildContext context, int position) {
                               return AlbumsListItem(
                                 picture: snapshot
