@@ -19,7 +19,7 @@ class _SearchState extends State<Search> {
   final controller = TextEditingController();
   late Future<ArtistsResponse> futureSearchArtists;
   late Future<AlbumsResponse> futureSearchAlbums;
-  final String artistOfMonth = "metallica";
+  final String artistOfMonth = "abba";
 
   @override
   void initState() {
