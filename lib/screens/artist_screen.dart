@@ -234,7 +234,7 @@ class _AlbumSectionState extends State<AlbumSection> {
                                           width: 15,
                                         ),
                                         SizedBox(
-                                          width: 260,
+                                          width: 200,
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
