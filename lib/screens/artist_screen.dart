@@ -205,7 +205,7 @@ class _AlbumSectionState extends State<AlbumSection> {
                     removeTop: true,
                     context: context,
                     child: ListView.builder(
-                        itemCount: snapshot.data.album.length,
+                        itemCount: snapshot.data.album.length ?? 0,
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 10),
@@ -333,7 +333,7 @@ class _TitleSectionState extends State<TitleSection> {
                     child: ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: snapshot.data?.track?.length,
+                        itemCount: snapshot.data?.track?.length ?? 0,
                         itemBuilder: (context, index) {
                           return ElevatedButton(
                             style: ElevatedButton.styleFrom(
