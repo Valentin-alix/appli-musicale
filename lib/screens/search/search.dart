@@ -19,7 +19,7 @@ class _SearchState extends State<Search> {
   final controller = TextEditingController();
   late Future<ArtistsResponse> futureSearchArtists;
   late Future<AlbumsResponse> futureSearchAlbums;
-  final String artistOfMonth = "céline dion";
+  final String artistOfMonth = "metallica";
 
   @override
   void initState() {
@@ -37,7 +37,7 @@ class _SearchState extends State<Search> {
   @override
   Widget build(BuildContext context) {
     const appBarTitle = 'Rechercher';
-    const appBarPlaceholder = 'Taper ici votre recherche';
+    const appBarPlaceholder = 'Taper ici le nom d’un artiste';
     const bodyTitle1 = 'Artistes';
     const bodyTitle2 = 'Albums';
     return Scaffold(
@@ -150,11 +150,15 @@ class _SearchState extends State<Search> {
                         );
                       } else if (snapshot.hasError) {
                         return const Text('Une erreur est survenue !');
+                      } else if (!snapshot.hasData) {
+                        return const Text('Aucun enregistrement');
                       } else {
                         return ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: snapshot.data!.artists!.length,
+                          itemCount: (snapshot.data?.artists == null
+                              ? 0
+                              : snapshot.data!.artists!.length),
                           itemBuilder: (BuildContext context, int position) {
                             return ArtistsListItem(
                               picture: snapshot.data!.artists![position]
@@ -184,53 +188,43 @@ class _SearchState extends State<Search> {
                 FutureBuilder<AlbumsResponse>(
                     future: futureSearchAlbums,
                     builder: (context, AsyncSnapshot<AlbumsResponse> snapshot) {
-                      List<Widget> children;
                       if (snapshot.hasData) {
-                        children = <Widget>[
-                          ListView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: snapshot.data!.album!.length,
-                              itemBuilder:
-                                  (BuildContext context, int position) {
-                                return AlbumsListItem(
-                                  picture: snapshot.data!.album![position]
-                                          .strAlbumThumb ??
-                                      "",
-                                  title: snapshot
-                                          .data!.album![position].strAlbum ??
-                                      "",
-                                  subtitle: snapshot
-                                          .data!.album![position].strArtist ??
-                                      "",
-                                  albumId:
-                                      snapshot.data!.album![position].idAlbum ??
-                                          "",
-                                );
-                              })
-                        ];
+                        return ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: (snapshot.data?.album == null
+                                ? 0
+                                : snapshot.data!.album!.length),
+                            itemBuilder: (BuildContext context, int position) {
+                              return AlbumsListItem(
+                                picture: snapshot
+                                        .data!.album![position].strAlbumThumb ??
+                                    "",
+                                title:
+                                    snapshot.data!.album![position].strAlbum ??
+                                        "",
+                                subtitle:
+                                    snapshot.data!.album![position].strArtist ??
+                                        "",
+                                albumId:
+                                    snapshot.data!.album![position].idAlbum ??
+                                        "",
+                              );
+                            });
                       } else if (snapshot.hasError) {
-                        children = <Widget>[Text('Une erreur est survenue !')];
+                        return const Text('Une erreur est survenue !');
                       } else {
-                        children = const <Widget>[
-                          Center(
-                            child: SizedBox(
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                    UIColors.suvaGrey),
-                              ),
-                              height: 50.0,
-                              width: 50.0,
+                        return const Center(
+                          child: SizedBox(
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                  UIColors.suvaGrey),
                             ),
-                          )
-                        ];
+                            height: 50.0,
+                            width: 50.0,
+                          ),
+                        );
                       }
-                      return Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: children,
-                        ),
-                      );
                     }),
               ],
             ),
