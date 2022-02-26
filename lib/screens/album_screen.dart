@@ -123,12 +123,15 @@ class TopSection extends StatelessWidget {
         Positioned(
             left: 125,
             top: 90,
-            child: Text(
-              snapshot.data?.album![0].strAlbum ?? "",
-              style: const TextStyle(
-                  color: UIColors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
+            child: SizedBox(
+              width: 280,
+              child: Text(
+                snapshot.data?.album![0].strAlbum ?? "",
+                style: const TextStyle(
+                    color: UIColors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
             )),
       ],
     );
