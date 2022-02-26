@@ -64,9 +64,18 @@ class _SearchState extends State<Search> {
                   SizedBox(
                     height: 35,
                     child: TextField(
+                      keyboardType: TextInputType.text,
                       controller: controller,
                       textAlignVertical: TextAlignVertical.center,
                       cursorColor: UIColors.suvaGrey,
+                      onSubmitted: (value) {
+                        setState(() {
+                          futureSearchArtists = ArtistServices()
+                              .searchArtistsByName(controller.text);
+                          futureSearchAlbums =
+                              AlbumServices().searchAlbums(controller.text);
+                        });
+                      },
                       decoration: InputDecoration(
                         isDense: true,
                         hintText: appBarPlaceholder,
