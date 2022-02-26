@@ -233,20 +233,23 @@ class _AlbumSectionState extends State<AlbumSection> {
                                         const SizedBox(
                                           width: 15,
                                         ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              snapshot
-                                                  .data.album[index].strAlbum,
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 12),
-                                            ),
-                                            Text(snapshot.data.album[index]
-                                                .intYearReleased),
-                                          ],
+                                        SizedBox(
+                                          width: 260,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                snapshot
+                                                    .data.album[index].strAlbum,
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 15),
+                                              ),
+                                              Text(snapshot.data.album[index]
+                                                  .intYearReleased),
+                                            ],
+                                          ),
                                         ),
                                       ],
                                     ),
