@@ -1,3 +1,4 @@
+import 'package:application_musicale/data/database.dart';
 import 'package:application_musicale/models/album_response.dart';
 import 'package:application_musicale/models/track_response.dart';
 import 'package:application_musicale/screens/util/colors.dart';
@@ -62,10 +63,17 @@ class _AlbumScreenState extends State<AlbumScreen> {
                       elevation: 0,
                       primary: Colors.transparent,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      DatabaseManager().addArtist(
+                          snapshot.data?.album![0].idArtist ?? "",
+                          snapshot.data?.album![0].strArtist ?? "",
+                          snapshot.data?.album![0].strAlbumThumb ?? "");
+                    },
                     child: SvgPicture.asset(
                       'asset/icones/Like_off.svg',
                       height: 35,
+                      colorBlendMode: BlendMode.modulate,
+                      color: (1 == 1) ? Colors.green : Colors.white,
                     ),
                   )
                 ],

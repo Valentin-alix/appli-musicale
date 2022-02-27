@@ -20,24 +20,29 @@ class ArtistResponse {
 
 class ArtistElement {
   ArtistElement({
-    required this.strArtist,
-    required this.strCountry,
-    required this.strArtistFanart2,
-    required this.strBiographyEN,
+    this.idArtist,
+    this.strArtist,
+    this.strCountry,
+    this.strArtistFanart2,
+    this.strBiographyEN,
+    this.strArtistThumb,
   });
 
-  final String strArtist;
-  final String strCountry;
-  final String strArtistFanart2;
-  final String strBiographyEN;
+  final String? idArtist;
+  final String? strArtist;
+  final String? strCountry;
+  final String? strArtistFanart2;
+  final String? strBiographyEN;
+  final String? strArtistThumb;
 
   factory ArtistElement.fromRawJson(String str) =>
       ArtistElement.fromJson(json.decode(str));
 
   factory ArtistElement.fromJson(Map<String, dynamic> json) => ArtistElement(
-        strArtist: json["strArtist"],
-        strCountry: json["strCountry"],
-        strArtistFanart2: json["strArtistFanart2"],
-        strBiographyEN: json["strBiographyEN"],
-      );
+      strArtist: json["strArtist"],
+      strCountry: json["strCountry"],
+      strArtistFanart2: json["strArtistFanart2"],
+      strBiographyEN: json["strBiographyEN"],
+      idArtist: json["idArtist"],
+      strArtistThumb: json["strArtistThumb"]);
 }

@@ -1,3 +1,4 @@
+import 'package:application_musicale/data/database.dart';
 import 'package:application_musicale/models/album_response.dart';
 import 'package:application_musicale/screens/util/colors.dart';
 import 'package:application_musicale/services/artist_service.dart';
@@ -56,9 +57,16 @@ class _ArtistScreenState extends State<ArtistScreen> {
                         elevation: 0,
                         primary: UIColors.transparent,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        DatabaseManager().addArtist(
+                            snapshot.data?.artist![0].idArtist ?? "",
+                            snapshot.data?.artist![0].strArtist ?? "",
+                            snapshot.data?.artist![0].strArtistThumb ?? "");
+                      },
                       child: SvgPicture.asset(
                         'asset/icones/Like_off.svg',
+                        colorBlendMode: BlendMode.modulate,
+                        color: (1 == 1) ? Colors.green : Colors.white,
                         height: 35,
                       ),
                     )
@@ -95,10 +103,10 @@ class _TopSectionState extends State<TopSection> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Image.network(widget.snapshot.data!.artist![0].strArtistFanart2),
+        Image.network(widget.snapshot.data?.artist![0].strArtistFanart2 ?? ""),
         Positioned(
             child: Text(
-              widget.snapshot.data!.artist![0].strArtist,
+              widget.snapshot.data!.artist![0].strArtist ?? "",
               style: const TextStyle(
                   color: UIColors.white,
                   fontSize: 30,
@@ -108,7 +116,7 @@ class _TopSectionState extends State<TopSection> {
             left: 10),
         Positioned(
             child: Text(
-              widget.snapshot.data!.artist![0].strCountry,
+              widget.snapshot.data!.artist![0].strCountry ?? "",
               style: const TextStyle(
                 color: UIColors.silver,
                 fontSize: 15,
@@ -142,7 +150,7 @@ class _BottomSectionState extends State<BottomSection> {
       child: Column(
         children: [
           Text(
-            widget.snapshot.data!.artist![0].strBiographyEN,
+            widget.snapshot.data!.artist![0].strBiographyEN ?? "",
             maxLines: 4,
             style: const TextStyle(color: UIColors.suvaGrey, fontSize: 15),
           ),
@@ -152,7 +160,7 @@ class _BottomSectionState extends State<BottomSection> {
           ),
           SizedBox(height: spacePadding),
           TitleSection(
-            nameArtist: widget.snapshot.data!.artist![0].strArtist,
+            nameArtist: widget.snapshot.data!.artist![0].strArtist ?? "",
           )
         ],
       ),
