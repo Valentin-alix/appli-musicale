@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 class DatabaseManager {
   static const nameBox1 = "FavouritesArtistsBox";
   static const nameBox2 = "FavouritesAlbumsBox";
+
   List<Box> boxList = [];
 
   Future<void> init() async {
@@ -30,6 +31,22 @@ class DatabaseManager {
     Album album1 = Album('2110231', "Lulu", "Metallica",
         "https://www.theaudiodb.com/images/media/album/thumb/lulu-4f872f3f80ff9.jpg");
     await _favouritesAlbumsBox.add(album1);
+  }
+
+  Future<void> addArtist(
+      String artistId, String strArtist, String strArtistThumb) async {
+    final _favouritesArtistsBox = Hive.box(nameBox1);
+
+    Artist artist = Artist(artistId, strArtist, strArtistThumb);
+    await _favouritesArtistsBox.add(artist);
+  }
+
+  Future<void> addAlbum(String albumId, String strAlbum, String strArtist,
+      String strAlbumThumb) async {
+    final _favouritesAlbumsBox = Hive.box(nameBox2);
+
+    Album album = Album(albumId, strAlbum, strArtist, strAlbumThumb);
+    await _favouritesAlbumsBox.add(album);
   }
 
   Future<List> getFavouritesArtistsList() async {
