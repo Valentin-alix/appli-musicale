@@ -1,16 +1,17 @@
-# appli_musical
+# Application Flutter réalisée dans le cadre du cours d’Édouard Marquez
+# REN-DEVE503-Développement environnement mobile avec utilisation d'un framework
+# REN-DEVE504-Atelier Développement mobile
 
-A new Flutter project.
+# Auteurs
+Valentin, Samuel
+EPSI 2021-2022
 
-## Getting Started
+# Fonctionnalités
+- Affichage d’un top 50 des meilleurs titres et albums.
+- Recherche d’un artiste
+- Enregistrement et affichage des albums ou titres favoris de l’utilisateur
+- Affichage du détail d’un album et d’un artiste
+- L’application utilise l’api «TheAudioDB»
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Installation
+- Penser à installer les dépendances du fichier pubspec.yaml
