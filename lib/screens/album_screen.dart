@@ -35,7 +35,15 @@ class _AlbumScreenState extends State<AlbumScreen> {
         future: futureAlbum,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return const CircularProgressIndicator.adaptive();
+            return const Center(
+              child: SizedBox(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(UIColors.suvaGrey),
+                ),
+                height: 50.0,
+                width: 50.0,
+              ),
+            );
           } else {
             return Scaffold(
               extendBodyBehindAppBar: true,
@@ -63,17 +71,34 @@ class _AlbumScreenState extends State<AlbumScreen> {
                       elevation: 0,
                       primary: Colors.transparent,
                     ),
-                    onPressed: () {
-                      DatabaseManager().addArtist(
-                          snapshot.data?.album![0].idArtist ?? "",
-                          snapshot.data?.album![0].strArtist ?? "",
-                          snapshot.data?.album![0].strAlbumThumb ?? "");
+                    onPressed: () async {
+                      String albumId = snapshot.data?.album![0].idAlbum ?? "";
+                      String strAlbum = snapshot.data?.album![0].strAlbum ?? "";
+                      String strArtist =
+                          snapshot.data?.album![0].strArtist ?? "";
+                      String strAlbumThumb =
+                          snapshot.data?.album![0].strAlbumThumb ?? "";
+                      bool isFavouriteAlbum =
+                          await DatabaseManager().isFavouriteAlbum(albumId);
+
+                      if (isFavouriteAlbum == true) {
+                        await DatabaseManager().deleteAlbum(albumId);
+                      }
+                      if (isFavouriteAlbum == false) {
+                        await DatabaseManager().addAlbum(
+                          albumId,
+                          strAlbum,
+                          strArtist,
+                          strAlbumThumb,
+                        );
+                      }
                     },
+                    // TODO: Mettre à jour la couleur de l’icone
                     child: SvgPicture.asset(
                       'asset/icones/Like_off.svg',
                       height: 35,
                       colorBlendMode: BlendMode.modulate,
-                      color: (1 == 1) ? Colors.green : Colors.white,
+                      color: Colors.white,
                     ),
                   )
                 ],

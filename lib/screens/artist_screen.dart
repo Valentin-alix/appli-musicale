@@ -1,16 +1,15 @@
 import 'package:application_musicale/data/database.dart';
 import 'package:application_musicale/models/album_response.dart';
+import 'package:application_musicale/models/artist_response.dart';
+import 'package:application_musicale/models/track_response.dart';
+import 'package:application_musicale/screens/album_screen.dart';
+import 'package:application_musicale/screens/lyrics_screen.dart';
 import 'package:application_musicale/screens/util/colors.dart';
+import 'package:application_musicale/services/album_service.dart';
 import 'package:application_musicale/services/artist_service.dart';
+import 'package:application_musicale/services/track_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
-import '../../models/artist_response.dart';
-import '../../services/album_service.dart';
-import '../models/track_response.dart';
-import '../services/track_service.dart';
-import 'album_screen.dart';
-import 'lyrics_screen.dart';
 
 class ArtistScreen extends StatefulWidget {
   final String artistId;
@@ -22,6 +21,7 @@ class ArtistScreen extends StatefulWidget {
 
 class _ArtistScreenState extends State<ArtistScreen> {
   late Future<ArtistResponse> futureArtiste;
+
   @override
   void initState() {
     super.initState();
@@ -34,7 +34,15 @@ class _ArtistScreenState extends State<ArtistScreen> {
         future: futureArtiste,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return const CircularProgressIndicator();
+            return const Center(
+              child: SizedBox(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(UIColors.suvaGrey),
+                ),
+                height: 50.0,
+                width: 50.0,
+              ),
+            );
           } else {
             return Scaffold(
                 extendBodyBehindAppBar: true,
@@ -57,18 +65,31 @@ class _ArtistScreenState extends State<ArtistScreen> {
                         elevation: 0,
                         primary: UIColors.transparent,
                       ),
-                      onPressed: () {
-                        DatabaseManager().addArtist(
-                            snapshot.data?.artist![0].idArtist ?? "",
-                            snapshot.data?.artist![0].strArtist ?? "",
-                            snapshot.data?.artist![0].strArtistThumb ?? "");
-                        DatabaseManager().isFavouritesArtist(
-                            snapshot.data?.artist![0].idArtist ?? "");
+                      onPressed: () async {
+                        String artistId =
+                            snapshot.data?.artist![0].idArtist ?? "";
+                        String strArtist =
+                            snapshot.data?.artist![0].strArtist ?? "";
+                        String strArtistThumb =
+                            snapshot.data?.artist![0].strArtistThumb ?? "";
+                        bool isFavouriteArtist =
+                            await DatabaseManager().isFavouriteArtist(artistId);
+                        if (isFavouriteArtist == true) {
+                          await DatabaseManager().deleteArtist(artistId);
+                        }
+                        if (isFavouriteArtist == false) {
+                          await DatabaseManager().addArtist(
+                            artistId,
+                            strArtist,
+                            strArtistThumb,
+                          );
+                        }
                       },
+                      // TODO: Mettre à jour la couleur de l’icone
                       child: SvgPicture.asset(
                         'asset/icones/Like_off.svg',
                         colorBlendMode: BlendMode.modulate,
-                        color: (1 == 1) ? Colors.green : Colors.white,
+                        color: UIColors.white,
                         height: 35,
                       ),
                     )
@@ -78,11 +99,16 @@ class _ArtistScreenState extends State<ArtistScreen> {
                   child: Column(
                     children: [
                       TopSection(
-                        snapshot: snapshot,
+                        strArtistFanart2:
+                            snapshot.data!.artist![0].strArtistFanart2 ?? "",
+                        strArtist: snapshot.data!.artist![0].strArtist ?? "",
+                        strCountry: snapshot.data!.artist![0].strCountry ?? "",
                       ),
                       BottomSection(
-                        snapshot: snapshot,
                         artistId: widget.artistId,
+                        biographie:
+                            snapshot.data!.artist![0].strBiographyEN ?? "",
+                        strArtist: snapshot.data!.artist![0].strArtist ?? "",
                       )
                     ],
                   ),
@@ -92,23 +118,25 @@ class _ArtistScreenState extends State<ArtistScreen> {
   }
 }
 
-class TopSection extends StatefulWidget {
-  final AsyncSnapshot<ArtistResponse> snapshot;
-  const TopSection({Key? key, required this.snapshot}) : super(key: key);
+class TopSection extends StatelessWidget {
+  final String strArtistFanart2;
+  final String strArtist;
+  final String strCountry;
+  const TopSection(
+      {Key? key,
+      required this.strArtistFanart2,
+      required this.strArtist,
+      required this.strCountry})
+      : super(key: key);
 
-  @override
-  State<TopSection> createState() => _TopSectionState();
-}
-
-class _TopSectionState extends State<TopSection> {
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Image.network(widget.snapshot.data?.artist![0].strArtistFanart2 ?? ""),
+        Image.network(strArtistFanart2),
         Positioned(
             child: Text(
-              widget.snapshot.data!.artist![0].strArtist ?? "",
+              strArtist,
               style: const TextStyle(
                   color: UIColors.white,
                   fontSize: 30,
@@ -118,7 +146,7 @@ class _TopSectionState extends State<TopSection> {
             left: 10),
         Positioned(
             child: Text(
-              widget.snapshot.data!.artist![0].strCountry ?? "",
+              strCountry,
               style: const TextStyle(
                 color: UIColors.silver,
                 fontSize: 15,
@@ -131,18 +159,16 @@ class _TopSectionState extends State<TopSection> {
   }
 }
 
-class BottomSection extends StatefulWidget {
-  final AsyncSnapshot<ArtistResponse> snapshot;
+class BottomSection extends StatelessWidget {
   final String artistId;
+  final String biographie;
+  final String strArtist;
   const BottomSection(
-      {Key? key, required this.snapshot, required this.artistId})
+      {Key? key,
+      required this.artistId,
+      required this.biographie,
+      required this.strArtist})
       : super(key: key);
-
-  @override
-  State<BottomSection> createState() => _BottomSectionState();
-}
-
-class _BottomSectionState extends State<BottomSection> {
   final double spacePadding = 20;
 
   @override
@@ -152,17 +178,17 @@ class _BottomSectionState extends State<BottomSection> {
       child: Column(
         children: [
           Text(
-            widget.snapshot.data!.artist![0].strBiographyEN ?? "",
+            biographie,
             maxLines: 4,
             style: const TextStyle(color: UIColors.suvaGrey, fontSize: 15),
           ),
           SizedBox(height: spacePadding),
           AlbumSection(
-            artistId: widget.artistId,
+            artistId: artistId,
           ),
           SizedBox(height: spacePadding),
           TitleSection(
-            nameArtist: widget.snapshot.data!.artist![0].strArtist ?? "",
+            nameArtist: strArtist,
           )
         ],
       ),

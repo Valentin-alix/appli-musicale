@@ -18,7 +18,6 @@ class FavouritesState extends State<Favourites> {
   @override
   initState() {
     super.initState();
-    DatabaseManager().insertDataTest();
     futureFavouritesArtists = DatabaseManager().getFavouritesArtistsList();
     futureFavouritesAlbums = DatabaseManager().getFavouritesAlbumsList();
   }
