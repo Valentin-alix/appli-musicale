@@ -4,14 +4,14 @@ import 'package:application_musicale/screens/util/material_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 
+import 'models/album.dart';
 import 'models/artist.dart';
 
 Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(ArtistAdapter());
-  await Hive.openBox('FavouritesArtistsBox');
-  await Hive.openBox('FavouritesAlbumsBox');
-
+  Hive.registerAdapter(AlbumAdapter());
+  await _openBox();
   runApp(const MyApp());
 }
 
@@ -30,4 +30,13 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: AppRoutes.getRoutes,
     );
   }
+}
+
+List<Box> boxList = [];
+Future<List<Box>> _openBox() async {
+  var favouritesArtistsBox = await Hive.openBox("FavouritesArtistsBox");
+  var favouritesAlbumsBox = await Hive.openBox("FavouritesAlbumsBox");
+  boxList.add(favouritesArtistsBox);
+  boxList.add(favouritesAlbumsBox);
+  return boxList;
 }
