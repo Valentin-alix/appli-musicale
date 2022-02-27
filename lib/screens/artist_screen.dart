@@ -62,6 +62,8 @@ class _ArtistScreenState extends State<ArtistScreen> {
                             snapshot.data?.artist![0].idArtist ?? "",
                             snapshot.data?.artist![0].strArtist ?? "",
                             snapshot.data?.artist![0].strArtistThumb ?? "");
+                        DatabaseManager().isFavouritesArtist(
+                            snapshot.data?.artist![0].idArtist ?? "");
                       },
                       child: SvgPicture.asset(
                         'asset/icones/Like_off.svg',

@@ -71,6 +71,16 @@ class DatabaseManager {
     return _favouritesAlbumsBox.values.toList();
   }
 
+  Future<bool> isFavouriteAlbum(String albumId) async {
+    return false;
+  }
+
+  isFavouritesArtist(String artistId) async {
+    final _favouritesArtistsBox = Hive.box(nameBox2);
+    return true;
+    //return _favouritesArtistsBox.get(artistId) ? true : false;
+  }
+
   Future<List<Box>> _openBox() async {
     Box _favouritesArtistsBox = await Hive.openBox(nameBox1);
     Box _favouritesAlbumsBox = await Hive.openBox(nameBox2);
