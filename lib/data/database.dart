@@ -22,15 +22,15 @@ class DatabaseManager {
 
     Artist artist1 = Artist('111279', "ABBA",
         "https://www.theaudiodb.com/images/media/artist/thumb/qyuqvy1375623610.jpg");
-    await _favouritesArtistsBox.add(artist1);
+    await _favouritesArtistsBox.put('111279', artist1);
 
     Artist artist2 = Artist('111258', "Metallica",
         "https://www.theaudiodb.com/images/media/artist/thumb/qyuqvy1375623610.jpg");
-    await _favouritesArtistsBox.add(artist2);
+    await _favouritesArtistsBox.put('111258', artist2);
 
     Album album1 = Album('2110231', "Lulu", "Metallica",
         "https://www.theaudiodb.com/images/media/album/thumb/lulu-4f872f3f80ff9.jpg");
-    await _favouritesAlbumsBox.add(album1);
+    await _favouritesAlbumsBox.put('2110231', album1);
   }
 
   Future<void> addArtist(
