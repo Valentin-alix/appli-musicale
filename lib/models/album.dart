@@ -19,7 +19,7 @@ class Album extends HiveObject {
 
   @override
   String toString() {
-    return strArtist;
+    return strAlbum;
   }
 
   Album(this.albumId, this.strAlbum, this.strArtist, this.strAlbumThumb);
