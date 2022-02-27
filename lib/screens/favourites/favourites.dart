@@ -1,11 +1,8 @@
-import 'package:application_musicale/models/album.dart';
-import 'package:application_musicale/models/artist.dart';
+import 'package:application_musicale/data/database.dart';
 import 'package:application_musicale/screens/item/albums_list_item.dart';
 import 'package:application_musicale/screens/item/artists_list_item.dart';
 import 'package:application_musicale/screens/util/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/adapters.dart';
 
 class Favourites extends StatefulWidget {
   const Favourites({Key? key}) : super(key: key);
@@ -21,9 +18,9 @@ class FavouritesState extends State<Favourites> {
   @override
   initState() {
     super.initState();
-    insertData();
-    futureFavouritesArtists = getFavouritesArtistsList();
-    futureFavouritesAlbums = getFavouritesAlbumsList();
+    DatabaseManager().insertDataTest();
+    futureFavouritesArtists = DatabaseManager().getFavouritesArtistsList();
+    futureFavouritesAlbums = DatabaseManager().getFavouritesAlbumsList();
   }
 
   @override
@@ -163,32 +160,5 @@ class FavouritesState extends State<Favourites> {
         ),
       ),
     );
-  }
-
-  Future<void> insertData() async {
-    final favouritesArtistsBox = Hive.box('FavouritesArtistsBox');
-    final favouritesAlbumsBox = Hive.box('FavouritesAlbumsBox');
-
-    Artist artist1 = Artist('111279', "ABBA",
-        "https://www.theaudiodb.com/images/media/artist/thumb/qyuqvy1375623610.jpg");
-    await favouritesArtistsBox.add(artist1);
-
-    Artist artist2 = Artist('111258', "Metallica",
-        "https://www.theaudiodb.com/images/media/artist/thumb/qyuqvy1375623610.jpg");
-    await favouritesArtistsBox.add(artist2);
-
-    Album album1 = Album('2110231', "Lulu", "Metallica",
-        "https://www.theaudiodb.com/images/media/album/thumb/lulu-4f872f3f80ff9.jpg");
-    await favouritesAlbumsBox.add(album1);
-  }
-
-  Future<List> getFavouritesArtistsList() async {
-    final favouritesBox = Hive.box('FavouritesArtistsBox');
-    return favouritesBox.values.toList();
-  }
-
-  Future<List> getFavouritesAlbumsList() async {
-    final favouritesAlbumsBox = Hive.box('FavouritesAlbumsBox');
-    return favouritesAlbumsBox.values.toList();
   }
 }
