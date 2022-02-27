@@ -1,10 +1,10 @@
-# Application Flutter réalisée dans le cadre du cours d’Édouard Marquez
-# REN-DEVE503-Développement environnement mobile avec utilisation d'un framework
-# REN-DEVE504-Atelier Développement mobile
+# **Application Flutter réalisée dans le cadre du cours d’Édouard Marquez**
+**REN-DEVE503-Développement environnement mobile avec utilisation d'un framework**
+**REN-DEVE504-Atelier Développement mobile**
 
 # Auteurs
 Valentin, Samuel
-EPSI 2021-2022
+EPSI 2021-2022metallica
 
 # Fonctionnalités
 - Affichage d’un top 50 des meilleurs titres et albums.
