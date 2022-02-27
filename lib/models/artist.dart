@@ -1,7 +1,9 @@
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-@HiveType(typeId: 0)
+part 'artist.g.dart';
+
+@HiveType(typeId: 1)
 class Artist extends HiveObject {
   @HiveField(0)
   final String artistId;
@@ -11,6 +13,11 @@ class Artist extends HiveObject {
 
   @HiveField(2)
   final String strArtistThumb;
+
+  @override
+  String toString() {
+    return strArtist;
+  }
 
   Artist(this.artistId, this.strArtist, this.strArtistThumb);
 }
