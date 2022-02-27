@@ -38,7 +38,7 @@ class DatabaseManager {
     final _favouritesArtistsBox = Hive.box(nameBox1);
 
     Artist artist = Artist(artistId, strArtist, strArtistThumb);
-    await _favouritesArtistsBox.add(artist);
+    await _favouritesArtistsBox.put(artistId, artist);
   }
 
   Future<void> addAlbum(String albumId, String strAlbum, String strArtist,
@@ -46,7 +46,19 @@ class DatabaseManager {
     final _favouritesAlbumsBox = Hive.box(nameBox2);
 
     Album album = Album(albumId, strAlbum, strArtist, strAlbumThumb);
-    await _favouritesAlbumsBox.add(album);
+    await _favouritesAlbumsBox.put(albumId, album);
+  }
+
+  Future<void> deleteArtist(String artistId) async {
+    final _favouritesArtistsBox = Hive.box(nameBox1);
+
+    await _favouritesArtistsBox.delete(artistId);
+  }
+
+  Future<void> deleteAlbum(String albumId) async {
+    final _favouritesAlbumsBox = Hive.box(nameBox2);
+
+    await _favouritesAlbumsBox.delete(albumId);
   }
 
   Future<List> getFavouritesArtistsList() async {
